@@ -1,14 +1,32 @@
+const { PORT, mongoURI, publicDir } = require("./utils");
+
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const router = require("./routes/router");
 const mongoose = require("mongoose");
-
-const PORT = process.env.PORT || 4001;
-
+const compression = require("compression");
+const fs = require("fs");
+const path = require("path");
+//
+// sync create uploads dir
+// for images. Everything
+// will break without it so
+// synchronous check ok.
+//
+const uploadsDir = path.join(__dirname, publicDir);
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir);
+  console.log(`created uploads dir ${uploadsDir}`);
+} else {
+  console.log(`uploads dir ${uploadsDir} found ok`);
+}
 app.use(cors());
 app.use(express.json());
-const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017";
+app.use(express.urlencoded({ extended: false }));
+app.use(compression());
+app.use(`/${publicDir}`, express.static(path.join(__dirname, publicDir)));
+
 mongoose
   .connect(mongoURI, {
     useNewUrlParser: true,
@@ -18,11 +36,7 @@ mongoose
     console.log(`connected successfully. URL: ${mongoURI}`);
   })
   .catch(error => console.log(`connection failed!: ${error}`));
-// const db = mongoose.connection;
-// db.on("error", console.error.bind(console, "connection failure!"));
-// db.once("open", () => {
-//   console.log("connected successfully!");
-// });
+
 app.use("/api", router);
 
 app.listen(PORT, () => {
