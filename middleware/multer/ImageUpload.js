@@ -1,7 +1,8 @@
 const multer = require("multer");
 const { publicDir, imageFieldName } = require("../../utils");
 const path = require("path");
-const diskParams = multer.diskStorage({
+
+const storage = multer.diskStorage({
   destination: function(request, file, cb) {
     cb(null, publicDir);
   },
@@ -10,6 +11,18 @@ const diskParams = multer.diskStorage({
   }
 });
 
+const fileFilter = (request, file, cb) => {
+  if (
+    file.mimetype === "image/jpg" ||
+    file.mimetype === "image/jpeg" ||
+    file.mimetype === "image/png"
+  ) {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
 exports.uploadMiddleware = multer({
-  storage: diskParams
+  storage,
+  fileFilter
 });

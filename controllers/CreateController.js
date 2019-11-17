@@ -5,19 +5,25 @@ const {
   Land
 } = require("../models/RealEstateModels");
 const mongoose = require("mongoose");
-
+//
+// commercial
+//
 exports.create_commercial_entry = (request, response, next) => {
   const entry = {
     _id: mongoose.Types.ObjectId(),
     addedon: new Date().toLocaleString(),
-    location: request.body.location,
-    beds: request.body.beds,
-    baths: request.body.baths,
+    location: {
+      city: request.body.city,
+      state: request.body.state
+    },
+    squarefeet: request.body.squarefeet,
+    plumbing: request.body.plumbing,
+    electric: request.body.electric,
     price: request.body.price,
     images: [
       {
         _id: mongoose.Types.ObjectId(),
-        source: request.body.source,
+        source: request.file ? request.file.path : "no file passed",
         caption: request.body.caption
       }
     ]
@@ -26,7 +32,7 @@ exports.create_commercial_entry = (request, response, next) => {
     .save()
     .then(doc => {
       response.json({
-        msg: `successfully added commercial property. filename: ${request.file}`,
+        msg: "successfully added commercial property",
         doc
       });
     })
@@ -35,18 +41,24 @@ exports.create_commercial_entry = (request, response, next) => {
     });
 };
 
+//
+// residential
+//
 exports.create_residential_entry = (request, response, next) => {
   const entry = {
     _id: mongoose.Types.ObjectId(),
     addedon: new Date().toLocaleString(),
-    location: request.body.location,
+    location: {
+      city: request.body.city,
+      state: request.body.state
+    },
     beds: request.body.beds,
     baths: request.body.baths,
     price: request.body.price,
     images: [
       {
         _id: mongoose.Types.ObjectId(),
-        source: request.file.path,
+        source: request.file ? request.file.path : "no file passed",
         caption: request.body.caption
       }
     ]
@@ -61,19 +73,26 @@ exports.create_residential_entry = (request, response, next) => {
     });
 };
 
+//
+// rental
+//
 exports.create_rental_entry = (request, response, next) => {
   const entry = {
     _id: mongoose.Types.ObjectId(),
     addedon: new Date().toLocaleString(),
-    location: request.body.location,
+    location: {
+      city: request.body.city,
+      state: request.body.state
+    },
     beds: request.body.beds,
     baths: request.body.baths,
     rent: request.body.rent,
     basis: request.body.basis,
+    allbillspaid: request.body.allbillspaid,
     images: [
       {
         _id: mongoose.Types.ObjectId(),
-        source: request.body.source,
+        source: request.file ? request.file.path : "no file passed",
         caption: request.body.caption
       }
     ]
@@ -81,24 +100,30 @@ exports.create_rental_entry = (request, response, next) => {
   const newentry = new Rental(entry)
     .save()
     .then(doc => {
-      response.json({ msg: "sucessfully added rental property", doc });
+      response.json({ msg: "successfully added rental property", doc });
     })
     .catch(err => {
       response.status(403).json({ msg: "rental addition failed", err });
     });
 };
 
+//
+// land
+//
 exports.create_land_entry = (request, response, next) => {
   const entry = {
     _id: mongoose.Types.ObjectId(),
     addedon: new Date().toLocaleString(),
-    location: request.body.location,
+    location: {
+      city: request.body.city,
+      state: request.body.state
+    },
     acreage: request.body.acreage,
     price: request.body.price,
     images: [
       {
         _id: mongoose.Types.ObjectId(),
-        source: request.body.source,
+        source: request.file ? request.file.path : "no file passed",
         caption: request.body.caption
       }
     ]
