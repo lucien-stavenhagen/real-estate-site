@@ -5,6 +5,7 @@ const {
   Land
 } = require("../models/RealEstateModels");
 const mongoose = require("mongoose");
+const { HOST_URI } = require("../utils");
 //
 // commercial
 //
@@ -13,7 +14,9 @@ exports.add_images_commercial_byid = (request, response, next) => {
     _id: request.params.id,
     $push: {
       images: {
-        source: request.file ? request.file.path : "no file passed!",
+        source: request.file
+          ? `${HOST_URI}/${request.file.path}`
+          : "no file passed!",
         caption: request.body.caption
       }
     }
@@ -35,7 +38,9 @@ exports.add_images_residential_byid = (request, response, next) => {
     _id: request.params.id,
     $push: {
       images: {
-        source: request.file ? request.file.path : "no file passed!",
+        source: request.file
+          ? `${HOST_URI}/${request.file.path}`
+          : "no file passed!",
         caption: request.body.caption
       }
     }
@@ -57,7 +62,9 @@ exports.add_images_rental_byid = (request, response, next) => {
     _id: request.params.id,
     $push: {
       images: {
-        source: request.file ? request.file.path : "no file passed!",
+        source: request.file
+          ? `${HOST_URI}/${request.file.path}`
+          : "no file passed!",
         caption: request.body.caption
       }
     }
@@ -79,7 +86,9 @@ exports.add_images_land_byid = (request, response, next) => {
     _id: request.params.id,
     $push: {
       images: {
-        source: request.file ? request.file.path : "no file passed!",
+        source: request.file
+          ? `${HOST_URI}/${request.file.path}`
+          : "no file passed!",
         caption: request.body.caption
       }
     }

@@ -1,4 +1,6 @@
-exports.PORT = process.env.PORT || 4001;
+const PORT = process.env.PORT || 4001;
+exports.PORT = PORT;
+exports.HOST_URI = process.env.HOST_URI || `http://localhost:${PORT}`;
 const dbName = "realestate";
 exports.mongoURI =
   process.env.MONGODB_URI || `mongodb://localhost:27017/${dbName}`;

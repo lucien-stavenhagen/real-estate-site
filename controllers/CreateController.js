@@ -5,6 +5,7 @@ const {
   Land
 } = require("../models/RealEstateModels");
 const mongoose = require("mongoose");
+const { HOST_URI, publicDir } = require("../utils");
 //
 // commercial
 //
@@ -23,7 +24,9 @@ exports.create_commercial_entry = (request, response, next) => {
     images: [
       {
         _id: mongoose.Types.ObjectId(),
-        source: request.file ? request.file.path : "no file passed",
+        source: request.file
+          ? `${HOST_URI}/${request.file.path}`
+          : "no file passed",
         caption: request.body.caption
       }
     ]
@@ -58,7 +61,9 @@ exports.create_residential_entry = (request, response, next) => {
     images: [
       {
         _id: mongoose.Types.ObjectId(),
-        source: request.file ? request.file.path : "no file passed",
+        source: request.file
+          ? `${HOST_URI}/${request.file.path}`
+          : "no file passed",
         caption: request.body.caption
       }
     ]
@@ -92,7 +97,9 @@ exports.create_rental_entry = (request, response, next) => {
     images: [
       {
         _id: mongoose.Types.ObjectId(),
-        source: request.file ? request.file.path : "no file passed",
+        source: request.file
+          ? `${HOST_URI}/${request.file.path}`
+          : "no file passed",
         caption: request.body.caption
       }
     ]
@@ -123,7 +130,9 @@ exports.create_land_entry = (request, response, next) => {
     images: [
       {
         _id: mongoose.Types.ObjectId(),
-        source: request.file ? request.file.path : "no file passed",
+        source: request.file
+          ? `${HOST_URI}/${request.file.path}`
+          : "no file passed",
         caption: request.body.caption
       }
     ]
