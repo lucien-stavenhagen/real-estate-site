@@ -10,17 +10,19 @@ const { HOST_URI } = require("../utils");
 // commercial
 //
 exports.add_images_commercial_byid = (request, response, next) => {
-  Commercial.updateOne({
-    _id: request.params.id,
-    $push: {
-      images: {
-        source: request.file
-          ? `${HOST_URI}/${request.file.path}`
-          : "no file passed!",
-        caption: request.body.caption
+  Commercial.updateOne(
+    { _id: request.params.id },
+    {
+      $push: {
+        images: {
+          source: request.file
+            ? `${HOST_URI}/${request.file.path}`
+            : "no file passed!",
+          caption: request.body.caption
+        }
       }
     }
-  })
+  )
     .exec()
     .then(doc => response.json(doc))
     .catch(err =>
@@ -34,17 +36,19 @@ exports.add_images_commercial_byid = (request, response, next) => {
 // residential
 //
 exports.add_images_residential_byid = (request, response, next) => {
-  Residential.updateOne({
-    _id: request.params.id,
-    $push: {
-      images: {
-        source: request.file
-          ? `${HOST_URI}/${request.file.path}`
-          : "no file passed!",
-        caption: request.body.caption
+  Residential.updateOne(
+    { _id: request.params.id },
+    {
+      $push: {
+        images: {
+          source: request.file
+            ? `${HOST_URI}/${request.file.path}`
+            : "no file passed!",
+          caption: request.body.caption
+        }
       }
     }
-  })
+  )
     .exec()
     .then(doc => response.json(doc))
     .catch(err =>
@@ -58,17 +62,19 @@ exports.add_images_residential_byid = (request, response, next) => {
 // rental
 //
 exports.add_images_rental_byid = (request, response, next) => {
-  Rental.updateOne({
-    _id: request.params.id,
-    $push: {
-      images: {
-        source: request.file
-          ? `${HOST_URI}/${request.file.path}`
-          : "no file passed!",
-        caption: request.body.caption
+  Rental.updateOne(
+    { _id: request.params.id },
+    {
+      $push: {
+        images: {
+          source: request.file
+            ? `${HOST_URI}/${request.file.path}`
+            : "no file passed!",
+          caption: request.body.caption
+        }
       }
     }
-  })
+  )
     .exec()
     .then(doc => response.json(doc))
     .catch(err =>
@@ -82,17 +88,19 @@ exports.add_images_rental_byid = (request, response, next) => {
 // land
 //
 exports.add_images_land_byid = (request, response, next) => {
-  Land.updateOne({
-    _id: request.params.id,
-    $push: {
-      images: {
-        source: request.file
-          ? `${HOST_URI}/${request.file.path}`
-          : "no file passed!",
-        caption: request.body.caption
+  Land.updateOne(
+    { _id: request.params.id },
+    {
+      $push: {
+        images: {
+          source: request.file
+            ? `${HOST_URI}/${request.file.path}`
+            : "no file passed!",
+          caption: request.body.caption
+        }
       }
     }
-  })
+  )
     .exec()
     .then(doc => response.json(doc))
     .catch(err =>

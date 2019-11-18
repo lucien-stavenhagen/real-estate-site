@@ -7,21 +7,20 @@ const deleteController = require("../controllers/DeleteController");
 const { uploadMiddleware } = require("../middleware/multer/ImageUpload");
 const { imageFieldName } = require("../utils");
 
-//
+//////////////////////////////
 // routes for commercial
 //
 
-//
 // create
-//
+
 router.post(
   "/commercial",
   uploadMiddleware.single(imageFieldName),
   createController.create_commercial_entry
 );
-//
+
 // read
-//
+
 router.get("/commercial", readController.get_all_commercial_entries);
 router.get("/commercial/:id", readController.get_commercial_byid);
 router.get(
@@ -37,30 +36,36 @@ router.get(
   readController.get_all_commercial_bysquarefeet
 );
 
-//
 // update
-//
+
 router.patch(
   "/commercial/:id",
   uploadMiddleware.single(imageFieldName),
   updateController.add_images_commercial_byid
 );
 
+// delete
+
+router.delete("/commercial/:id", deleteController.delete_commercial_byid);
+
 //
+// end commercial
+//////////////////////////////
+
+//////////////////////////////
 // routes for residential
 //
 
-//
 // create
-//
+
 router.post(
   "/residential",
   uploadMiddleware.single(imageFieldName),
   createController.create_residential_entry
 );
-//
+
 // read
-//
+
 router.get("/residential", readController.get_all_residential_entries);
 router.get("/residential/:id", readController.get_residential_byid);
 router.get(
@@ -76,27 +81,36 @@ router.get(
   readController.get_all_residential_bybedsandbaths
 );
 
-//
 // update
-//
+
 router.patch(
   "/residential/:id",
   uploadMiddleware.single(imageFieldName),
   updateController.add_images_residential_byid
 );
 
+// delete
+
+router.delete("/residential/:id", deleteController.delete_residential_byid);
+
 //
+// end residential
+//////////////////////////////
+
+//////////////////////////////
 // routes for rental
 //
+
+// create
+
 router.post(
   "/rental",
   uploadMiddleware.single(imageFieldName),
   createController.create_rental_entry
 );
 
-//
 // read
-//
+
 router.get("/rental", readController.get_all_rental_entries);
 router.get("/rental/:id", readController.get_rental_byid);
 router.get(
@@ -113,27 +127,36 @@ router.get(
   readController.get_all_rental_bybedsandbaths
 );
 
-//
 // update
-//
+
 router.patch(
   "/rental/:id",
   uploadMiddleware.single(imageFieldName),
   updateController.add_images_rental_byid
 );
 
+// delete
+
+router.delete("/rental/:id", deleteController.delete_rental_byid);
+
 //
+// end rental
+//////////////////////////////
+
+//////////////////////////////
 // routes for land
 //
+
+// create
+
 router.post(
   "/land",
   uploadMiddleware.single(imageFieldName),
   createController.create_land_entry
 );
 
-//
 // read
-//
+
 router.get("/land", readController.get_all_land_entries);
 router.get("/land/:id", readController.get_land_byid);
 router.get(
@@ -149,35 +172,21 @@ router.get(
   "/land/acreage/min/:min/max/:max",
   readController.get_all_land_byacreage
 );
-//
+
 // update
-//
+
 router.patch(
   "/land/:id",
   uploadMiddleware.single(imageFieldName),
   updateController.add_images_land_byid
 );
 
-//
 // delete
-//
-// commercial
-//
-router.delete("/commercial/:id", deleteController.delete_commercial_byid);
 
-//
-// residential
-//
-router.delete("/residential/:id", deleteController.delete_residential_byid);
-
-//
-// rental
-//
-router.delete("/rental/:id", deleteController.delete_rental_byid);
-
-//
-// land
-//
 router.delete("/land/:id", deleteController.delete_land_byid);
+
+//
+// end land
+//////////////////////////////
 
 module.exports = router;
