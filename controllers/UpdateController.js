@@ -21,12 +21,10 @@ exports.add_images_commercial_byid = (request, response, next) => {
     .exec()
     .then(doc => response.json(doc))
     .catch(err =>
-      response
-        .status(403)
-        .json({
-          msg: `error updating commercial entry by id ${request.params.id}`,
-          err
-        })
+      response.status(400).json({
+        msg: `error updating commercial entry by id ${request.params.id}`,
+        err
+      })
     );
 };
 //
@@ -45,12 +43,10 @@ exports.add_images_residential_byid = (request, response, next) => {
     .exec()
     .then(doc => response.json(doc))
     .catch(err =>
-      response
-        .status(403)
-        .json({
-          msg: `error updating residential entry by id ${request.params.id}`,
-          err
-        })
+      response.status(400).json({
+        msg: `error updating residential entry by id ${request.params.id}`,
+        err
+      })
     );
 };
 //
@@ -69,12 +65,10 @@ exports.add_images_rental_byid = (request, response, next) => {
     .exec()
     .then(doc => response.json(doc))
     .catch(err =>
-      response
-        .status(403)
-        .json({
-          msg: `error updating rental entry by id ${request.params.id}`,
-          err
-        })
+      response.status(400).json({
+        msg: `error updating rental entry by id ${request.params.id}`,
+        err
+      })
     );
 };
 //
@@ -93,11 +87,9 @@ exports.add_images_land_byid = (request, response, next) => {
     .exec()
     .then(doc => response.json(doc))
     .catch(err =>
-      response
-        .status(403)
-        .json({
-          msg: `error updating land entry by id ${request.params.id}`,
-          err
-        })
+      response.status(400).json({
+        msg: `error updating land entry by id ${request.params.id}`,
+        err
+      })
     );
 };

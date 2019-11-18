@@ -37,7 +37,7 @@ exports.create_commercial_entry = (request, response, next) => {
       });
     })
     .catch(err => {
-      response.status(403).json({ msg: "commercial addition failed", err });
+      response.status(400).json({ msg: "commercial addition failed", err });
     });
 };
 
@@ -69,7 +69,7 @@ exports.create_residential_entry = (request, response, next) => {
       response.json({ msg: "sucessfully added residential property", doc });
     })
     .catch(err => {
-      response.status(403).json({ msg: "residential addition failed", err });
+      response.status(400).json({ msg: "residential addition failed", err });
     });
 };
 
@@ -103,7 +103,7 @@ exports.create_rental_entry = (request, response, next) => {
       response.json({ msg: "successfully added rental property", doc });
     })
     .catch(err => {
-      response.status(403).json({ msg: "rental addition failed", err });
+      response.status(400).json({ msg: "rental addition failed", err });
     });
 };
 
@@ -134,6 +134,6 @@ exports.create_land_entry = (request, response, next) => {
       response.json({ msg: "sucessfully added land property", doc });
     })
     .catch(err => {
-      response.status(403).json({ msg: "land addition failed", err });
+      response.status(400).json({ msg: "land addition failed", err });
     });
 };

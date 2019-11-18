@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { imageSchema, locationSchema } = require("./subSchema");
+const { basisList } = require("../utils");
 
 const commercialSchema = new mongoose.Schema({
   addedon: Date,
@@ -30,7 +31,7 @@ const rentalSchema = new mongoose.Schema({
   beds: Number,
   baths: Number,
   rent: Number,
-  basis: String,
+  basis: { type: String, enum: basisList },
   allbillspaid: Boolean,
   images: [imageSchema]
 });

@@ -15,7 +15,7 @@ exports.get_all_commercial_entries = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -29,7 +29,7 @@ exports.get_all_commercial_bylocation = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -42,7 +42,7 @@ exports.get_all_commercial_bypricerange = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -55,7 +55,7 @@ exports.get_all_commercial_bysquarefeet = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -65,7 +65,7 @@ exports.get_commercial_byid = (request, response, next) => {
     .then(doc => response.json(doc))
     .catch(err =>
       response
-        .status(403)
+        .status(400)
         .json({ msg: `error retrieving entry by id ${request.params.id}`, err })
     );
 };
@@ -79,7 +79,7 @@ exports.get_all_residential_entries = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -93,7 +93,7 @@ exports.get_all_residential_bylocation = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -106,7 +106,7 @@ exports.get_all_residential_bypricerange = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -120,7 +120,7 @@ exports.get_all_residential_bybedsandbaths = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -130,7 +130,7 @@ exports.get_residential_byid = (request, response, next) => {
     .then(doc => response.json(doc))
     .catch(err =>
       response
-        .status(403)
+        .status(400)
         .json({ msg: `error retrieving entry by id ${request.params.id}`, err })
     );
 };
@@ -144,7 +144,7 @@ exports.get_all_rental_entries = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -158,7 +158,7 @@ exports.get_all_rental_bylocation = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -172,7 +172,7 @@ exports.get_all_rental_bypricerange = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -186,7 +186,7 @@ exports.get_all_rental_bybedsandbaths = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -196,7 +196,7 @@ exports.get_rental_byid = (request, response, next) => {
     .then(doc => response.json(doc))
     .catch(err =>
       response
-        .status(403)
+        .status(400)
         .json({ msg: `error retrieving entry by id ${request.params.id}`, err })
     );
 };
@@ -211,7 +211,7 @@ exports.get_all_land_entries = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -225,7 +225,7 @@ exports.get_all_land_bylocation = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -238,7 +238,7 @@ exports.get_all_land_bypricerange = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -251,7 +251,7 @@ exports.get_all_land_byacreage = (request, response, next) => {
       response.json(doc);
     })
     .catch(err => {
-      response.status(403).json({ msg: "error retrieving entries", err });
+      response.status(400).json({ msg: "error retrieving entries", err });
     });
 };
 
@@ -261,7 +261,7 @@ exports.get_land_byid = (request, response, next) => {
     .then(doc => response.json(doc))
     .catch(err =>
       response
-        .status(403)
+        .status(400)
         .json({ msg: `error retrieving entry by id ${request.params.id}`, err })
     );
 };
