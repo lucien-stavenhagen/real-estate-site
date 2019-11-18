@@ -3,6 +3,7 @@ const router = express.Router();
 const createController = require("../controllers/CreateController");
 const readController = require("../controllers/ReadController");
 const updateController = require("../controllers/UpdateController");
+const deleteController = require("../controllers/DeleteController");
 const { uploadMiddleware } = require("../middleware/multer/ImageUpload");
 const { imageFieldName } = require("../utils");
 
@@ -136,7 +137,7 @@ router.post(
 router.get("/land", readController.get_all_land_entries);
 router.get("/land/:id", readController.get_land_byid);
 router.get(
-  "/land/ocation/city/:city/state/:state",
+  "/land/location/city/:city/state/:state",
   readController.get_all_land_bylocation
 );
 router.get(
@@ -156,5 +157,27 @@ router.patch(
   uploadMiddleware.single(imageFieldName),
   updateController.add_images_land_byid
 );
+
+//
+// delete
+//
+// commercial
+//
+router.delete("/commercial/:id", deleteController.delete_commercial_byid);
+
+//
+// residential
+//
+router.delete("/residential/:id", deleteController.delete_residential_byid);
+
+//
+// rental
+//
+router.delete("/rental/:id", deleteController.delete_rental_byid);
+
+//
+// land
+//
+router.delete("/land/:id", deleteController.delete_land_byid);
 
 module.exports = router;
