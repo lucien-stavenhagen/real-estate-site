@@ -1,15 +1,19 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    host: "http://localhost:4001/api",
+    commercial: "commercial"
   },
-  mutations: {
+  getters: {
+    getCommercial(state) {
+      return `${state.host}/${state.commercial}`;
+    }
   },
-  actions: {
-  },
-  modules: {
-  }
-})
+  mutations: {},
+  actions: {},
+  modules: {}
+});

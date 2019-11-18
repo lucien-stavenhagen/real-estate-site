@@ -18,6 +18,7 @@ exports.get_all_commercial_entries = (request, response, next) => {
       response.status(403).json({ msg: "error retrieving entries", err });
     });
 };
+
 exports.get_all_commercial_bylocation = (request, response, next) => {
   Commercial.find({
     "location.city": request.params.city,
@@ -31,6 +32,7 @@ exports.get_all_commercial_bylocation = (request, response, next) => {
       response.status(403).json({ msg: "error retrieving entries", err });
     });
 };
+
 exports.get_all_commercial_bypricerange = (request, response, next) => {
   Commercial.find({
     price: { $gte: request.params.min, $lte: request.params.max }
@@ -43,6 +45,7 @@ exports.get_all_commercial_bypricerange = (request, response, next) => {
       response.status(403).json({ msg: "error retrieving entries", err });
     });
 };
+
 exports.get_all_commercial_bysquarefeet = (request, response, next) => {
   Commercial.find({
     squarefeet: { $gte: request.params.min, $lte: request.params.max }
@@ -79,6 +82,7 @@ exports.get_all_residential_entries = (request, response, next) => {
       response.status(403).json({ msg: "error retrieving entries", err });
     });
 };
+
 exports.get_all_residential_bylocation = (request, response, next) => {
   Residential.find({
     "location.city": request.params.city,
@@ -92,6 +96,7 @@ exports.get_all_residential_bylocation = (request, response, next) => {
       response.status(403).json({ msg: "error retrieving entries", err });
     });
 };
+
 exports.get_all_residential_bypricerange = (request, response, next) => {
   Residential.find({
     price: { $gte: request.params.min, $lte: request.params.max }
@@ -104,6 +109,7 @@ exports.get_all_residential_bypricerange = (request, response, next) => {
       response.status(403).json({ msg: "error retrieving entries", err });
     });
 };
+
 exports.get_all_residential_bybedsandbaths = (request, response, next) => {
   Residential.find({
     beds: request.params.beds,
@@ -117,6 +123,7 @@ exports.get_all_residential_bybedsandbaths = (request, response, next) => {
       response.status(403).json({ msg: "error retrieving entries", err });
     });
 };
+
 exports.get_residential_byid = (request, response, next) => {
   Residential.findById(request.params.id)
     .exec()
@@ -140,6 +147,7 @@ exports.get_all_rental_entries = (request, response, next) => {
       response.status(403).json({ msg: "error retrieving entries", err });
     });
 };
+
 exports.get_all_rental_bylocation = (request, response, next) => {
   Rental.find({
     "location.city": request.params.city,
@@ -153,6 +161,7 @@ exports.get_all_rental_bylocation = (request, response, next) => {
       response.status(403).json({ msg: "error retrieving entries", err });
     });
 };
+
 exports.get_all_rental_bypricerange = (request, response, next) => {
   Rental.find({
     rent: { $gte: request.params.min, $lte: request.params.max },
@@ -191,6 +200,7 @@ exports.get_rental_byid = (request, response, next) => {
         .json({ msg: `error retrieving entry by id ${request.params.id}`, err })
     );
 };
+
 //
 // land
 //
@@ -204,6 +214,7 @@ exports.get_all_land_entries = (request, response, next) => {
       response.status(403).json({ msg: "error retrieving entries", err });
     });
 };
+
 exports.get_all_land_bylocation = (request, response, next) => {
   Land.find({
     "location.city": request.params.city,
