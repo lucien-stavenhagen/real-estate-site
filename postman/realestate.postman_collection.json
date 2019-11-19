@@ -1,0 +1,2559 @@
+{
+	"info": {
+		"_postman_id": "65c24e8c-9d0f-4c6f-a25e-b755d71e0d54",
+		"name": "realestate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create",
+			"item": [
+				{
+					"name": "Create a commercial property",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagepath",
+									"description": "File, image for entry, added to an array.",
+									"type": "file",
+									"src": "/Users/lucien/Desktop/portpics/blog1.jpg"
+								},
+								{
+									"key": "city",
+									"value": "oakland",
+									"description": "String, city location of property",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "CA",
+									"description": "US State - required",
+									"type": "text"
+								},
+								{
+									"key": "squarefeet",
+									"value": "3500",
+									"description": "Number expressing square footage of property",
+									"type": "text"
+								},
+								{
+									"key": "plumbing",
+									"value": "false",
+									"description": "Boolean for whether plumbing is available ",
+									"type": "text"
+								},
+								{
+									"key": "electric",
+									"value": "true",
+									"description": "Boolean for whether electricity is available",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "600000",
+									"description": "Number, asking price of property",
+									"type": "text"
+								},
+								{
+									"key": "caption",
+									"value": "commercial prop in boise",
+									"description": "String, caption for image",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4001/api/commercial",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"commercial"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create a commercial property - sample response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "imagepath",
+											"type": "file",
+											"src": "/Users/lucien/Desktop/portpics/blog1.jpg"
+										},
+										{
+											"key": "city",
+											"value": "oakland",
+											"type": "text"
+										},
+										{
+											"key": "state",
+											"value": "CA",
+											"type": "text"
+										},
+										{
+											"key": "squarefeet",
+											"value": "3500",
+											"type": "text"
+										},
+										{
+											"key": "plumbing",
+											"value": "false",
+											"type": "text"
+										},
+										{
+											"key": "electric",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "600000",
+											"type": "text"
+										},
+										{
+											"key": "caption",
+											"value": "commercial prop in boise",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:4001/api/commercial",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"commercial"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "405"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"195-Mu46IpinESLjo5/u2QAOlpROeVc\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 15:55:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"successfully added commercial property\",\n    \"doc\": {\n        \"_id\": \"5dd2bed8f714f85db652154f\",\n        \"addedon\": \"2019-11-18T15:55:04.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2bed8f714f85db6521552\",\n            \"city\": \"oakland\",\n            \"state\": \"CA\"\n        },\n        \"squarefeet\": 3500,\n        \"plumbing\": false,\n        \"electric\": true,\n        \"price\": 600000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2bed8f714f85db6521550\",\n                \"source\": \"uploads/img1574092504463-blog1.jpg\",\n                \"caption\": \"commercial prop in boise\"\n            }\n        ],\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create a residential property",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagepath",
+									"description": "File, path to image",
+									"type": "file",
+									"src": "/Users/lucien/Desktop/portpics/bloggallery.jpg"
+								},
+								{
+									"key": "city",
+									"value": "college station",
+									"description": "String, city for property",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "TX",
+									"description": "String, state for property",
+									"type": "text"
+								},
+								{
+									"key": "beds",
+									"value": "2",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "baths",
+									"value": "2",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "100000",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "caption",
+									"value": "residence in college station",
+									"description": "String, caption for image",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4001/api/residential",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"residential"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create a residential property - example response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "imagepath",
+											"type": "file",
+											"src": "/Users/lucien/Desktop/portpics/bloggallery.jpg"
+										},
+										{
+											"key": "city",
+											"value": "college station",
+											"type": "text"
+										},
+										{
+											"key": "state",
+											"value": "TX",
+											"type": "text"
+										},
+										{
+											"key": "beds",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "baths",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "100000",
+											"type": "text"
+										},
+										{
+											"key": "caption",
+											"value": "residence in college station",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:4001/api/residential",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"residential"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "391"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"187-0aUzTpUFy0kEemHRu48LEQyHEwE\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 16:16:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"sucessfully added residential property\",\n    \"doc\": {\n        \"_id\": \"5dd2c3c8f714f85db6521554\",\n        \"addedon\": \"2019-11-18T16:16:08.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2c3c8f714f85db6521557\",\n            \"city\": \"college station\",\n            \"state\": \"TX\"\n        },\n        \"beds\": 2,\n        \"baths\": 2,\n        \"price\": 100000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2c3c8f714f85db6521555\",\n                \"source\": \"uploads/img1574093768656-bloggallery.jpg\",\n                \"caption\": \"residence in college station\"\n            }\n        ],\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create a rental property",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "city",
+									"value": "waco",
+									"description": "String",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "TX",
+									"description": "String",
+									"type": "text"
+								},
+								{
+									"key": "beds",
+									"value": "1",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "baths",
+									"value": "1",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "rent",
+									"value": "2000",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "basis",
+									"value": "monthly",
+									"description": "String, basis of rent - monthly and weekly are allowed",
+									"type": "text"
+								},
+								{
+									"key": "allbillspaid",
+									"value": "false",
+									"description": "Boolean, rent includes all bills paid?",
+									"type": "text"
+								},
+								{
+									"key": "caption",
+									"value": "residence in waco",
+									"description": "String, description for image",
+									"type": "text"
+								},
+								{
+									"key": "imagepath",
+									"description": "File, path to image",
+									"type": "file",
+									"src": "/Users/lucien/Desktop/portpics/ordersbyhand.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4001/api/rental",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"rental"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create a rental property - example response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "city",
+											"value": "waco",
+											"type": "text"
+										},
+										{
+											"key": "state",
+											"value": "TX",
+											"type": "text"
+										},
+										{
+											"key": "beds",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "baths",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "rent",
+											"value": "2000",
+											"type": "text"
+										},
+										{
+											"key": "basis",
+											"value": "monthly",
+											"type": "text"
+										},
+										{
+											"key": "allbillspaid",
+											"value": "false",
+											"type": "text"
+										},
+										{
+											"key": "caption",
+											"value": "residence in waco",
+											"type": "text"
+										},
+										{
+											"key": "imagepath",
+											"type": "file",
+											"src": "/Users/lucien/Desktop/portpics/ordersbyhand.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:4001/api/rental",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"rental"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "402"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"192-Gjjn1TKqFbq4Rhug5cjUWWx9DtQ\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 16:16:47 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"successfully added rental property\",\n    \"doc\": {\n        \"_id\": \"5dd2c3eff714f85db6521559\",\n        \"addedon\": \"2019-11-18T16:16:47.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2c3eff714f85db652155c\",\n            \"city\": \"waco\",\n            \"state\": \"TX\"\n        },\n        \"beds\": 1,\n        \"baths\": 1,\n        \"rent\": 2000,\n        \"basis\": \"monthly\",\n        \"allbillspaid\": false,\n        \"images\": [\n            {\n                \"_id\": \"5dd2c3eff714f85db652155a\",\n                \"source\": \"uploads/img1574093807254-ordersbyhand.jpg\",\n                \"caption\": \"residence in waco\"\n            }\n        ],\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Create a land property",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagepath",
+									"description": "File, path to image",
+									"type": "file",
+									"src": "/Users/lucien/Desktop/portpics/vuetifyOrders1.jpg"
+								},
+								{
+									"key": "city",
+									"value": "austin",
+									"description": "String",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "OR",
+									"description": "String",
+									"type": "text"
+								},
+								{
+									"key": "acreage",
+									"value": "120",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "4000000",
+									"description": "Number",
+									"type": "text"
+								},
+								{
+									"key": "caption",
+									"value": "land in austin",
+									"description": "String, caption for image",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4001/api/land",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"land"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Create a land property - example response",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "imagepath",
+											"type": "file",
+											"src": "/Users/lucien/Desktop/portpics/vuetifyOrders1.jpg"
+										},
+										{
+											"key": "city",
+											"value": "austin",
+											"type": "text"
+										},
+										{
+											"key": "state",
+											"value": "TX",
+											"type": "text"
+										},
+										{
+											"key": "acreage",
+											"value": "120",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "4000000",
+											"type": "text"
+										},
+										{
+											"key": "caption",
+											"value": "land in austin",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:4001/api/land",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"land"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "360"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"168-avElo9GawUEkPo9OYBeGe3H9cFU\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 16:17:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"msg\": \"sucessfully added land property\",\n    \"doc\": {\n        \"_id\": \"5dd2c411f714f85db652155e\",\n        \"addedon\": \"2019-11-18T16:17:21.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2c411f714f85db6521561\",\n            \"city\": \"austin\",\n            \"state\": \"TX\"\n        },\n        \"acreage\": 120,\n        \"price\": 4000000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2c411f714f85db652155f\",\n                \"source\": \"uploads/img1574093841388-vuetifyOrders1.jpg\",\n                \"caption\": \"land in austin\"\n            }\n        ],\n        \"__v\": 0\n    }\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Read",
+			"item": [
+				{
+					"name": "Retrieve all commercial properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/commercial",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"commercial"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Example commercial property response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/commercial",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"commercial"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "352"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"160-owPl3OPDgSta0ONvvzdemAZqke4\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 16:17:58 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2bed8f714f85db652154f\",\n        \"addedon\": \"2019-11-18T15:55:04.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2bed8f714f85db6521552\",\n            \"city\": \"oakland\",\n            \"state\": \"CA\"\n        },\n        \"squarefeet\": 3500,\n        \"plumbing\": false,\n        \"electric\": true,\n        \"price\": 600000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2bed8f714f85db6521550\",\n                \"source\": \"uploads/img1574092504463-blog1.jpg\",\n                \"caption\": \"commercial prop in boise\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Retrieve all residential properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/residential",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"residential"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Example residential property entries",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/residential",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"residential"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "338"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"152-b7jObaNQuzSjpSjxzTQOSeS2f9E\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 16:19:28 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2c3c8f714f85db6521554\",\n        \"addedon\": \"2019-11-18T16:16:08.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2c3c8f714f85db6521557\",\n            \"city\": \"college station\",\n            \"state\": \"TX\"\n        },\n        \"beds\": 2,\n        \"baths\": 2,\n        \"price\": 100000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2c3c8f714f85db6521555\",\n                \"source\": \"uploads/img1574093768656-bloggallery.jpg\",\n                \"caption\": \"residence in college station\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Retrieve all rental properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/rental",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"rental"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Example rental property entries",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/rental",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"rental"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "353"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"161-75tZUtaKACsHTs+h8v/v/WArBiE\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 16:20:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2c3eff714f85db6521559\",\n        \"addedon\": \"2019-11-18T16:16:47.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2c3eff714f85db652155c\",\n            \"city\": \"waco\",\n            \"state\": \"TX\"\n        },\n        \"beds\": 1,\n        \"baths\": 1,\n        \"rent\": 2000,\n        \"basis\": \"monthly\",\n        \"allbillspaid\": false,\n        \"images\": [\n            {\n                \"_id\": \"5dd2c3eff714f85db652155a\",\n                \"source\": \"uploads/img1574093807254-ordersbyhand.jpg\",\n                \"caption\": \"residence in waco\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Retrieve all land properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/land",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"land"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve all land properties example",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/land",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"land"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "314"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"13a-pUsplPrHbZxj9BwVDZLjBBw1zLw\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 16:21:19 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2c411f714f85db652155e\",\n        \"addedon\": \"2019-11-18T16:17:21.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2c411f714f85db6521561\",\n            \"city\": \"austin\",\n            \"state\": \"TX\"\n        },\n        \"acreage\": 120,\n        \"price\": 4000000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2c411f714f85db652155f\",\n                \"source\": \"uploads/img1574093841388-vuetifyOrders1.jpg\",\n                \"caption\": \"land in austin\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Retrieve single commercial property entry by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/commercial/5dd2bed8f714f85db652154f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"commercial",
+								"5dd2bed8f714f85db652154f"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve commercial property entry by ID - example response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/commercial/5dd2bed8f714f85db652154f",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"commercial",
+										"5dd2bed8f714f85db652154f"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "350"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15e-VEGM81xH0FGfc59rFT+NrQSz8RU\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 16:41:13 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"5dd2bed8f714f85db652154f\",\n    \"addedon\": \"2019-11-18T15:55:04.000Z\",\n    \"location\": {\n        \"_id\": \"5dd2bed8f714f85db6521552\",\n        \"city\": \"oakland\",\n        \"state\": \"CA\"\n    },\n    \"squarefeet\": 3500,\n    \"plumbing\": false,\n    \"electric\": true,\n    \"price\": 600000,\n    \"images\": [\n        {\n            \"_id\": \"5dd2bed8f714f85db6521550\",\n            \"source\": \"uploads/img1574092504463-blog1.jpg\",\n            \"caption\": \"commercial prop in boise\"\n        }\n    ],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieve single commercial property by city and state",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/commercial/location/city/oakland/state/CA",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"commercial",
+								"location",
+								"city",
+								"oakland",
+								"state",
+								"CA"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve single property by city and state - example response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/commercial/location/city/oakland/state/CA",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"commercial",
+										"location",
+										"city",
+										"oakland",
+										"state",
+										"CA"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "352"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"160-owPl3OPDgSta0ONvvzdemAZqke4\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 16:44:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2bed8f714f85db652154f\",\n        \"addedon\": \"2019-11-18T15:55:04.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2bed8f714f85db6521552\",\n            \"city\": \"oakland\",\n            \"state\": \"CA\"\n        },\n        \"squarefeet\": 3500,\n        \"plumbing\": false,\n        \"electric\": true,\n        \"price\": 600000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2bed8f714f85db6521550\",\n                \"source\": \"uploads/img1574092504463-blog1.jpg\",\n                \"caption\": \"commercial prop in boise\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Retrieve all commercial properties in a price range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/commercial/pricerange/min/500000/max/700000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"commercial",
+								"pricerange",
+								"min",
+								"500000",
+								"max",
+								"700000"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve commercial property by price range - example for exact price",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/commercial/pricerange/min/600000/max/600000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"commercial",
+										"pricerange",
+										"min",
+										"600000",
+										"max",
+										"600000"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "352"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"160-owPl3OPDgSta0ONvvzdemAZqke4\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 16:46:27 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2bed8f714f85db652154f\",\n        \"addedon\": \"2019-11-18T15:55:04.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2bed8f714f85db6521552\",\n            \"city\": \"oakland\",\n            \"state\": \"CA\"\n        },\n        \"squarefeet\": 3500,\n        \"plumbing\": false,\n        \"electric\": true,\n        \"price\": 600000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2bed8f714f85db6521550\",\n                \"source\": \"uploads/img1574092504463-blog1.jpg\",\n                \"caption\": \"commercial prop in boise\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						},
+						{
+							"name": "Retrieve commercial property by price range - example for a range",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/commercial/pricerange/min/500000/max/700000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"commercial",
+										"pricerange",
+										"min",
+										"500000",
+										"max",
+										"700000"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "352"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"160-owPl3OPDgSta0ONvvzdemAZqke4\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 16:47:42 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2bed8f714f85db652154f\",\n        \"addedon\": \"2019-11-18T15:55:04.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2bed8f714f85db6521552\",\n            \"city\": \"oakland\",\n            \"state\": \"CA\"\n        },\n        \"squarefeet\": 3500,\n        \"plumbing\": false,\n        \"electric\": true,\n        \"price\": 600000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2bed8f714f85db6521550\",\n                \"source\": \"uploads/img1574092504463-blog1.jpg\",\n                \"caption\": \"commercial prop in boise\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Retrieve all commercial properties in a square foot range",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:4001/api/commercial/squarefeet/min/2000/max/4000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"commercial",
+								"squarefeet",
+								"min",
+								"2000",
+								"max",
+								"4000"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve commercial property by square foot range",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/commercial/squarefeet/min/2000/max/4000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"commercial",
+										"squarefeet",
+										"min",
+										"2000",
+										"max",
+										"4000"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "352"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"160-owPl3OPDgSta0ONvvzdemAZqke4\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 16:48:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2bed8f714f85db652154f\",\n        \"addedon\": \"2019-11-18T15:55:04.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2bed8f714f85db6521552\",\n            \"city\": \"oakland\",\n            \"state\": \"CA\"\n        },\n        \"squarefeet\": 3500,\n        \"plumbing\": false,\n        \"electric\": true,\n        \"price\": 600000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2bed8f714f85db6521550\",\n                \"source\": \"uploads/img1574092504463-blog1.jpg\",\n                \"caption\": \"commercial prop in boise\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Retrieve single residential property by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/residential/5dd2c3c8f714f85db6521554",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"residential",
+								"5dd2c3c8f714f85db6521554"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve single residential property by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/residential/5dd2c3c8f714f85db6521554",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"residential",
+										"5dd2c3c8f714f85db6521554"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "336"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"150-W1h76oGk9Qu9E2m26Cg5MhzJf20\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 17:10:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"5dd2c3c8f714f85db6521554\",\n    \"addedon\": \"2019-11-18T16:16:08.000Z\",\n    \"location\": {\n        \"_id\": \"5dd2c3c8f714f85db6521557\",\n        \"city\": \"college station\",\n        \"state\": \"TX\"\n    },\n    \"beds\": 2,\n    \"baths\": 2,\n    \"price\": 100000,\n    \"images\": [\n        {\n            \"_id\": \"5dd2c3c8f714f85db6521555\",\n            \"source\": \"uploads/img1574093768656-bloggallery.jpg\",\n            \"caption\": \"residence in college station\"\n        }\n    ],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieve all residential properties in city and state",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/residential/location/city/college station/state/TX",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"residential",
+								"location",
+								"city",
+								"college station",
+								"state",
+								"TX"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve all residential properties in city and state",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/residential/location/city/college station/state/TX",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"residential",
+										"location",
+										"city",
+										"college station",
+										"state",
+										"TX"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "338"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"152-b7jObaNQuzSjpSjxzTQOSeS2f9E\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 17:12:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2c3c8f714f85db6521554\",\n        \"addedon\": \"2019-11-18T16:16:08.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2c3c8f714f85db6521557\",\n            \"city\": \"college station\",\n            \"state\": \"TX\"\n        },\n        \"beds\": 2,\n        \"baths\": 2,\n        \"price\": 100000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2c3c8f714f85db6521555\",\n                \"source\": \"uploads/img1574093768656-bloggallery.jpg\",\n                \"caption\": \"residence in college station\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Retrieve all residential properties in a price range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/residential/pricerange/min/2000/max/200000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"residential",
+								"pricerange",
+								"min",
+								"2000",
+								"max",
+								"200000"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve all residential properties in a price range",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/residential/pricerange/min/2000/max/200000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"residential",
+										"pricerange",
+										"min",
+										"2000",
+										"max",
+										"200000"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "338"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"152-b7jObaNQuzSjpSjxzTQOSeS2f9E\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 17:15:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2c3c8f714f85db6521554\",\n        \"addedon\": \"2019-11-18T16:16:08.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2c3c8f714f85db6521557\",\n            \"city\": \"college station\",\n            \"state\": \"TX\"\n        },\n        \"beds\": 2,\n        \"baths\": 2,\n        \"price\": 100000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2c3c8f714f85db6521555\",\n                \"source\": \"uploads/img1574093768656-bloggallery.jpg\",\n                \"caption\": \"residence in college station\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Retrieve all residential properties by number of beds and baths",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/residential/beds/2/baths/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"residential",
+								"beds",
+								"2",
+								"baths",
+								"2"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve all residential properties by number of beds and baths",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/residential/beds/2/baths/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"residential",
+										"beds",
+										"2",
+										"baths",
+										"2"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "338"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"152-b7jObaNQuzSjpSjxzTQOSeS2f9E\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 17:17:01 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2c3c8f714f85db6521554\",\n        \"addedon\": \"2019-11-18T16:16:08.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2c3c8f714f85db6521557\",\n            \"city\": \"college station\",\n            \"state\": \"TX\"\n        },\n        \"beds\": 2,\n        \"baths\": 2,\n        \"price\": 100000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2c3c8f714f85db6521555\",\n                \"source\": \"uploads/img1574093768656-bloggallery.jpg\",\n                \"caption\": \"residence in college station\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Retrieve single rental by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/rental/5dd2c3eff714f85db6521559",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"rental",
+								"5dd2c3eff714f85db6521559"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve single rental by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/rental/5dd2c3eff714f85db6521559",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"rental",
+										"5dd2c3eff714f85db6521559"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "351"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"15f-ZJ7fRyjruQJYlI/wfdR5n2N7FYI\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 17:23:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"5dd2c3eff714f85db6521559\",\n    \"addedon\": \"2019-11-18T16:16:47.000Z\",\n    \"location\": {\n        \"_id\": \"5dd2c3eff714f85db652155c\",\n        \"city\": \"waco\",\n        \"state\": \"TX\"\n    },\n    \"beds\": 1,\n    \"baths\": 1,\n    \"rent\": 2000,\n    \"basis\": \"monthly\",\n    \"allbillspaid\": false,\n    \"images\": [\n        {\n            \"_id\": \"5dd2c3eff714f85db652155a\",\n            \"source\": \"uploads/img1574093807254-ordersbyhand.jpg\",\n            \"caption\": \"residence in waco\"\n        }\n    ],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieve all rentals in a city and state",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/rental/location/city/waco/state/TX",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"rental",
+								"location",
+								"city",
+								"waco",
+								"state",
+								"TX"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve all rentals in a city and state",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/rental/location/city/waco/state/TX",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"rental",
+										"location",
+										"city",
+										"waco",
+										"state",
+										"TX"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "353"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"161-75tZUtaKACsHTs+h8v/v/WArBiE\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 17:24:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2c3eff714f85db6521559\",\n        \"addedon\": \"2019-11-18T16:16:47.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2c3eff714f85db652155c\",\n            \"city\": \"waco\",\n            \"state\": \"TX\"\n        },\n        \"beds\": 1,\n        \"baths\": 1,\n        \"rent\": 2000,\n        \"basis\": \"monthly\",\n        \"allbillspaid\": false,\n        \"images\": [\n            {\n                \"_id\": \"5dd2c3eff714f85db652155a\",\n                \"source\": \"uploads/img1574093807254-ordersbyhand.jpg\",\n                \"caption\": \"residence in waco\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Retrieve a single land entry by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/land/5dd2c411f714f85db652155e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"land",
+								"5dd2c411f714f85db652155e"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve a single land entry by ID",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/land/5dd2c411f714f85db652155e",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"land",
+										"5dd2c411f714f85db652155e"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "312"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"138-dNBuf6JtjjgIE+2Styd1gkwHkWw\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 20:09:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"_id\": \"5dd2c411f714f85db652155e\",\n    \"addedon\": \"2019-11-18T16:17:21.000Z\",\n    \"location\": {\n        \"_id\": \"5dd2c411f714f85db6521561\",\n        \"city\": \"austin\",\n        \"state\": \"TX\"\n    },\n    \"acreage\": 120,\n    \"price\": 4000000,\n    \"images\": [\n        {\n            \"_id\": \"5dd2c411f714f85db652155f\",\n            \"source\": \"uploads/img1574093841388-vuetifyOrders1.jpg\",\n            \"caption\": \"land in austin\"\n        }\n    ],\n    \"__v\": 0\n}"
+						}
+					]
+				},
+				{
+					"name": "Retrieve single land by city and state",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/land/location/city/austin/state/TX",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"land",
+								"location",
+								"city",
+								"austin",
+								"state",
+								"TX"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve single land by city and state",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/land/location/city/austin/state/TX",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"land",
+										"location",
+										"city",
+										"austin",
+										"state",
+										"TX"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "314"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"13a-pUsplPrHbZxj9BwVDZLjBBw1zLw\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 20:11:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2c411f714f85db652155e\",\n        \"addedon\": \"2019-11-18T16:17:21.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2c411f714f85db6521561\",\n            \"city\": \"austin\",\n            \"state\": \"TX\"\n        },\n        \"acreage\": 120,\n        \"price\": 4000000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2c411f714f85db652155f\",\n                \"source\": \"uploads/img1574093841388-vuetifyOrders1.jpg\",\n                \"caption\": \"land in austin\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				},
+				{
+					"name": "Retrieve all land in a price range",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/land/pricerange/min/1/max/5000000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"land",
+								"pricerange",
+								"min",
+								"1",
+								"max",
+								"5000000"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Retrieve all land in a price range",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:4001/api/land/pricerange/min/1/max/5000000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "4001",
+									"path": [
+										"api",
+										"land",
+										"pricerange",
+										"min",
+										"1",
+										"max",
+										"5000000"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "314"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"13a-pUsplPrHbZxj9BwVDZLjBBw1zLw\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 18 Nov 2019 20:19:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    {\n        \"_id\": \"5dd2c411f714f85db652155e\",\n        \"addedon\": \"2019-11-18T16:17:21.000Z\",\n        \"location\": {\n            \"_id\": \"5dd2c411f714f85db6521561\",\n            \"city\": \"austin\",\n            \"state\": \"TX\"\n        },\n        \"acreage\": 120,\n        \"price\": 4000000,\n        \"images\": [\n            {\n                \"_id\": \"5dd2c411f714f85db652155f\",\n                \"source\": \"uploads/img1574093841388-vuetifyOrders1.jpg\",\n                \"caption\": \"land in austin\"\n            }\n        ],\n        \"__v\": 0\n    }\n]"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Delete land entry by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/land/5dd2c411f714f85db652155e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"land",
+								"5dd2c411f714f85db652155e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete rental entry by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/rental/5dd2c3eff714f85db6521559",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"rental",
+								"5dd2c3eff714f85db6521559"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete residential entry by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/residential/5dd2c3c8f714f85db6521554",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"residential",
+								"5dd2c3c8f714f85db6521554"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete commercial entry by ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/commercial/5dd2bed8f714f85db652154f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"commercial",
+								"5dd2bed8f714f85db652154f"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Update",
+			"item": [
+				{
+					"name": "Add image and caption to a land property",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagepath",
+									"type": "file",
+									"src": "/Users/lucien/Desktop/portpics/vuetifyNews1.jpg"
+								},
+								{
+									"key": "caption",
+									"value": "another photo for this property",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4001/api/land/5dd40a6d3e79256508043c35/photos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"land",
+								"5dd40a6d3e79256508043c35",
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add images to commercial entry",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagepath",
+									"type": "file",
+									"src": "/Users/lucien/Desktop/portpics/restaurant.jpg"
+								},
+								{
+									"key": "caption",
+									"value": "second image",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4001/api/commercial/5dd40a6d3e79256508043c35/photos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"commercial",
+								"5dd40a6d3e79256508043c35",
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add image to residential property",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "multipart/form-data",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imagepath",
+									"type": "file",
+									"src": "/Users/lucien/Desktop/portpics/ordersbyhand.jpg"
+								},
+								{
+									"key": "caption",
+									"value": "seoncod photo added",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4001/api/residential/5dd320c0a39f1261e380cad1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"residential",
+								"5dd320c0a39f1261e380cad1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update price of commercial entry",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/commercial/5dd40a6d3e79256508043c35/price/200",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"commercial",
+								"5dd40a6d3e79256508043c35",
+								"price",
+								"200"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update price of land property",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/land/5dd40bdf9c20d26538f3a850/price/200",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"land",
+								"5dd40bdf9c20d26538f3a850",
+								"price",
+								"200"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update price of residential property",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/residential/5dd40ba29c20d26538f3a84a/price/200",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"residential",
+								"5dd40ba29c20d26538f3a84a",
+								"price",
+								"200"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update rent and basis of rental property",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4001/api/rental/5dd40be79c20d26538f3a855/rent/1234/basis/monthly",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"rental",
+								"5dd40be79c20d26538f3a855",
+								"rent",
+								"1234",
+								"basis",
+								"monthly"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
