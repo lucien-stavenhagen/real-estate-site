@@ -2,9 +2,13 @@
   <section>
     <v-container>
       <v-row>
-        <v-col :key="i" v-for="(property, i) in properties" cols="12" sm="4">
+        <v-col :key="i" v-for="(property, i) in properties" cols="12">
           <v-card>
-            <v-img :key="i" v-for="(image,i) in property.images" :src="image.source"></v-img>
+            <v-carousel>
+              <v-carousel-item :key="i" v-for="(image,i) in property.images">
+                <v-img :src="image.source"></v-img>
+              </v-carousel-item>
+            </v-carousel>
             <v-card-title>Commercial Property</v-card-title>
             <v-card-text>
               Location: {{ property.location.city }},{{
