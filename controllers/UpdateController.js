@@ -124,7 +124,8 @@ exports.update_price_rental_byid = (request, response, next) => {
   Rental.updateOne(
     { _id: request.params.id },
     {
-      price: request.params.price
+      price: request.params.rent,
+      basis: request.params.basis
     }
   )
     .exec()

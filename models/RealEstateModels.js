@@ -31,7 +31,7 @@ const rentalSchema = new mongoose.Schema({
   beds: Number,
   baths: Number,
   rent: Number,
-  basis: { type: String, enum: basisList },
+  basis: { type: String, required: true, enum: basisList },
   allbillspaid: Boolean,
   images: [imageSchema]
 });

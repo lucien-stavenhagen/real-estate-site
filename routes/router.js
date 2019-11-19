@@ -144,7 +144,7 @@ router.patch(
   updateController.add_images_rental_byid
 );
 router.patch(
-  "/rental/:id/price/:price",
+  "/rental/:id/rent/:rent/basis/:basis",
   updateController.update_price_rental_byid
 );
 
