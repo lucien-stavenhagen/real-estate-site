@@ -39,11 +39,15 @@ router.get(
 // update
 
 router.patch(
-  "/commercial/:id",
+  "/commercial/:id/photos",
   uploadMiddleware.single(imageFieldName),
   updateController.add_images_commercial_byid
 );
 
+router.patch(
+  "/commercial/:id/price/:price",
+  updateController.update_price_commercial_byid
+);
 // delete
 
 router.delete("/commercial/:id", deleteController.delete_commercial_byid);
@@ -84,9 +88,14 @@ router.get(
 // update
 
 router.patch(
-  "/residential/:id",
+  "/residential/:id/photos",
   uploadMiddleware.single(imageFieldName),
   updateController.add_images_residential_byid
+);
+
+router.patch(
+  "/residential/:id/price/:price",
+  updateController.update_price_residential_byid
 );
 
 // delete
@@ -130,9 +139,13 @@ router.get(
 // update
 
 router.patch(
-  "/rental/:id",
+  "/rental/:id/photos",
   uploadMiddleware.single(imageFieldName),
   updateController.add_images_rental_byid
+);
+router.patch(
+  "/rental/:id/price/:price",
+  updateController.update_price_rental_byid
 );
 
 // delete
@@ -176,10 +189,11 @@ router.get(
 // update
 
 router.patch(
-  "/land/:id",
+  "/land/:id/photos",
   uploadMiddleware.single(imageFieldName),
   updateController.add_images_land_byid
 );
+router.patch("/land/:id/price/:price", updateController.update_price_land_byid);
 
 // delete
 
