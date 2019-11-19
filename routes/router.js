@@ -44,10 +44,8 @@ router.patch(
   updateController.add_images_commercial_byid
 );
 
-router.patch(
-  "/commercial/:id/price/:price",
-  updateController.update_price_commercial_byid
-);
+router.patch("/commercial/:id/update", updateController.update_commercial_byid);
+
 // delete
 
 router.delete("/commercial/:id", deleteController.delete_commercial_byid);
@@ -94,8 +92,8 @@ router.patch(
 );
 
 router.patch(
-  "/residential/:id/price/:price",
-  updateController.update_price_residential_byid
+  "/residential/:id/update",
+  updateController.update_residential_byid
 );
 
 // delete
@@ -143,10 +141,7 @@ router.patch(
   uploadMiddleware.single(imageFieldName),
   updateController.add_images_rental_byid
 );
-router.patch(
-  "/rental/:id/rent/:rent/basis/:basis",
-  updateController.update_price_rental_byid
-);
+router.patch("/rental/:id/update", updateController.update_rental_byid);
 
 // delete
 
@@ -193,7 +188,7 @@ router.patch(
   uploadMiddleware.single(imageFieldName),
   updateController.add_images_land_byid
 );
-router.patch("/land/:id/price/:price", updateController.update_price_land_byid);
+router.patch("/land/:id/update", updateController.update_land_byid);
 
 // delete
 

@@ -69,6 +69,11 @@
 									"value": "commercial prop in boise",
 									"description": "String, caption for image",
 									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Huge commercial property, right in the heart of the bay area. Lots of extras , electric and plumbing",
+									"type": "text"
 								}
 							]
 						},
@@ -245,6 +250,11 @@
 									"key": "caption",
 									"value": "residence in college station",
 									"description": "String, caption for image",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Huge residence right in the heart of Aggieland",
 									"type": "text"
 								}
 							]
@@ -430,6 +440,11 @@
 									"description": "File, path to image",
 									"type": "file",
 									"src": "/Users/lucien/Desktop/portpics/ordersbyhand.jpg"
+								},
+								{
+									"key": "description",
+									"value": "Huge property in the waco area, tons of great views.",
+									"type": "text"
 								}
 							]
 						},
@@ -605,6 +620,11 @@
 									"key": "caption",
 									"value": "land in austin",
 									"description": "String, caption for image",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "huge tract of land in the austin area, great view of the hill country ",
 									"type": "text"
 								}
 							]
@@ -2458,12 +2478,28 @@
 					"response": []
 				},
 				{
-					"name": "Update price of commercial entry",
+					"name": "Update info on commercial prop",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"price\":\"9999\",\n\t\"plumbing\":\"false\",\n\t\"electric\":\"true\",\n\t\"description\":\"another descvription once again\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:4001/api/commercial/5dd40a6d3e79256508043c35/price/200",
+							"raw": "http://localhost:4001/api/commercial/5dd47238a056b86a71ad32ac/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2472,44 +2508,36 @@
 							"path": [
 								"api",
 								"commercial",
-								"5dd40a6d3e79256508043c35",
-								"price",
-								"200"
+								"5dd47238a056b86a71ad32ac",
+								"update"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update price of land property",
+					"name": "Update info on residential prop",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"price\":\"6666\",\n\t\"description\":\"updated description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:4001/api/land/5dd40bdf9c20d26538f3a850/price/200",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4001",
-							"path": [
-								"api",
-								"land",
-								"5dd40bdf9c20d26538f3a850",
-								"price",
-								"200"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update price of residential property",
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4001/api/residential/5dd40ba29c20d26538f3a84a/price/200",
+							"raw": "http://localhost:4001/api/residential/5dd46793d064f569f314dc6f/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2518,21 +2546,36 @@
 							"path": [
 								"api",
 								"residential",
-								"5dd40ba29c20d26538f3a84a",
-								"price",
-								"200"
+								"5dd46793d064f569f314dc6f",
+								"update"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Update rent and basis of rental property",
+					"name": "Update info on rental prop",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:4001/api/rental/5dd40be79c20d26538f3a855/rent/1234/basis/monthly",
+							"raw": "http://localhost:4001/api/rental/5dd467d0d064f569f314dc74/update",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2541,11 +2584,46 @@
 							"path": [
 								"api",
 								"rental",
-								"5dd40be79c20d26538f3a855",
-								"rent",
-								"1234",
-								"basis",
-								"monthly"
+								"5dd467d0d064f569f314dc74",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update info on land prop",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"price\":\"1111\",\n\t\"description\":\"updated description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4001/api/land/5dd46818d064f569f314dc79/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"land",
+								"5dd46818d064f569f314dc79",
+								"update"
 							]
 						}
 					},

@@ -29,7 +29,8 @@ exports.create_commercial_entry = (request, response, next) => {
           : "no file passed",
         caption: request.body.caption
       }
-    ]
+    ],
+    description: request.body.description
   };
   const newentry = new Commercial(entry)
     .save()
@@ -66,7 +67,8 @@ exports.create_residential_entry = (request, response, next) => {
           : "no file passed",
         caption: request.body.caption
       }
-    ]
+    ],
+    description: request.body.description
   };
   const newentry = new Residential(entry)
     .save()
@@ -102,7 +104,8 @@ exports.create_rental_entry = (request, response, next) => {
           : "no file passed",
         caption: request.body.caption
       }
-    ]
+    ],
+    description: request.body.description
   };
   const newentry = new Rental(entry)
     .save()
@@ -135,7 +138,8 @@ exports.create_land_entry = (request, response, next) => {
           : "no file passed",
         caption: request.body.caption
       }
-    ]
+    ],
+    description: request.body.description
   };
   const newentry = new Land(entry)
     .save()

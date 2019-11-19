@@ -9,7 +9,8 @@ const commercialSchema = new mongoose.Schema({
   electric: Boolean,
   plumbing: Boolean,
   price: Number,
-  images: [imageSchema]
+  images: [imageSchema],
+  description: String
 });
 
 exports.Commercial = mongoose.model("Commercial", commercialSchema);
@@ -20,7 +21,8 @@ const residentialSchema = new mongoose.Schema({
   beds: Number,
   baths: Number,
   price: Number,
-  images: [imageSchema]
+  images: [imageSchema],
+  description: String
 });
 
 exports.Residential = mongoose.model("Residential", residentialSchema);
@@ -33,7 +35,8 @@ const rentalSchema = new mongoose.Schema({
   rent: Number,
   basis: { type: String, required: true, enum: basisList },
   allbillspaid: Boolean,
-  images: [imageSchema]
+  images: [imageSchema],
+  description: String
 });
 
 exports.Rental = mongoose.model("Rental", rentalSchema);
@@ -43,7 +46,8 @@ const landSchema = new mongoose.Schema({
   location: locationSchema,
   acreage: Number,
   price: Number,
-  images: [imageSchema]
+  images: [imageSchema],
+  description: String
 });
 
 exports.Land = mongoose.model("Land", landSchema);
