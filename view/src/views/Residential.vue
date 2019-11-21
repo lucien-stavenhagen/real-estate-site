@@ -6,7 +6,10 @@
           <v-card>
             <v-carousel>
               <v-carousel-item :key="i" v-for="(image,i) in property.images">
-                <v-img :src="image.source"></v-img>
+                <v-card>
+                  <v-img height="400" contain :src="image.source"></v-img>
+                  <v-card-title>{{image.caption}}</v-card-title>
+                </v-card>
               </v-carousel-item>
             </v-carousel>
             <v-card-title>Commercial Property</v-card-title>
@@ -18,6 +21,7 @@
             <v-card-text>ft/sq: {{ property.squarefeet }}</v-card-text>
             <v-card-text>plumbing? {{ property.plumbing }}</v-card-text>
             <v-card-text>electricity? {{ property.electric }}</v-card-text>
+            <v-card-text>{{property.description}}</v-card-text>
           </v-card>
         </v-col>
       </v-row>

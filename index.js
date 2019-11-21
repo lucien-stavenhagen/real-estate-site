@@ -3,11 +3,17 @@ const { PORT, mongoURI, publicDir } = require("./utils");
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const router = require("./routes/router");
+const datarouter = require("./routes/datarouter");
+const userrouter = require("./routes/userrouter");
 const mongoose = require("mongoose");
 const compression = require("compression");
 const fs = require("fs");
 const path = require("path");
+
+//
+// load env vars from .env
+//
+require("dotenv").config();
 //
 // sync create uploads dir
 // for images. Everything
@@ -37,7 +43,8 @@ mongoose
   })
   .catch(error => console.log(`connection failed!: ${error}`));
 
-app.use("/api", router);
+app.use("/api", datarouter);
+app.use("/api/users", userrouter);
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
