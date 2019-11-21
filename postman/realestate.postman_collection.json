@@ -2631,6 +2631,121 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Add new user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "username",
+								"value": "luciens",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "emailaddress",
+								"value": "foo@bar.com",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "password",
+								"value": "plaintext",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"luciens\",\n\t\"emailaddress\":\"lstavenhagen@hotmail.com\",\n\t\"password\":\"fetch\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4001/api/users/newuser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"users",
+								"newuser"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test login function",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\":\"luciens\",\n\t\"emailaddress\":\"lstavenhagen@hotmail.com\",\n\t\"password\":\"fetch\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4001/api/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4001",
+							"path": [
+								"api",
+								"users",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "fetch",
+									"disabled": true
+								},
+								{
+									"key": "emailaddress",
+									"value": "fetch@fetch.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "fetch",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
