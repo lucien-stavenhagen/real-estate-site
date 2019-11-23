@@ -108,7 +108,7 @@
             filled
             label="Rent USD"
             :rules="this.formrules"
-            v-model="propertyinfo.price"
+            v-model="propertyinfo.rent"
           >
             <v-icon slot="prepend">mdi-currency-usd</v-icon>
           </v-text-field>
@@ -220,7 +220,6 @@ export default {
           //
           return false;
         }
-        console.log(endpoint);
         axios
           .post(endpoint, formData, {
             headers: {
@@ -228,7 +227,7 @@ export default {
             }
           })
           .then(() => console.log("successful entry"))
-          .catch(() => console.log("entry failed"));
+          .catch(err => console.log("entry failed" + err));
       }
     },
     myResetForm() {
