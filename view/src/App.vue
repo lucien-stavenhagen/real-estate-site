@@ -6,9 +6,8 @@
         <v-btn text exact to="/">
           <span class="mr-2">Home</span>
         </v-btn>
-
-        <v-btn text to="/commercial">
-          <span class="mr-2">Commercial</span>
+        <v-btn text to="/backend">
+          <span class="mr-2">Backend</span>
         </v-btn>
       </div>
     </v-app-bar>

@@ -62,6 +62,10 @@ export default new Vuex.Store({
     basisList: [
       { text: "Monthly", value: "monthly" },
       { text: "Weekly", value: "weekly" }
+    ],
+    yesnoList: [
+      { text: "Yes", value: true },
+      { text: "No", value: false }
     ]
   },
   getters: {
@@ -73,6 +77,9 @@ export default new Vuex.Store({
     },
     getBasisList(state) {
       return state.basisList;
+    },
+    getYesNoList(state) {
+      return state.yesnoList;
     }
   },
   mutations: {},
