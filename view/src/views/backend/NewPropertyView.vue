@@ -54,9 +54,6 @@ export default {
       }
       this.proptype[item] = true;
     }
-    //   createFormData() {
-    //    let fd = new FormData();
-    //  }
   },
   mounted() {
     this.setPropType("residential");

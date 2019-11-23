@@ -117,7 +117,7 @@
             filled
             label="Rental basis"
             :rules="this.formrules"
-            v-model="propertyinfo.usState"
+            v-model="propertyinfo.basis"
             :items="this.getBasisList"
           >
             <v-icon slot="prepend">mdi-map</v-icon>
@@ -154,10 +154,10 @@
 
 <script>
 import { mapGetters } from "vuex";
-//import axios from "axios";
+import axios from "axios";
 
 export default {
-  name: "AddNewCommercial",
+  name: "AddNewProperty",
   props: {
     proptype: {
       type: Object,
@@ -165,7 +165,13 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getUSStatesList", "getBasisList", "getYesNoList"])
+    ...mapGetters([
+      "getUSStatesList",
+      "getBasisList",
+      "getYesNoList",
+      "getImageFieldName",
+      "getEndPoint"
+    ])
   },
   data() {
     return {
@@ -198,7 +204,31 @@ export default {
   methods: {
     mySubmit() {
       if (this.$refs.mysubmit.validate()) {
-        console.log(JSON.stringify(this.propertyinfo));
+        const formData = this.createFormData();
+        let endpoint;
+        if (this.proptype.commercial) {
+          endpoint = this.getEndPoint("commercial");
+        } else if (this.proptype.residential) {
+          endpoint = this.getEndPoint("residential");
+        } else if (this.proptype.rental) {
+          endpoint = this.getEndPoint("rental");
+        } else if (this.proptype.land) {
+          endpoint = this.getEndPoint("land");
+        } else {
+          //
+          // TBD error condition
+          //
+          return false;
+        }
+        console.log(endpoint);
+        axios
+          .post(endpoint, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          })
+          .then(() => console.log("successful entry"))
+          .catch(() => console.log("entry failed"));
       }
     },
     myResetForm() {
@@ -206,6 +236,63 @@ export default {
     },
     myResetValidation() {
       this.$refs.mysubmit.resetValidation();
+    },
+    createFormData() {
+      let fd = new FormData();
+      //
+      // these attributes can be found in the
+      // backend, in the mongoose model sources
+      // RealEstateModels.js and subSchema.js.
+
+      //
+      // everybody has these
+      //
+      fd.append(this.getImageFieldName, this.propertyinfo.source);
+      fd.append("caption", this.propertyinfo.caption);
+      fd.append("city", this.propertyinfo.city);
+      fd.append("state", this.propertyinfo.state);
+      fd.append("description", this.propertyinfo.description);
+
+      //
+      // rental only
+      //
+      if (this.proptype.rental) {
+        fd.append("rent", this.propertyinfo.rent);
+        fd.append("allbillspaid", this.propertyinfo.allbillspaid);
+        fd.append("basis", this.propertyinfo.basis);
+      }
+
+      //
+      // everybody except rental
+      //
+      if (!this.proptype.rental) {
+        fd.append("price", this.propertyinfo.price);
+      }
+
+      //
+      // rental and residential
+      //
+      if (this.proptype.rental || this.proptype.residential) {
+        fd.append("beds", this.propertyinfo.beds);
+        fd.append("baths", this.propertyinfo.baths);
+      }
+
+      //
+      // commercial only
+      //
+      if (this.proptype.commercial) {
+        fd.append("squarefeet", this.propertyinfo.squarefeet);
+        fd.append("plumbing", this.propertyinfo.plumbing);
+        fd.append("electric", this.propertyinfo.electric);
+      }
+
+      //
+      // land only
+      //
+      if (this.proptype.land) {
+        fd.append("acreage", this.propertyinfo.acreage);
+      }
+      return fd;
     }
   }
 };

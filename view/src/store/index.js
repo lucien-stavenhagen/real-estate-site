@@ -6,7 +6,12 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     host: "http://localhost:4001/api",
-    commercial: "commercial",
+    endpoints: {
+      commercial: "commercial",
+      residential: "residential",
+      rental: "rental",
+      land: "land"
+    },
     stateList: [
       { text: "Alabama", value: "AL" },
       { text: "Alaska", value: "AK" },
@@ -66,11 +71,12 @@ export default new Vuex.Store({
     yesnoList: [
       { text: "Yes", value: true },
       { text: "No", value: false }
-    ]
+    ],
+    imagefieldname: "imagepath"
   },
   getters: {
-    getCommercial(state) {
-      return `${state.host}/${state.commercial}`;
+    getEndPoint: state => endpointname => {
+      return `${state.host}/${state.endpoints[endpointname]}`;
     },
     getUSStatesList(state) {
       return state.stateList;
@@ -80,6 +86,9 @@ export default new Vuex.Store({
     },
     getYesNoList(state) {
       return state.yesnoList;
+    },
+    getImageFieldName(state) {
+      return state.imagefieldname;
     }
   },
   mutations: {},
