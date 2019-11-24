@@ -21,7 +21,7 @@
           <v-text-field
             v-if="proptype.land"
             filled
-            :rules="this.formrules"
+            :rules="this.numules"
             label="Acreage"
             v-model="propertyinfo.acreage"
           >
@@ -33,7 +33,7 @@
           <v-text-field
             v-if="proptype.residential || proptype.rental"
             filled
-            :rules="this.formrules"
+            :rules="this.numrules"
             label="Beds"
             v-model="propertyinfo.beds"
           >
@@ -42,7 +42,7 @@
           <v-text-field
             v-if="proptype.residential || proptype.rental"
             filled
-            :rules="this.formrules"
+            :rules="this.numrules"
             label="Baths"
             v-model="propertyinfo.baths"
           >
@@ -76,7 +76,7 @@
           <v-text-field
             v-if="proptype.commercial"
             filled
-            :rules="this.formrules"
+            :rules="this.numrules"
             v-model="propertyinfo.squarefeet"
             label="Square feet"
           >
@@ -98,7 +98,7 @@
             v-if="!proptype.rental"
             filled
             label="Price USD"
-            :rules="this.formrules"
+            :rules="this.numrules"
             v-model="propertyinfo.price"
           >
             <v-icon slot="prepend">mdi-currency-usd</v-icon>
@@ -107,7 +107,7 @@
             v-if="proptype.rental"
             filled
             label="Rent USD"
-            :rules="this.formrules"
+            :rules="this.numrules"
             v-model="propertyinfo.rent"
           >
             <v-icon slot="prepend">mdi-currency-usd</v-icon>
@@ -180,6 +180,11 @@ export default {
       formrules: [
         value => (!!value && value.length > 0) || "field can't be empty"
       ],
+      numrules: [
+        value =>
+          (!!value && value.length > 0 && !!parseInt(value)) ||
+          "field must be a number"
+      ],
       selectrules: [
         value => value === true || value === false || "must make a selection"
       ],
@@ -226,8 +231,11 @@ export default {
               "Content-Type": "multipart/form-data"
             }
           })
-          .then(() => console.log("successful entry"))
-          .catch(err => console.log("entry failed" + err));
+          .then(() => {
+            console.log("successful entry");
+            this.myResetForm();
+          })
+          .catch(err => this.$router.push(`/error/${err.data}`));
       }
     },
     myResetForm() {

@@ -22,6 +22,15 @@ const routes = [
   {
     path: "/backend",
     component: () => import("../views/BackendHome.vue")
+  },
+  {
+    path: "/changeme",
+    component: () => import("../views/Residential.vue")
+  },
+  {
+    path: "/error/:error",
+    component: () => import("../views/errors/ResponseError.vue"),
+    props: true
   }
 ];
 
