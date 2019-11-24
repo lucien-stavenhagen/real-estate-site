@@ -12,6 +12,12 @@ export default new Vuex.Store({
       rental: "rental",
       land: "land"
     },
+    proptype: {
+      commercial: false,
+      residential: false,
+      rental: false,
+      land: false
+    },
     stateList: [
       { text: "Alabama", value: "AL" },
       { text: "Alaska", value: "AK" },
@@ -89,9 +95,27 @@ export default new Vuex.Store({
     },
     getImageFieldName(state) {
       return state.imagefieldname;
+    },
+    getPropType(state) {
+      return state.proptype;
     }
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+    mutatePropType(state, settype) {
+      const newstate = {
+        ...state.proptype
+      };
+      for (const p in newstate) {
+        newstate[p] = false;
+      }
+      newstate[settype] = true;
+      state.proptype = newstate;
+    }
+  },
+  actions: {
+    dispatchPropType({ commit }, settype) {
+      commit("mutatePropType", settype);
+    }
+  },
   modules: {}
 });

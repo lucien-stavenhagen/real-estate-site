@@ -19,9 +19,9 @@
             <v-icon slot="prepend">mdi-label-outline</v-icon>
           </v-text-field>
           <v-text-field
-            v-if="proptype.land"
+            v-if="getPropType.land"
             filled
-            :rules="this.numules"
+            :rules="this.numrules"
             label="Acreage"
             v-model="propertyinfo.acreage"
           >
@@ -31,7 +31,7 @@
           <!-- Beds and baths -->
 
           <v-text-field
-            v-if="proptype.residential || proptype.rental"
+            v-if="getPropType.residential || getPropType.rental"
             filled
             :rules="this.numrules"
             label="Beds"
@@ -40,7 +40,7 @@
             <v-icon slot="prepend">mdi-lightbulb-on-outline</v-icon>
           </v-text-field>
           <v-text-field
-            v-if="proptype.residential || proptype.rental"
+            v-if="getPropType.residential || getPropType.rental"
             filled
             :rules="this.numrules"
             label="Baths"
@@ -52,7 +52,7 @@
           <!--Electic and plumbing-->
 
           <v-select
-            v-if="proptype.commercial"
+            v-if="getPropType.commercial"
             filled
             :rules="this.selectrules"
             label="Electricity?"
@@ -62,7 +62,7 @@
             <v-icon slot="prepend">mdi-lightbulb-on-outline</v-icon>
           </v-select>
           <v-select
-            v-if="proptype.commercial"
+            v-if="getPropType.commercial"
             filled
             :rules="this.selectrules"
             label="Plumbing?"
@@ -74,7 +74,7 @@
         </v-col>
         <v-col cols="12" sm="6">
           <v-text-field
-            v-if="proptype.commercial"
+            v-if="getPropType.commercial"
             filled
             :rules="this.numrules"
             v-model="propertyinfo.squarefeet"
@@ -95,7 +95,7 @@
             <v-icon slot="prepend">mdi-map</v-icon>
           </v-select>
           <v-text-field
-            v-if="!proptype.rental"
+            v-if="!getPropType.rental"
             filled
             label="Price USD"
             :rules="this.numrules"
@@ -104,7 +104,7 @@
             <v-icon slot="prepend">mdi-currency-usd</v-icon>
           </v-text-field>
           <v-text-field
-            v-if="proptype.rental"
+            v-if="getPropType.rental"
             filled
             label="Rent USD"
             :rules="this.numrules"
@@ -113,7 +113,7 @@
             <v-icon slot="prepend">mdi-currency-usd</v-icon>
           </v-text-field>
           <v-select
-            v-if="proptype.rental"
+            v-if="getPropType.rental"
             filled
             label="Rental basis"
             :rules="this.formrules"
@@ -123,7 +123,7 @@
             <v-icon slot="prepend">mdi-map</v-icon>
           </v-select>
           <v-select
-            v-if="proptype.rental"
+            v-if="getPropType.rental"
             filled
             label="All bills paid?"
             :rules="this.selectrules"
@@ -158,19 +158,14 @@ import axios from "axios";
 
 export default {
   name: "AddNewProperty",
-  props: {
-    proptype: {
-      type: Object,
-      required: true
-    }
-  },
   computed: {
     ...mapGetters([
       "getUSStatesList",
       "getBasisList",
       "getYesNoList",
       "getImageFieldName",
-      "getEndPoint"
+      "getEndPoint",
+      "getPropType"
     ])
   },
   data() {
@@ -211,13 +206,13 @@ export default {
       if (this.$refs.mysubmit.validate()) {
         const formData = this.createFormData();
         let endpoint;
-        if (this.proptype.commercial) {
+        if (this.getPropType.commercial) {
           endpoint = this.getEndPoint("commercial");
-        } else if (this.proptype.residential) {
+        } else if (this.getPropType.residential) {
           endpoint = this.getEndPoint("residential");
-        } else if (this.proptype.rental) {
+        } else if (this.getPropType.rental) {
           endpoint = this.getEndPoint("rental");
-        } else if (this.proptype.land) {
+        } else if (this.getPropType.land) {
           endpoint = this.getEndPoint("land");
         } else {
           //
@@ -263,7 +258,7 @@ export default {
       //
       // rental only
       //
-      if (this.proptype.rental) {
+      if (this.getPropType.rental) {
         fd.append("rent", this.propertyinfo.rent);
         fd.append("allbillspaid", this.propertyinfo.allbillspaid);
         fd.append("basis", this.propertyinfo.basis);
@@ -272,14 +267,14 @@ export default {
       //
       // everybody except rental
       //
-      if (!this.proptype.rental) {
+      if (!this.getPropType.rental) {
         fd.append("price", this.propertyinfo.price);
       }
 
       //
       // rental and residential
       //
-      if (this.proptype.rental || this.proptype.residential) {
+      if (this.getPropType.rental || this.getPropType.residential) {
         fd.append("beds", this.propertyinfo.beds);
         fd.append("baths", this.propertyinfo.baths);
       }
@@ -287,7 +282,7 @@ export default {
       //
       // commercial only
       //
-      if (this.proptype.commercial) {
+      if (this.getPropType.commercial) {
         fd.append("squarefeet", this.propertyinfo.squarefeet);
         fd.append("plumbing", this.propertyinfo.plumbing);
         fd.append("electric", this.propertyinfo.electric);
@@ -296,7 +291,7 @@ export default {
       //
       // land only
       //
-      if (this.proptype.land) {
+      if (this.getPropType.land) {
         fd.append("acreage", this.propertyinfo.acreage);
       }
       return fd;

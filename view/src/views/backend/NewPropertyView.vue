@@ -9,54 +9,52 @@
         </template>
         <v-list>
           <v-list-item
-            v-for="(item, i) in this.propmenuitems"
+            v-for="(item, i) in this.propMenuItems"
             :key="i"
-            @click="setPropType(item)"
+            @click="dispatchPropType(item)"
           >{{item}}</v-list-item>
         </v-list>
       </v-menu>
     </v-toolbar>
     <v-card-title class="justify-center headline">
-      <span v-if="this.proptype.commercial">Commercial</span>
-      <span v-if="this.proptype.residential">Residential</span>
-      <span v-if="this.proptype.rental">Rental</span>
-      <span v-if="this.proptype.land">Land</span>
+      <span v-if="getPropType.commercial">Commercial</span>
+      <span v-if="getPropType.residential">Residential</span>
+      <span v-if="getPropType.rental">Rental</span>
+      <span v-if="getPropType.land">Land</span>
     </v-card-title>
-    <AddNewProperty :proptype="this.proptype" />
+    <AddNewProperty />
   </v-card>
 </template>
 
 <script>
 import AddNewProperty from "../../components/backend/AddNewProperty";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "NewPropertyView",
-  computed: {},
+  computed: {
+    ...mapGetters(["getPropType"]),
+    propMenuItems() {
+      const t = [];
+      for (const p in this.getPropType) {
+        t.push(p);
+      }
+      return t;
+    }
+  },
   components: {
     AddNewProperty
   },
   data() {
     return {
-      propmenuitems: ["commercial", "residential", "rental", "land"],
-      proptype: {
-        commercial: false,
-        residential: false,
-        rental: false,
-        land: false
-      },
       drawer: false
     };
   },
   methods: {
-    setPropType(item) {
-      for (const p in this.proptype) {
-        this.proptype[p] = false;
-      }
-      this.proptype[item] = true;
-    }
+    ...mapActions(["dispatchPropType"])
   },
   mounted() {
-    this.setPropType("residential");
+    this.dispatchPropType("residential");
   }
 };
 </script>
