@@ -25,7 +25,7 @@ const routes = [
   },
   {
     path: "/changeme",
-    component: () => import("../views/Residential.vue")
+    component: () => import("../views/MockUpPropView.vue")
   },
   {
     path: "/error/:error",

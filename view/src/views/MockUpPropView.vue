@@ -43,16 +43,29 @@ import axios from "axios";
 export default {
   name: "Residential",
   computed: {
-    ...mapGetters(["getEndPoint"])
+    ...mapGetters(["getEndPoint", "getPropType"]),
+    currentPropType() {
+      for (const p in this.getPropType) {
+        if (this.getPropType[p]) {
+          return p;
+        }
+      }
+      return null;
+    }
   },
   methods: {
     getAllCommercial() {
       axios
-        .get(this.getEndPoint("commercial"))
+        .get(this.getEndPoint(this.currentPropType))
         .then(doc => {
           this.properties = [...doc.data];
         })
         .catch();
+    }
+  },
+  watch: {
+    currentPropType: function() {
+      this.getAllCommercial();
     }
   },
   data() {
