@@ -6,6 +6,94 @@ const {
 } = require("../models/RealEstateModels");
 
 //
+// all
+//
+exports.get_all = async (request, response, next) => {
+  try {
+    const commAll = await Commercial.find();
+    const resAll = await Residential.find();
+    const rentAll = await Rental.find();
+    const landAll = await Land.find();
+    return response.json({
+      commercial: [...commAll],
+      residential: [...resAll],
+      rental: [...rentAll],
+      land: [...landAll]
+    });
+  } catch (error) {
+    return response.status(400).json({ msg: "failed" });
+  }
+};
+
+exports.get_all_bycity = async (request, response, next) => {
+  try {
+    const commByCity = await Commercial.find({
+      "location.city": request.params.city
+    });
+    const resByCity = await Residential.find({
+      "location.city": request.params.city
+    });
+    const rentByCity = await Rental.find({
+      "location.city": request.params.city
+    });
+    const landByCity = await Land.find({
+      "location.city": request.params.city
+    });
+    return response.json({
+      msg: "succeded",
+      commercial: [...commByCity],
+      residential: [...resByCity],
+      rental: [...rentByCity],
+      land: [...landByCity]
+    });
+  } catch (error) {
+    return response.status(400).json({ msg: "failed" });
+  }
+};
+
+exports.get_all_bypricerange = async (request, response, next) => {
+  try {
+    let commByPR = await Commercial.find({
+      price: { $gte: request.params.min, $lte: request.params.max }
+    })
+      .sort({ price: "desc" })
+      .exec();
+    const resByPR = await Residential.find({
+      price: { $gte: request.params.min, $lte: request.params.max }
+    })
+      .sort({ price: "desc" })
+      .exec();
+    const landByPR = await Land.find({
+      price: { $gte: request.params.min, $lte: request.params.max }
+    })
+      .sort({ price: "desc" })
+      .exec();
+    return response.json({
+      msg: "succeded",
+      commercial: [...commByPR],
+      residential: [...resByPR],
+      land: [...landByPR]
+    });
+  } catch (error) {
+    return response.status(400).json({ msg: "failed", error });
+  }
+};
+
+exports.get_all_byrentrange = async (request, response, next) => {
+  try {
+    const rentByPR = await Rental.find({
+      rent: { $gte: request.params.min, $lte: request.params.max }
+    });
+    return response.json({
+      msg: "succeded",
+      rental: [...rentByPR]
+    });
+  } catch (error) {
+    return response.status(400).json({ msg: "failed", error });
+  }
+};
+
+//
 // commercial
 //
 exports.get_all_commercial_entries = (request, response, next) => {

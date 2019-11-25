@@ -2,8 +2,8 @@
   <section>
     <v-container>
       <v-card>
-        <v-row dense>
-          <v-col :key="i" v-for="(property, i) in properties" cols="12" sm="6">
+        <v-row dense :key="j" v-for="(plist, j) in properties">
+          <v-col :key="i" v-for="(property, i) in plist" cols="12" sm="6">
             <v-card>
               <v-carousel hide-delimiters>
                 <v-carousel-item :key="i" v-for="(image, i) in property.images">
@@ -25,9 +25,6 @@
                 property.location.state
                 }}
               </v-card-text>
-              <v-card-text>ft/sq: {{ property.squarefeet }}</v-card-text>
-              <v-card-text>plumbing? {{ property.plumbing }}</v-card-text>
-              <v-card-text>electricity? {{ property.electric }}</v-card-text>
               <v-card-text>{{ property.description }}</v-card-text>
             </v-card>
           </v-col>
@@ -44,34 +41,21 @@ import axios from "axios";
 export default {
   name: "Residential",
   computed: {
-    ...mapGetters(["getEndPoint", "getPropType"]),
-    currentPropType() {
-      for (const p in this.getPropType) {
-        if (this.getPropType[p]) {
-          return p;
-        }
-      }
-      return null;
-    }
+    ...mapGetters(["getEndPoint"])
   },
   methods: {
     getAllCommercial() {
       axios
-        .get(this.getEndPoint(this.currentPropType))
+        .get(this.getEndPoint("all"))
         .then(doc => {
-          this.properties = [...doc.data];
+          this.properties = { ...doc.data };
         })
         .catch();
     }
   },
-  watch: {
-    currentPropType: function() {
-      this.getAllCommercial();
-    }
-  },
   data() {
     return {
-      properties: []
+      properties: {}
     };
   },
   created() {

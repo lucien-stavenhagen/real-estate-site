@@ -8,6 +8,25 @@ const { uploadMiddleware } = require("../middleware/multer/ImageUpload");
 const { imageFieldName } = require("../utils");
 
 //////////////////////////////
+// routes for all proptypes
+// but by other attributes like
+// city, price, etc.
+//
+router.get("/all", readController.get_all);
+router.get("/all/bycity/:city", readController.get_all_bycity);
+router.get(
+  "/all/bypricerange/min/:min/max/:max",
+  readController.get_all_bypricerange
+);
+router.get(
+  "/all/byrentrange/min/:min/max/:max",
+  readController.get_all_byrentrange
+);
+
+//
+// end routes for all
+//////////////////////////////
+//////////////////////////////
 // routes for commercial
 //
 

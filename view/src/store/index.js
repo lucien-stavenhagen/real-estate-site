@@ -10,7 +10,8 @@ export default new Vuex.Store({
       commercial: "commercial",
       residential: "residential",
       rental: "rental",
-      land: "land"
+      land: "land",
+      all: "all"
     },
     proptype: {
       commercial: false,

@@ -10,19 +10,6 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase headline font-weight-thin">Real Estate App</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-menu offset-y>
-        <template v-slot:activator="{ on }">
-          <v-btn text v-on="on">Main Menu</v-btn>
-        </template>
-        <v-list>
-          <v-list-item @click="pushRoute('/')">
-            <v-list-item-title>Home</v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="pushRoute(mitem.route)" v-for="(mitem,i) in navlist" :key="i">
-            <v-list-item-title>{{mitem.name}}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
       <v-tooltip bottom>
         <template v-slot:activator="{on}">
           <v-icon right v-on="on" @click="toggleTheme">mdi-light-switch</v-icon>
@@ -40,16 +27,13 @@
       <v-list>
         <v-list-group no-action prepend-icon="mdi-home-outline" value="true">
           <template v-slot:activator>
-            <v-list-item-title>Property Type</v-list-item-title>
+            <v-list-item-title>Main Menu</v-list-item-title>
           </template>
-          <v-list-item
-            v-for="(item, i) in this.propMenuItems"
-            :key="i"
-            @click="dispatchPropType(item)"
-          >
-            <v-list-item-content>
-              <v-list-item-title class="text-capitalize">{{item}}</v-list-item-title>
-            </v-list-item-content>
+          <v-list-item @click="pushRoute('/')">
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="pushRoute(mitem.route)" v-for="(mitem,i) in navlist" :key="i">
+            <v-list-item-title>{{mitem.name}}</v-list-item-title>
           </v-list-item>
         </v-list-group>
       </v-list>
