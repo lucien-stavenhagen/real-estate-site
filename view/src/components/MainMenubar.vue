@@ -8,19 +8,21 @@
     </v-system-bar>
     <v-app-bar app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <div class="d-flex align-center">
-        <v-spacer></v-spacer>
-        <v-btn text exact to="/">
-          <span class="mr-2">Home</span>
-        </v-btn>
-        <v-btn text to="/backend">
-          <span class="mr-2">Backend</span>
-        </v-btn>
-        <v-btn text to="/changeme">
-          <span class="mr-2">Mockup View</span>
-        </v-btn>
-      </div>
+      <v-toolbar-title class="text-uppercase headline font-weight-thin">Real Estate App</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn text v-on="on">Main Menu</v-btn>
+        </template>
+        <v-list>
+          <v-list-item @click="pushRoute('/')">
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="pushRoute(mitem.route)" v-for="(mitem,i) in navlist" :key="i">
+            <v-list-item-title>{{mitem.name}}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <v-tooltip bottom>
         <template v-slot:activator="{on}">
           <v-icon right v-on="on" @click="toggleTheme">mdi-light-switch</v-icon>
@@ -68,7 +70,17 @@ export default {
   name: "MainMenubar",
   data() {
     return {
-      drawer: false
+      drawer: false,
+      navlist: [
+        {
+          name: "Backend",
+          route: "/backend"
+        },
+        {
+          name: "MockUp View",
+          route: "/changeme"
+        }
+      ]
     };
   },
   computed: {
@@ -85,6 +97,9 @@ export default {
     ...mapActions(["dispatchPropType"]),
     toggleTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
+    pushRoute(route) {
+      this.$router.push(route);
     }
   }
 };
