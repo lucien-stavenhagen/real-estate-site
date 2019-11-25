@@ -38,7 +38,7 @@
       v-model="drawer"
     >
       <v-list>
-        <v-list-group no-action prepend-icon="mdi-star" value="true">
+        <v-list-group no-action prepend-icon="mdi-home-outline" value="true">
           <template v-slot:activator>
             <v-list-item-title>Property Type</v-list-item-title>
           </template>
