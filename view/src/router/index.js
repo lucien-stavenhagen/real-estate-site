@@ -28,6 +28,10 @@ const routes = [
     component: () => import("../views/MockUpPropView.vue")
   },
   {
+    path: "/quicksearch",
+    component: () => import("../views/QuickSearch.vue")
+  },
+  {
     path: "/error/:error",
     component: () => import("../views/errors/ResponseError.vue"),
     props: true

@@ -8,6 +8,77 @@ const {
 //
 // all
 //
+exports.get_union_of_all_cities_indb = async (request, response, next) => {
+  try {
+    const commAll = await Commercial.find(
+      {},
+      { "location.city": 1, "location.state": 1 }
+    );
+    const resAll = await Residential.find(
+      {},
+      { "location.city": 1, "location.state": 1 }
+    );
+    const rentAll = await Rental.find(
+      {},
+      { "location.city": 1, "location.state": 1 }
+    );
+    const landAll = await Land.find(
+      {},
+      { "location.city": 1, "location.state": 1 }
+    );
+    //
+    // accumulate the union all the cities/states
+    // having at least one property in one
+    // or more of the collections.
+    // this is to make a listing
+    // of cities/state only, available for autocomplete
+    // in the search function.
+    // A little
+    // dirty because it's orthogonal to
+    // the DB data organization
+    // so we have to use the BFH to get this data.
+    //
+    //
+    // do a "set" on an array of the
+    // location.city and .state fields in each
+    // collection, generated
+    // with the map method.
+    //
+    // then use the spread operator
+    // to combine them all into
+    // another set, to remove any
+    // dupes that may exist across each subset.
+    //
+    const unionOfAllCities = new Set([
+      ...new Set(
+        commAll.map(item => {
+          return `${item.location.city},${item.location.state}`;
+        })
+      ),
+      ...new Set(
+        resAll.map(item => {
+          return `${item.location.city},${item.location.state}`;
+        })
+      ),
+      ...new Set(
+        rentAll.map(item => {
+          return `${item.location.city},${item.location.state}`;
+        })
+      ),
+      ...new Set(
+        landAll.map(item => {
+          return `${item.location.city},${item.location.state}`;
+        })
+      )
+    ]);
+    return response.json({
+      cities: [...unionOfAllCities]
+    });
+  } catch (error) {
+    return response.status(400).json({ msg: "failed" });
+  }
+};
+
 exports.get_all = async (request, response, next) => {
   try {
     const commAll = await Commercial.find();
@@ -28,19 +99,22 @@ exports.get_all = async (request, response, next) => {
 exports.get_all_bycity = async (request, response, next) => {
   try {
     const commByCity = await Commercial.find({
-      "location.city": request.params.city
+      "location.city": request.params.city,
+      "location.state": request.params.state
     });
     const resByCity = await Residential.find({
-      "location.city": request.params.city
+      "location.city": request.params.city,
+      "location.state": request.params.state
     });
     const rentByCity = await Rental.find({
-      "location.city": request.params.city
+      "location.city": request.params.city,
+      "location.state": request.params.state
     });
     const landByCity = await Land.find({
-      "location.city": request.params.city
+      "location.city": request.params.city,
+      "location.state": request.params.state
     });
     return response.json({
-      msg: "succeded",
       commercial: [...commByCity],
       residential: [...resByCity],
       rental: [...rentByCity],

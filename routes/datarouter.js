@@ -13,7 +13,9 @@ const { imageFieldName } = require("../utils");
 // city, price, etc.
 //
 router.get("/all", readController.get_all);
-router.get("/all/bycity/:city", readController.get_all_bycity);
+router.get("/all/cities", readController.get_union_of_all_cities_indb);
+
+router.get("/all/city/:city/state/:state", readController.get_all_bycity);
 router.get(
   "/all/bypricerange/min/:min/max/:max",
   readController.get_all_bypricerange

@@ -57,6 +57,10 @@ export default {
       drawer: false,
       navlist: [
         {
+          name: "Search",
+          route: "/quicksearch"
+        },
+        {
           name: "Backend",
           route: "/backend"
         },
