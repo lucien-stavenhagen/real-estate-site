@@ -8,6 +8,7 @@
           :items="cities"
           :loading="searchLoading"
           :search-input.sync="search"
+          clearable
           hide-no-data
           cache-items
           label="Start typing"
@@ -18,6 +19,7 @@
       <v-divider></v-divider>
     </v-card>
     <v-card>
+      <v-card-title v-if="this.model" class="headline">Properties in {{this.model}}</v-card-title>
       <v-row dense :key="j" v-for="(plist, j) in properties">
         <v-col :key="i" v-for="(property, i) in plist" cols="12" sm="6">
           <v-card>
