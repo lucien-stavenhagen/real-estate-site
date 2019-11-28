@@ -1,12 +1,6 @@
 <template>
   <nav>
-    <v-system-bar app>
-      <span v-if="getPropType.commercial">Commercial</span>
-      <span v-if="getPropType.residential">Residential</span>
-      <span v-if="getPropType.rental">Rental</span>
-      <span v-if="getPropType.land">Land</span>
-    </v-system-bar>
-    <v-app-bar app>
+    <v-app-bar flat app>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase headline font-weight-thin">Real Estate App</v-toolbar-title>
       <v-spacer></v-spacer>

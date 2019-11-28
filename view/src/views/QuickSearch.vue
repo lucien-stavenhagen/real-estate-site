@@ -1,28 +1,31 @@
 <template>
   <v-container>
     <v-card>
-      <v-card-title class="headline">Enter a city</v-card-title>
       <v-card-text>
         <v-autocomplete
-          v-model="model"
+          v-model="citymodel"
           :items="cities"
           :loading="searchLoading"
           :search-input.sync="search"
           clearable
+          filled
           hide-no-data
           cache-items
-          label="Start typing"
+          label="Enter a city"
           prepend-icon="mdi-database-search"
           return-object
         ></v-autocomplete>
       </v-card-text>
-      <v-divider></v-divider>
     </v-card>
-    <v-card>
-      <v-card-title v-if="this.model" class="headline">Properties in {{this.model}}</v-card-title>
+    <v-card :loading="resultsLoading" v-if="this.citymodel" class="pa-2">
+      <v-card-title class="headline justify-center">Properties in {{this.citymodel}}</v-card-title>
       <v-row dense :key="j" v-for="(plist, j) in properties">
+        <v-card-text
+          v-if="plist.length > 0"
+          class="text-uppercase text-center"
+        >{{j}} ({{plist.length}})</v-card-text>
         <v-col :key="i" v-for="(property, i) in plist" cols="12" sm="6">
-          <v-card>
+          <v-card outlined hover>
             <v-carousel hide-delimiters>
               <v-carousel-item :key="i" v-for="(image, i) in property.images">
                 <v-card height="100%">
@@ -52,6 +55,7 @@
 </template>
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
@@ -60,22 +64,25 @@ export default {
       properties: {},
       searchLoading: false,
       resultsLoading: false,
-      model: null,
+      citymodel: null,
       search: null
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters(["getEndPoint"])
+  },
 
   watch: {
-    model() {
-      if (!this.model) {
+    citymodel() {
+      if (!this.citymodel) {
+        this.properties = {};
         return;
       }
-      const city = this.model.split(",")[0];
-      const state = this.model.split(",")[1];
+      const city = this.citymodel.split(",")[0];
+      const state = this.citymodel.split(",")[1];
       this.resultsLoading = true;
       axios
-        .get(`http://localhost:4001/api/all/city/${city}/state/${state}`)
+        .get(`${this.getEndPoint("all")}/city/${city}/state/${state}`)
         .then(doc => {
           console.log(doc.data);
           this.properties = { ...doc.data };
@@ -96,7 +103,7 @@ export default {
 
       // Lazily load input items
       axios
-        .get("http://localhost:4001/api/all/cities")
+        .get(`${this.getEndPoint("all")}/cities`)
         .then(res => {
           this.cities = [...res.data.cities];
         })
