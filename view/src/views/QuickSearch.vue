@@ -19,7 +19,7 @@
     </v-card>
     <v-card :loading="resultsLoading" v-if="this.citymodel" class="pa-2">
       <v-card-title class="headline justify-center">Properties in {{this.citymodel}}</v-card-title>
-      <v-row dense :key="j" v-for="(plist, j) in properties">
+      <v-row dense :key="j" v-for="(plist, j) in bycityproperties">
         <v-card-text
           v-if="plist.length > 0"
           class="text-uppercase text-center"
@@ -61,7 +61,7 @@ export default {
   data() {
     return {
       cities: [],
-      properties: {},
+      bycityproperties: {},
       searchLoading: false,
       resultsLoading: false,
       citymodel: null,
@@ -71,11 +71,10 @@ export default {
   computed: {
     ...mapGetters(["getEndPoint"])
   },
-
   watch: {
     citymodel() {
       if (!this.citymodel) {
-        this.properties = {};
+        this.bycityproperties = {};
         return;
       }
       const city = this.citymodel.split(",")[0];
@@ -84,8 +83,7 @@ export default {
       axios
         .get(`${this.getEndPoint("all")}/city/${city}/state/${state}`)
         .then(doc => {
-          console.log(doc.data);
-          this.properties = { ...doc.data };
+          this.bycityproperties = { ...doc.data };
         })
         .catch(error => console.log(error))
         .finally(() => {

@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    <h1>Backend page</h1>
     <NewPropertyView />
   </v-container>
 </template>

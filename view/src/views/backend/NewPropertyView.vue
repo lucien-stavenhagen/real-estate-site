@@ -1,12 +1,9 @@
 <template>
-  <v-card>
+  <section>
     <v-toolbar>
       <v-toolbar-title>
-        Add New
-        <span v-if="getPropType.commercial">Commercial</span>
-        <span v-if="getPropType.residential">Residential</span>
-        <span v-if="getPropType.rental">Rental</span>
-        <span v-if="getPropType.land">Land</span> Property
+        Property Edit Page
+        <span class="font-weight-light">({{this.currentproptype}})</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-menu offset-y>
@@ -17,7 +14,7 @@
           <v-list-item
             v-for="(item, i) in this.propMenuItems"
             :key="i"
-            @click="dispatchPropType(item)"
+            @click="setCurrentProptype(item)"
           >
             <v-list-item-content>
               <v-list-item-title class="text-capitalize">{{item}}</v-list-item-title>
@@ -26,12 +23,21 @@
         </v-list>
       </v-menu>
     </v-toolbar>
-    <AddNewProperty />
-  </v-card>
+    <v-row>
+      <v-col cols="12">
+        <AddNewProperty />
+      </v-col>
+      <v-col cols="12">
+        <EditProperty />
+      </v-col>
+    </v-row>
+  </section>
 </template>
 
 <script>
 import AddNewProperty from "../../components/backend/AddNewProperty";
+import EditProperty from "../../components/backend/EditProperty";
+
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -47,15 +53,24 @@ export default {
     }
   },
   components: {
-    AddNewProperty
+    AddNewProperty,
+    EditProperty
   },
   data() {
     return {
-      drawer: false
+      drawer: false,
+      currentproptype: null
     };
   },
   methods: {
-    ...mapActions(["dispatchPropType"])
+    ...mapActions(["dispatchPropType"]),
+    setCurrentProptype(item) {
+      this.currentproptype = item;
+      this.dispatchPropType(item);
+    }
+  },
+  mounted() {
+    this.setCurrentProptype(this.propMenuItems[0]);
   }
 };
 </script>

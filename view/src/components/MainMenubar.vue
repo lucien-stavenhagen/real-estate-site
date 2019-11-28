@@ -55,7 +55,7 @@ export default {
           route: "/quicksearch"
         },
         {
-          name: "Backend",
+          name: "Dashboard",
           route: "/backend"
         },
         {
