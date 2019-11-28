@@ -1,9 +1,12 @@
 <template>
   <v-container>
     <v-card>
+      <v-toolbar dense>
+        <v-btn text @click="this.getAllProperties">Refresh from Database</v-btn>
+      </v-toolbar>
       <v-card-title
         class="font-weight-light justify-center text-uppercase"
-      >Edit {{this.currentPropType}}Properties</v-card-title>
+      >Edit {{this.currentPropType}} Properties</v-card-title>
       <v-container>
         <v-row dense>
           <v-col :key="i" v-for="(property, i) in properties" cols="12" sm="4">
