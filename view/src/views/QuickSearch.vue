@@ -20,10 +20,13 @@
     <v-card :loading="resultsLoading" v-if="this.citymodel" class="pa-2">
       <v-card-title class="headline justify-center">Properties in {{this.citymodel}}</v-card-title>
       <v-row dense :key="j" v-for="(plist, j) in bycityproperties">
-        <v-card-text
-          v-if="plist.length > 0"
-          class="text-uppercase text-center"
-        >{{j}} ({{plist.length}})</v-card-text>
+        <v-col cols="12">
+          <div class="d-flex flex-column text-uppercase text-center" v-if="plist.length > 0">
+            <v-divider></v-divider>
+            <span class="pa-3">{{j}} ({{plist.length}})</span>
+            <v-divider></v-divider>
+          </div>
+        </v-col>
         <v-col :key="i" v-for="(property, i) in plist" cols="12" sm="6">
           <v-card outlined hover>
             <v-carousel hide-delimiters>

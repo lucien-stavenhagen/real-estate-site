@@ -3,7 +3,7 @@
     <v-container>
       <v-card>
         <v-row dense :key="j" v-for="(plist, j) in properties">
-          <v-col :key="i" v-for="(property, i) in plist" cols="12" sm="6">
+          <v-col :key="i" v-for="(property, i) in plist" cols="12" sm="4">
             <v-card>
               <v-carousel hide-delimiters>
                 <v-carousel-item :key="i" v-for="(image, i) in property.images">

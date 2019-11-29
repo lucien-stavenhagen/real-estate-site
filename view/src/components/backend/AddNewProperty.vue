@@ -160,7 +160,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import axios from "axios";
 
 export default {
@@ -217,6 +217,7 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["dispatchDBUpdated"]),
     mySubmit() {
       if (this.$refs.mysubmit.validate()) {
         const formData = this.createFormData();
@@ -244,6 +245,7 @@ export default {
           .then(() => {
             console.log("successful entry");
             this.myResetForm();
+            this.dispatchDBUpdated();
           })
           .catch(err => this.$router.push(`/error/${err.data}`));
       }

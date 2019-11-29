@@ -79,7 +79,8 @@ export default new Vuex.Store({
       { text: "Yes", value: true },
       { text: "No", value: false }
     ],
-    imagefieldname: "imagepath"
+    imagefieldname: "imagepath",
+    dbupdated: 0
   },
   getters: {
     getEndPoint: state => endpointname => {
@@ -99,9 +100,19 @@ export default new Vuex.Store({
     },
     getPropType(state) {
       return state.proptype;
+    },
+    getDBUpdated(state) {
+      return state.dbupdated;
     }
   },
   mutations: {
+    mutateDBUpdated(state) {
+      if (state.dbupdated > 1000) {
+        state.dbupdated = 0;
+      } else {
+        state.dbupdated++;
+      }
+    },
     mutatePropType(state, settype) {
       const newstate = {
         ...state.proptype
@@ -116,6 +127,9 @@ export default new Vuex.Store({
   actions: {
     dispatchPropType({ commit }, settype) {
       commit("mutatePropType", settype);
+    },
+    dispatchDBUpdated({ commit }) {
+      commit("mutateDBUpdated");
     }
   },
   modules: {}
