@@ -20,6 +20,7 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
   {
+    name: "backend",
     path: "/backend",
     component: () => import("../views/BackendHome.vue")
   },
@@ -28,12 +29,20 @@ const routes = [
     component: () => import("../views/MockUpPropView.vue")
   },
   {
+    name: "quicksearch",
     path: "/quicksearch",
     component: () => import("../views/QuickSearch.vue")
   },
   {
+    name: "error",
     path: "/error/:error",
     component: () => import("../views/errors/ResponseError.vue"),
+    props: true
+  },
+  {
+    name: "viewsingle",
+    path: "/viewsingle/:propinfo",
+    component: () => import("../views/SinglePropertyView.vue"),
     props: true
   }
 ];

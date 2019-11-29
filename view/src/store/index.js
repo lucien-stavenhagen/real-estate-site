@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    localstoragename: "realestate",
     host: "http://localhost:4001/api",
     endpoints: {
       commercial: "commercial",
@@ -106,6 +107,12 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    mutateInitPropType(state) {
+      const payload = JSON.parse(localStorage.getItem(state.localstoragename));
+      if (payload) {
+        state.proptype = { ...payload };
+      }
+    },
     mutateDBUpdated(state) {
       if (state.dbupdated > 1000) {
         state.dbupdated = 0;

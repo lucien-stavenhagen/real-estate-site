@@ -25,8 +25,8 @@
                 </v-card-text>
                 <v-card-text>{{ property.description }}</v-card-text>
                 <v-card-actions>
-                  <v-btn small outlined @click="delme(property._id)">Edit</v-btn>
-                  <v-btn small outlined color="red" @click="delme(property._id)">Delete</v-btn>
+                  <v-btn small outlined>Edit</v-btn>
+                  <v-btn small outlined>Delete</v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>
@@ -67,9 +67,6 @@ export default {
     }
   },
   methods: {
-    delme(id) {
-      alert(id);
-    },
     getAllProperties() {
       axios
         .get(this.getEndPoint(this.currentPropType))

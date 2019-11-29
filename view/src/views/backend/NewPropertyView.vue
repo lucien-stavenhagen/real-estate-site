@@ -68,9 +68,6 @@ export default {
       this.currentproptype = item;
       this.dispatchPropType(item);
     }
-  },
-  mounted() {
-    this.setCurrentProptype(this.propMenuItems[0]);
   }
 };
 </script>
