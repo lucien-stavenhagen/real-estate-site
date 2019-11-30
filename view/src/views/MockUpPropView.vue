@@ -58,13 +58,13 @@ export default {
       });
     },
 
-    getAllCommercial() {
+    getAllProps() {
       axios
         .get(this.getEndPoint("all"))
         .then(doc => {
           this.properties = { ...doc.data };
         })
-        .catch();
+        .catch(error => console.log(error));
     }
   },
   data() {
@@ -73,7 +73,7 @@ export default {
     };
   },
   created() {
-    this.getAllCommercial();
+    this.getAllProps();
   }
 };
 </script>

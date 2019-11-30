@@ -57,10 +57,10 @@ export default {
   },
   methods: {
     getPropertyById() {
+      if (this.propLoading) {
+        return;
+      }
       this.propLoading = true;
-      console.log(
-        `${this.getEndPoint(this.propInfo.type)}/${this.propInfo.id}`
-      );
       axios
         .get(`${this.getEndPoint(this.propInfo.type)}/${this.propInfo.id}`)
         .then(doc => {

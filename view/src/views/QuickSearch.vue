@@ -17,7 +17,7 @@
         ></v-combobox>
       </v-card-text>
     </v-card>
-    <v-card :loading="resultsLoading" v-if="this.bycityproperties" class="pa-2">
+    <v-card v-if="this.bycityproperties" class="pa-2">
       <v-card-title
         v-if="this.citymodel"
         class="headline justify-center"
@@ -95,7 +95,6 @@ export default {
   },
   watch: {
     citymodel() {
-      console.log("city model: " + this.citymodel);
       if (!this.citymodel) {
         this.bycityproperties = null;
         localStorage.removeItem(this.savedsearch);
@@ -103,7 +102,6 @@ export default {
       }
       const city = this.citymodel.split(",")[0];
       const state = this.citymodel.split(",")[1];
-      this.resultsLoading = true;
       axios
         .get(`${this.getEndPoint("all")}/city/${city}/state/${state}`)
         .then(doc => {
@@ -113,10 +111,7 @@ export default {
             JSON.stringify(this.citymodel)
           );
         })
-        .catch(error => console.log(error))
-        .finally(() => {
-          this.resultsLoading = false;
-        });
+        .catch(error => console.log(error));
     },
 
     search() {
