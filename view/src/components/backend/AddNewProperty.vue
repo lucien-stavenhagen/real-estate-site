@@ -15,12 +15,7 @@
                 accept="image/jpeg, image/jpg, image/png"
                 label="Upload image"
               ></v-file-input>
-              <v-text-field
-                filled
-                :rules="this.formrules"
-                v-model="propertyinfo.caption"
-                label="Image Caption"
-              >
+              <v-text-field filled v-model="propertyinfo.caption" label="Image Caption (optional) ">
                 <v-icon slot="prepend">mdi-label-outline</v-icon>
               </v-text-field>
               <v-text-field
@@ -202,7 +197,7 @@ export default {
         city: null,
         state: null,
         source: null,
-        caption: null,
+        caption: "",
         acreage: null,
         squarefeet: null,
         electric: null,
