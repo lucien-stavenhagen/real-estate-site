@@ -25,7 +25,8 @@ const routes = [
     component: () => import("../views/BackendHome.vue")
   },
   {
-    path: "/changeme",
+    name: "allpropsview",
+    path: "/allpropsview",
     component: () => import("../views/MockUpPropView.vue")
   },
   {

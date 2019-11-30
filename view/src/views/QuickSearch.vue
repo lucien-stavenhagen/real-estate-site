@@ -2,7 +2,7 @@
   <v-container>
     <v-card>
       <v-card-text>
-        <v-autocomplete
+        <v-combobox
           v-model="citymodel"
           :items="cities"
           :loading="searchLoading"
@@ -14,11 +14,14 @@
           label="Enter a city"
           prepend-icon="mdi-database-search"
           return-object
-        ></v-autocomplete>
+        ></v-combobox>
       </v-card-text>
     </v-card>
-    <v-card :loading="resultsLoading" v-if="this.citymodel" class="pa-2">
-      <v-card-title class="headline justify-center">Properties in {{this.citymodel}}</v-card-title>
+    <v-card :loading="resultsLoading" v-if="this.bycityproperties" class="pa-2">
+      <v-card-title
+        v-if="this.citymodel"
+        class="headline justify-center"
+      >Properties in {{this.citymodel}}</v-card-title>
       <v-row dense :key="j" v-for="(plist, j) in bycityproperties">
         <v-col cols="12">
           <div class="d-flex flex-column text-uppercase text-center" v-if="plist.length > 0">
@@ -27,7 +30,7 @@
             <v-divider></v-divider>
           </div>
         </v-col>
-        <v-col :key="i" v-for="(property, i) in plist" cols="12" sm="6">
+        <v-col :key="i" v-for="(property, i) in plist" cols="12" sm="4">
           <v-card outlined hover>
             <v-carousel hide-delimiters>
               <v-carousel-item :key="i" v-for="(image, i) in property.images">
@@ -50,6 +53,9 @@
               }}
             </v-card-text>
             <v-card-text>{{ property.description }}</v-card-text>
+            <v-card-actions>
+              <v-btn small outlined @click="viewSingle(property._id, j)">Details</v-btn>
+            </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
@@ -63,21 +69,36 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
+      savedsearch: "savedsearch",
       cities: [],
-      bycityproperties: {},
+      bycityproperties: null,
       searchLoading: false,
       resultsLoading: false,
       citymodel: null,
       search: null
     };
   },
+  methods: {
+    viewSingle(id, proptype) {
+      this.$router.push({
+        name: "viewsingle",
+        params: {
+          propinfo: encodeURIComponent(
+            JSON.stringify({ type: proptype, id: id })
+          )
+        }
+      });
+    }
+  },
   computed: {
     ...mapGetters(["getEndPoint"])
   },
   watch: {
     citymodel() {
+      console.log("city model: " + this.citymodel);
       if (!this.citymodel) {
-        this.bycityproperties = {};
+        this.bycityproperties = null;
+        localStorage.removeItem(this.savedsearch);
         return;
       }
       const city = this.citymodel.split(",")[0];
@@ -87,6 +108,10 @@ export default {
         .get(`${this.getEndPoint("all")}/city/${city}/state/${state}`)
         .then(doc => {
           this.bycityproperties = { ...doc.data };
+          localStorage.setItem(
+            this.savedsearch,
+            JSON.stringify(this.citymodel)
+          );
         })
         .catch(error => console.log(error))
         .finally(() => {
@@ -112,6 +137,12 @@ export default {
           console.log(err);
         })
         .finally(() => (this.searchLoading = false));
+    }
+  },
+  created() {
+    const savedsearch = localStorage.getItem(this.savedsearch);
+    if (savedsearch) {
+      this.citymodel = JSON.parse(savedsearch);
     }
   }
 };

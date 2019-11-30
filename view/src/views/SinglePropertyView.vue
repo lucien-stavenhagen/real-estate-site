@@ -31,6 +31,10 @@
     <v-card-text v-if="property.allbillspaid === true">All bills paid? Yes</v-card-text>
     <v-card-text v-if="property.allbillspaid === false">All bills paid? No</v-card-text>
     <v-card-text>{{ property.description }}</v-card-text>
+    <v-card-actions>
+      <v-btn outlined to="/quicksearch">Search</v-btn>
+      <v-btn outlined to="/allpropsview">Main View</v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 <script>
@@ -48,7 +52,7 @@ export default {
   computed: {
     ...mapGetters(["getEndPoint"]),
     propInfo() {
-      return JSON.parse(this.propinfo);
+      return JSON.parse(decodeURIComponent(this.propinfo));
     }
   },
   methods: {

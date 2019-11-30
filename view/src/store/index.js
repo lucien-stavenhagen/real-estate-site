@@ -102,6 +102,15 @@ export default new Vuex.Store({
     getPropType(state) {
       return state.proptype;
     },
+    getCurrentPropType(state) {
+      for (let p in state.proptype) {
+        if (state.proptype[p]) {
+          return p;
+        }
+      }
+      return null;
+    },
+
     getDBUpdated(state) {
       return state.dbupdated;
     }

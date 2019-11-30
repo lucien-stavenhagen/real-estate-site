@@ -3,7 +3,7 @@
     <v-toolbar>
       <v-toolbar-title>
         Property Edit Page
-        <span class="font-weight-light">({{this.currentproptype}})</span>
+        <span class="font-weight-light">({{this.getCurrentPropType}})</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-menu offset-y>
@@ -14,7 +14,7 @@
           <v-list-item
             v-for="(item, i) in this.propMenuItems"
             :key="i"
-            @click="setCurrentProptype(item)"
+            @click="dispatchPropType(item)"
           >
             <v-list-item-content>
               <v-list-item-title class="text-capitalize">{{item}}</v-list-item-title>
@@ -43,7 +43,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "NewPropertyView",
   computed: {
-    ...mapGetters(["getPropType"]),
+    ...mapGetters(["getPropType", "getCurrentPropType"]),
     propMenuItems() {
       const t = [];
       for (const p in this.getPropType) {
@@ -58,16 +58,11 @@ export default {
   },
   data() {
     return {
-      drawer: false,
-      currentproptype: null
+      drawer: false
     };
   },
   methods: {
-    ...mapActions(["dispatchPropType"]),
-    setCurrentProptype(item) {
-      this.currentproptype = item;
-      this.dispatchPropType(item);
-    }
+    ...mapActions(["dispatchPropType"])
   }
 };
 </script>

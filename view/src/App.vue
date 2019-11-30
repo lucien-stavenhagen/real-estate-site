@@ -13,15 +13,7 @@ import MainMenubar from "./components/MainMenubar";
 export default {
   name: "App",
   computed: {
-    ...mapGetters(["getPropType"]),
-    isPropType() {
-      for (const p in this.getPropType) {
-        if (this.getPropType[p]) {
-          return true;
-        }
-      }
-      return false;
-    }
+    ...mapGetters(["getPropType", "getCurrentPropType"])
   },
   components: {
     MainMenubar
@@ -35,9 +27,7 @@ export default {
   // object.
   //
   created() {
-    console.log(this.isPropType);
-
-    if (!this.isPropType) {
+    if (!this.getCurrentPropType) {
       this.dispatchPropType(Object.keys(this.getPropType)[0]);
     }
   }

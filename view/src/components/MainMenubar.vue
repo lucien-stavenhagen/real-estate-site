@@ -60,7 +60,7 @@ export default {
         },
         {
           name: "MockUp View",
-          route: "/changeme"
+          route: "/allpropsview"
         }
       ]
     };

@@ -27,8 +27,7 @@
               </v-card-text>
               <v-card-text>{{ property.description }}</v-card-text>
               <v-card-actions>
-                <v-btn small outlined @click="delme(property._id,j)">Edit</v-btn>
-                <v-btn small outlined color="red" @click="delme(property._id,j)">Delete</v-btn>
+                <v-btn small outlined @click="viewSingle(property._id,j)">Details</v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -48,10 +47,14 @@ export default {
     ...mapGetters(["getEndPoint"])
   },
   methods: {
-    delme(id, proptype) {
+    viewSingle(id, proptype) {
       this.$router.push({
         name: "viewsingle",
-        params: { propinfo: JSON.stringify({ type: proptype, id: id }) }
+        params: {
+          propinfo: encodeURIComponent(
+            JSON.stringify({ type: proptype, id: id })
+          )
+        }
       });
     },
 
