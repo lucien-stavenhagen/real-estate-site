@@ -8,7 +8,7 @@
         <v-container>
           <v-row>
             <v-col :key="i" v-for="(property, i) in properties" cols="12" sm="4">
-              <v-card tile outlined>
+              <v-card hover>
                 <v-img
                   v-if="property.images && property.images.length > 0"
                   class="mx-auto"

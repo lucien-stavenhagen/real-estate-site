@@ -31,7 +31,7 @@
           </div>
         </v-col>
         <v-col :key="i" v-for="(property, i) in plist" cols="12" sm="4">
-          <v-card outlined hover>
+          <v-card hover>
             <v-carousel hide-delimiters>
               <v-carousel-item :key="i" v-for="(image, i) in property.images">
                 <v-card height="100%">
