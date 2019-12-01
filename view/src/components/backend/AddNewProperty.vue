@@ -206,7 +206,7 @@ export default {
         city: null,
         state: null,
         source: null,
-        caption: "",
+        caption: null,
         acreage: null,
         squarefeet: null,
         electric: null,
@@ -271,7 +271,10 @@ export default {
       // everybody has these
       //
       fd.append(this.getImageFieldName, this.propertyinfo.source);
-      fd.append("caption", this.propertyinfo.caption);
+      fd.append(
+        "caption",
+        this.propertyinfo.caption ? this.propertyinfo.caption : ""
+      );
       fd.append("address", this.propertyinfo.address);
       fd.append("city", this.propertyinfo.city);
       fd.append("state", this.propertyinfo.state);
