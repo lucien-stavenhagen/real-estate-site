@@ -12,6 +12,7 @@ exports.imageSchema = new mongoose.Schema({
 
 exports.locationSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
+  address: String,
   city: String,
   state: {
     type: String,

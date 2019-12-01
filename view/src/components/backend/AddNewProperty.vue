@@ -82,6 +82,14 @@
               >
                 <v-icon slot="prepend">mdi-sigma</v-icon>
               </v-text-field>
+              <v-text-field
+                filled
+                :rules="this.formrules"
+                v-model="propertyinfo.address"
+                label="Address"
+              >
+                <v-icon slot="prepend">mdi-map-marker-outline</v-icon>
+              </v-text-field>
               <v-text-field filled :rules="this.formrules" v-model="propertyinfo.city" label="City">
                 <v-icon slot="prepend">mdi-city</v-icon>
               </v-text-field>
@@ -194,6 +202,7 @@ export default {
         value => value === true || value === false || "must make a selection"
       ],
       propertyinfo: {
+        address: null,
         city: null,
         state: null,
         source: null,
@@ -263,6 +272,7 @@ export default {
       //
       fd.append(this.getImageFieldName, this.propertyinfo.source);
       fd.append("caption", this.propertyinfo.caption);
+      fd.append("address", this.propertyinfo.address);
       fd.append("city", this.propertyinfo.city);
       fd.append("state", this.propertyinfo.state);
       fd.append("description", this.propertyinfo.description);

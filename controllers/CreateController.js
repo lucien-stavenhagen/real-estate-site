@@ -14,6 +14,7 @@ exports.create_commercial_entry = (request, response, next) => {
     _id: mongoose.Types.ObjectId(),
     addedon: new Date().toLocaleString(),
     location: {
+      address: request.body.address,
       city: request.body.city,
       state: request.body.state
     },
@@ -53,6 +54,7 @@ exports.create_residential_entry = (request, response, next) => {
     _id: mongoose.Types.ObjectId(),
     addedon: new Date().toLocaleString(),
     location: {
+      address: request.body.address,
       city: request.body.city,
       state: request.body.state
     },
@@ -88,6 +90,7 @@ exports.create_rental_entry = (request, response, next) => {
     _id: mongoose.Types.ObjectId(),
     addedon: new Date().toLocaleString(),
     location: {
+      address: request.body.address,
       city: request.body.city,
       state: request.body.state
     },
@@ -125,6 +128,7 @@ exports.create_land_entry = (request, response, next) => {
     _id: mongoose.Types.ObjectId(),
     addedon: new Date().toLocaleString(),
     location: {
+      address: request.body.address,
       city: request.body.city,
       state: request.body.state
     },

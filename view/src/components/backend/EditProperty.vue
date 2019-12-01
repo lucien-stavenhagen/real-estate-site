@@ -19,7 +19,9 @@
                 <v-card-title v-if="property.rent">${{property.rent}} / {{property.basis}}</v-card-title>
                 <v-card-title v-else>${{property.price}}</v-card-title>
                 <v-card-text>
-                  Location: {{ property.location.city }},{{
+                  {{property.location.address}}
+                  <br />
+                  {{ property.location.city }},{{
                   property.location.state
                   }}
                 </v-card-text>
