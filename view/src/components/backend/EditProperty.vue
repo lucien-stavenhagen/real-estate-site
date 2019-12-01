@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container v-if="this.properties.length > 0">
+    <section v-if="this.properties.length > 0">
       <v-card>
         <v-card-title
           class="font-weight-light justify-center text-uppercase"
@@ -18,6 +18,7 @@
                 ></v-img>
                 <v-card-title v-if="property.rent">${{property.rent}} / {{property.basis}}</v-card-title>
                 <v-card-title v-else>${{property.price}}</v-card-title>
+                <v-card-text>ID: {{property._id}}</v-card-text>
                 <v-card-text>
                   {{property.location.address}}
                   <br />
@@ -35,7 +36,7 @@
           </v-row>
         </v-container>
       </v-card>
-    </v-container>
+    </section>
   </div>
 </template>
 <script>

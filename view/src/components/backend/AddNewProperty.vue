@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <section>
     <v-card>
       <v-card-title
         class="font-weight-light justify-center text-uppercase"
@@ -159,7 +159,7 @@
         </v-form>
       </v-container>
     </v-card>
-  </v-container>
+  </section>
 </template>
 
 <script>
