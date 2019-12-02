@@ -5,7 +5,16 @@ const {
   Land
 } = require("../models/RealEstateModels");
 const mongoose = require("mongoose");
+const fs = require("fs");
 
+const responseHelper = (msg, filestatus, doc, error) => {
+  return {
+    msg,
+    filestatus,
+    doc,
+    error
+  };
+};
 //
 // commercial
 //
@@ -16,10 +25,30 @@ exports.delete_commercial_byid = (request, response, next) => {
   })
     .exec()
     .then(doc => {
-      response.json({ msg: "successfully removed commercial entry", doc });
+      const filestatus = [];
+      doc.images.forEach(item => {
+        if (fs.existsSync(item.filename)) {
+          fs.unlinkSync(item.filename);
+          filestatus.push(`${item.filename} deleted`);
+        } else {
+          filestatus.push(
+            `${item.filename} not found, nothing deleted off server.`
+          );
+        }
+      });
+      response.json(
+        responseHelper(
+          "successfully removed commercial entry",
+          filestatus,
+          doc,
+          null
+        )
+      );
     })
     .catch(err => {
-      response.status(400).json({ msg: "error removing entry", err });
+      response
+        .status(400)
+        .json(responseHelper("error removing entry", null, null, err));
     });
 };
 //
@@ -32,10 +61,30 @@ exports.delete_residential_byid = (request, response, next) => {
   })
     .exec()
     .then(doc => {
-      response.json({ msg: "successfully removed residential entry", doc });
+      const filestatus = [];
+      doc.images.forEach(item => {
+        if (fs.existsSync(item.filename)) {
+          fs.unlinkSync(item.filename);
+          filestatus.push(`${item.filename} deleted`);
+        } else {
+          filestatus.push(
+            `${item.filename} not found, nothing deleted off server.`
+          );
+        }
+      });
+      response.json(
+        responseHelper(
+          "successfully removed residential entry",
+          filestatus,
+          doc,
+          null
+        )
+      );
     })
     .catch(err => {
-      response.status(400).json({ msg: "error removing entry", err });
+      response
+        .status(400)
+        .json(responseHelper("error removing entry", null, null, err));
     });
 };
 
@@ -49,10 +98,30 @@ exports.delete_rental_byid = (request, response, next) => {
   })
     .exec()
     .then(doc => {
-      response.json({ msg: "successfully removed rental entry", doc });
+      const filestatus = [];
+      doc.images.forEach(item => {
+        if (fs.existsSync(item.filename)) {
+          fs.unlinkSync(item.filename);
+          filestatus.push(`${item.filename} deleted`);
+        } else {
+          filestatus.push(
+            `${item.filename} not found, nothing deleted off server.`
+          );
+        }
+      });
+      response.json(
+        responseHelper(
+          "successfully removed rental entry",
+          filestatus,
+          doc,
+          null
+        )
+      );
     })
     .catch(err => {
-      response.status(400).json({ msg: "error removing entry", err });
+      response
+        .status(400)
+        .json(responseHelper("error removing entry", null, null, err));
     });
 };
 
@@ -66,9 +135,24 @@ exports.delete_land_byid = (request, response, next) => {
   })
     .exec()
     .then(doc => {
-      response.json({ msg: "successfully removed land entry", doc });
+      const filestatus = [];
+      doc.images.forEach(item => {
+        if (fs.existsSync(item.filename)) {
+          fs.unlinkSync(item.filename);
+          filestatus.push(`${item.filename} deleted`);
+        } else {
+          filestatus.push(
+            `${item.filename} not found, nothing deleted off server.`
+          );
+        }
+      });
+      response.json(
+        responseHelper("successfully removed land entry", filestatus, doc, null)
+      );
     })
     .catch(err => {
-      response.status(400).json({ msg: "error removing entry", err });
+      response
+        .status(400)
+        .json(responseHelper("error removing entry", null, null, err));
     });
 };

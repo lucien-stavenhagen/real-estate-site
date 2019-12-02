@@ -3,6 +3,10 @@ const { stateList } = require("../utils");
 
 exports.imageSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
+  filename: {
+    type: String,
+    required: true
+  },
   source: {
     type: String,
     required: true

@@ -13,6 +13,7 @@ exports.create_commercial_entry = (request, response, next) => {
   const imglist = request.files.map(item => {
     return {
       _id: mongoose.Types.ObjectId(),
+      filename: item.path,
       source: `${HOST_URI}/${item.path}`
     };
   });
@@ -51,6 +52,7 @@ exports.create_residential_entry = (request, response, next) => {
   const imglist = request.files.map(item => {
     return {
       _id: mongoose.Types.ObjectId(),
+      filename: item.path,
       source: `${HOST_URI}/${item.path}`
     };
   });
@@ -85,6 +87,7 @@ exports.create_rental_entry = (request, response, next) => {
   const imglist = request.files.map(item => {
     return {
       _id: mongoose.Types.ObjectId(),
+      filename: item.path,
       source: `${HOST_URI}/${item.path}`
     };
   });
@@ -122,6 +125,7 @@ exports.create_land_entry = (request, response, next) => {
   const imglist = request.files.map(item => {
     return {
       _id: mongoose.Types.ObjectId(),
+      filename: item.path,
       source: `${HOST_URI}/${item.path}`
     };
   });
