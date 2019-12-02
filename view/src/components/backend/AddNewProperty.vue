@@ -11,13 +11,11 @@
               <v-file-input
                 v-model="propertyinfo.source"
                 filled
+                multiple
                 :rules="this.filerules"
                 accept="image/jpeg, image/jpg, image/png"
-                label="Upload image"
+                label="Upload images"
               ></v-file-input>
-              <v-text-field filled v-model="propertyinfo.caption" label="Image Caption (optional) ">
-                <v-icon slot="prepend">mdi-label-outline</v-icon>
-              </v-text-field>
               <v-text-field
                 v-if="getPropType.land"
                 filled
@@ -71,8 +69,6 @@
               >
                 <v-icon slot="prepend">mdi-water-pump</v-icon>
               </v-select>
-            </v-col>
-            <v-col cols="12" sm="6">
               <v-text-field
                 v-if="getPropType.commercial"
                 filled
@@ -90,6 +86,8 @@
               >
                 <v-icon slot="prepend">mdi-map-marker-outline</v-icon>
               </v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6">
               <v-text-field filled :rules="this.formrules" v-model="propertyinfo.city" label="City">
                 <v-icon slot="prepend">mdi-city</v-icon>
               </v-text-field>
@@ -206,7 +204,6 @@ export default {
         city: null,
         state: null,
         source: null,
-        caption: null,
         acreage: null,
         squarefeet: null,
         electric: null,
@@ -270,11 +267,9 @@ export default {
       //
       // everybody has these
       //
-      fd.append(this.getImageFieldName, this.propertyinfo.source);
-      fd.append(
-        "caption",
-        this.propertyinfo.caption ? this.propertyinfo.caption : ""
-      );
+      this.propertyinfo.source.forEach(item => {
+        fd.append(this.getImageFieldName, item);
+      });
       fd.append("address", this.propertyinfo.address);
       fd.append("city", this.propertyinfo.city);
       fd.append("state", this.propertyinfo.state);

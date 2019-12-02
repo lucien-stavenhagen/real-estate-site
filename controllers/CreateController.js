@@ -10,6 +10,12 @@ const { HOST_URI, publicDir } = require("../utils");
 // commercial
 //
 exports.create_commercial_entry = (request, response, next) => {
+  const imglist = request.files.map(item => {
+    return {
+      _id: mongoose.Types.ObjectId(),
+      source: `${HOST_URI}/${item.path}`
+    };
+  });
   const entry = {
     _id: mongoose.Types.ObjectId(),
     addedon: new Date().toLocaleString(),
@@ -22,15 +28,7 @@ exports.create_commercial_entry = (request, response, next) => {
     plumbing: request.body.plumbing,
     electric: request.body.electric,
     price: request.body.price,
-    images: [
-      {
-        _id: mongoose.Types.ObjectId(),
-        source: request.file
-          ? `${HOST_URI}/${request.file.path}`
-          : "no file passed",
-        caption: request.body.caption
-      }
-    ],
+    images: imglist,
     description: request.body.description
   };
   const newentry = new Commercial(entry)
@@ -50,6 +48,12 @@ exports.create_commercial_entry = (request, response, next) => {
 // residential
 //
 exports.create_residential_entry = (request, response, next) => {
+  const imglist = request.files.map(item => {
+    return {
+      _id: mongoose.Types.ObjectId(),
+      source: `${HOST_URI}/${item.path}`
+    };
+  });
   const entry = {
     _id: mongoose.Types.ObjectId(),
     addedon: new Date().toLocaleString(),
@@ -61,15 +65,7 @@ exports.create_residential_entry = (request, response, next) => {
     beds: request.body.beds,
     baths: request.body.baths,
     price: request.body.price,
-    images: [
-      {
-        _id: mongoose.Types.ObjectId(),
-        source: request.file
-          ? `${HOST_URI}/${request.file.path}`
-          : "no file passed",
-        caption: request.body.caption
-      }
-    ],
+    images: imglist,
     description: request.body.description
   };
   const newentry = new Residential(entry)
@@ -86,6 +82,13 @@ exports.create_residential_entry = (request, response, next) => {
 // rental
 //
 exports.create_rental_entry = (request, response, next) => {
+  const imglist = request.files.map(item => {
+    return {
+      _id: mongoose.Types.ObjectId(),
+      source: `${HOST_URI}/${item.path}`
+    };
+  });
+
   const entry = {
     _id: mongoose.Types.ObjectId(),
     addedon: new Date().toLocaleString(),
@@ -99,15 +102,7 @@ exports.create_rental_entry = (request, response, next) => {
     rent: request.body.rent,
     basis: request.body.basis,
     allbillspaid: request.body.allbillspaid,
-    images: [
-      {
-        _id: mongoose.Types.ObjectId(),
-        source: request.file
-          ? `${HOST_URI}/${request.file.path}`
-          : "no file passed",
-        caption: request.body.caption
-      }
-    ],
+    images: imglist,
     description: request.body.description
   };
   const newentry = new Rental(entry)
@@ -124,6 +119,13 @@ exports.create_rental_entry = (request, response, next) => {
 // land
 //
 exports.create_land_entry = (request, response, next) => {
+  const imglist = request.files.map(item => {
+    return {
+      _id: mongoose.Types.ObjectId(),
+      source: `${HOST_URI}/${item.path}`
+    };
+  });
+
   const entry = {
     _id: mongoose.Types.ObjectId(),
     addedon: new Date().toLocaleString(),
@@ -134,15 +136,7 @@ exports.create_land_entry = (request, response, next) => {
     },
     acreage: request.body.acreage,
     price: request.body.price,
-    images: [
-      {
-        _id: mongoose.Types.ObjectId(),
-        source: request.file
-          ? `${HOST_URI}/${request.file.path}`
-          : "no file passed",
-        caption: request.body.caption
-      }
-    ],
+    images: imglist,
     description: request.body.description
   };
   const newentry = new Land(entry)

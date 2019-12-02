@@ -6,8 +6,7 @@ exports.imageSchema = new mongoose.Schema({
   source: {
     type: String,
     required: true
-  },
-  caption: String
+  }
 });
 
 exports.locationSchema = new mongoose.Schema({

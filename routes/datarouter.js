@@ -36,7 +36,7 @@ router.get(
 
 router.post(
   "/commercial",
-  uploadMiddleware.single(imageFieldName),
+  uploadMiddleware.array(imageFieldName, 24),
   createController.create_commercial_entry
 );
 
@@ -95,7 +95,7 @@ router.delete("/commercial/:id", deleteController.delete_commercial_byid);
 
 router.post(
   "/residential",
-  uploadMiddleware.single(imageFieldName),
+  uploadMiddleware.array(imageFieldName, 24),
   createController.create_residential_entry
 );
 
@@ -145,7 +145,7 @@ router.delete("/residential/:id", deleteController.delete_residential_byid);
 
 router.post(
   "/rental",
-  uploadMiddleware.single(imageFieldName),
+  uploadMiddleware.array(imageFieldName, 24),
   createController.create_rental_entry
 );
 
@@ -192,7 +192,7 @@ router.delete("/rental/:id", deleteController.delete_rental_byid);
 
 router.post(
   "/land",
-  uploadMiddleware.single(imageFieldName),
+  uploadMiddleware.array(imageFieldName, 24),
   createController.create_land_entry
 );
 

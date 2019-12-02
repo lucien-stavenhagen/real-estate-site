@@ -3,15 +3,7 @@
     <v-card v-if="this.property" outlined :loading="this.propLoading">
       <v-carousel hide-delimiters>
         <v-carousel-item :key="i" v-for="(image, i) in property.images">
-          <v-card height="100%">
-            <v-img class="align-end" height="100%" contain :src="image.source">
-              <v-card-title v-if="image.caption && image.caption !==''" class="justify-center">
-                {{
-                image.caption
-                }}
-              </v-card-title>
-            </v-img>
-          </v-card>
+          <v-img height="100%" contain :src="image.source"></v-img>
         </v-carousel-item>
       </v-carousel>
       <v-card-title v-if="property.rent">${{property.rent}} / {{property.basis}}</v-card-title>

@@ -11,13 +11,7 @@
         <span>Toggle Dark</span>
       </v-tooltip>
     </v-app-bar>
-    <v-navigation-drawer
-      app
-      hide-overlay
-      disable-resize-watcher
-      disable-route-watcher
-      v-model="drawer"
-    >
+    <v-navigation-drawer app disable-resize-watcher disable-route-watcher v-model="drawer">
       <v-list>
         <v-list-group no-action prepend-icon="mdi-home-outline" value="true">
           <template v-slot:activator>
