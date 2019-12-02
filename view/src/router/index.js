@@ -45,6 +45,12 @@ const routes = [
     path: "/viewsingle/:propinfo",
     component: () => import("../views/SinglePropertyView.vue"),
     props: true
+  },
+  {
+    name: "deleteprop",
+    path: "/deleteprop/:id",
+    component: () => import("../components/backend/DeleteProperty.vue"),
+    props: true
   }
 ];
 
