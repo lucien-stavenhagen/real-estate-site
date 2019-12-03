@@ -5,7 +5,7 @@ const readController = require("../controllers/ReadController");
 const updateController = require("../controllers/UpdateController");
 const deleteController = require("../controllers/DeleteController");
 const { uploadMiddleware } = require("../middleware/multer/ImageUpload");
-const { imageFieldName } = require("../utils");
+const { imageFieldName, uploadFileLimit } = require("../utils");
 
 //////////////////////////////
 // routes for all proptypes
@@ -36,7 +36,7 @@ router.get(
 
 router.post(
   "/commercial",
-  uploadMiddleware.array(imageFieldName, 24),
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
   createController.create_commercial_entry
 );
 
@@ -95,7 +95,7 @@ router.delete("/commercial/:id", deleteController.delete_commercial_byid);
 
 router.post(
   "/residential",
-  uploadMiddleware.array(imageFieldName, 24),
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
   createController.create_residential_entry
 );
 
@@ -145,7 +145,7 @@ router.delete("/residential/:id", deleteController.delete_residential_byid);
 
 router.post(
   "/rental",
-  uploadMiddleware.array(imageFieldName, 24),
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
   createController.create_rental_entry
 );
 
@@ -192,7 +192,7 @@ router.delete("/rental/:id", deleteController.delete_rental_byid);
 
 router.post(
   "/land",
-  uploadMiddleware.array(imageFieldName, 24),
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
   createController.create_land_entry
 );
 

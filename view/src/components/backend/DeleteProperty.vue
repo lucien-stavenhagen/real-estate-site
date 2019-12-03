@@ -1,14 +1,12 @@
 <template>
   <div class="text-center">
-    <v-dialog v-model="dialog" width="500">
+    <v-dialog persistent v-model="dialog" width="500">
       <v-card>
         <v-card-title
           class="headline text-uppercase red darken-4 white--text"
           primary-title
         >Are You Sure?</v-card-title>
-        <v-card-text
-          class="red darken-4 white--text"
-        >Click outside dialog or hit cancel to cancel...</v-card-text>
+        <v-card-text class="red darken-4 white--text">Click Cancel to cancel...</v-card-text>
         <v-card-text>id: {{id}}</v-card-text>
         <v-divider></v-divider>
 

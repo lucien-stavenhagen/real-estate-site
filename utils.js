@@ -65,3 +65,4 @@ exports.stateList = [
   "WY"
 ];
 exports.basisList = ["monthly", "weekly"];
+exports.uploadFileLimit = 48;
