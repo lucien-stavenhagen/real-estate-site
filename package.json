@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "clean": "cd ./view && rm -rf ./node_modules && cd .. && rm -rf ./node_modules"
+    "clean": "cd ./view && rm -rf ./node_modules && cd .. && rm -rf ./node_modules",
+    "installmods": "cd ./view && npm install && cd .. && npm install"
   },
   "author": "",
   "license": "ISC",

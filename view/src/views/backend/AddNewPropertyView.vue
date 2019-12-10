@@ -165,7 +165,7 @@ import { mapGetters, mapActions } from "vuex";
 import axios from "axios";
 
 export default {
-  name: "AddNewProperty",
+  name: "AddNewPropertyView",
   computed: {
     ...mapGetters([
       "getUSStatesList",

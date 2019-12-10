@@ -44,7 +44,7 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 
 export default {
-  name: "EditProperty",
+  name: "EditPropertyView",
   data() {
     return {
       properties: []

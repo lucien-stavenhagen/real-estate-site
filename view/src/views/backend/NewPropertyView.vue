@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import AddNewProperty from "../../components/backend/AddNewProperty";
-import EditProperty from "../../components/backend/EditProperty";
+import AddNewProperty from "./AddNewPropertyView";
+import EditProperty from "./EditPropertyView";
 
 import { mapGetters, mapActions } from "vuex";
 
