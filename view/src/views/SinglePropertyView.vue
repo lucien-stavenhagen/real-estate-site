@@ -1,9 +1,22 @@
 <template>
   <v-container>
     <v-card v-if="this.property" outlined :loading="this.propLoading">
-      <v-carousel hide-delimiters>
+      <v-toolbar dense>
+        <v-btn v-if="!toggleview" small outlined @click="toggleView()">Grid</v-btn>
+        <v-btn v-else small outlined @click="toggleView()">Carousel</v-btn>
+      </v-toolbar>
+      <v-row no-gutters v-if="this.toggleview">
+        <v-col cols="12" sm="4" :key="i" v-for="(image, i) in property.images">
+          <v-card :href="image.source" target="_blank">
+            <v-img height="100%" contain :src="image.source"></v-img>
+          </v-card>
+        </v-col>
+      </v-row>
+      <v-carousel hide-delimiters v-else>
         <v-carousel-item :key="i" v-for="(image, i) in property.images">
-          <v-img height="100%" contain :src="image.source"></v-img>
+          <v-card height="100%" :href="image.source" target="_blank">
+            <v-img height="100%" contain :src="image.source"></v-img>
+          </v-card>
         </v-carousel-item>
       </v-carousel>
       <v-card-title v-if="property.rent">${{property.rent}} / {{property.basis}}</v-card-title>
@@ -51,6 +64,9 @@ export default {
     }
   },
   methods: {
+    toggleView() {
+      this.toggleview = !this.toggleview;
+    },
     getPropertyById() {
       if (this.propLoading) {
         return;
@@ -70,7 +86,8 @@ export default {
   data() {
     return {
       propLoading: false,
-      property: null
+      property: null,
+      toggleview: false
     };
   },
   created() {
