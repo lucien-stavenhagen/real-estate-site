@@ -22,7 +22,7 @@ const routes = [
   {
     name: "backend",
     path: "/backend",
-    component: () => import("../views/BackendHome.vue")
+    component: () => import("../views/backend/NewPropertyView.vue")
   },
   {
     name: "allpropsview",

@@ -1,36 +1,38 @@
 <template>
   <section>
-    <v-toolbar>
-      <v-toolbar-title>
-        Property Edit Page
-        <span class="font-weight-light">({{this.getCurrentPropType}})</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-menu offset-y>
-        <template v-slot:activator="{on}">
-          <v-btn text v-on="on">Property Type</v-btn>
-        </template>
-        <v-list>
-          <v-list-item
-            v-for="(item, i) in this.propMenuItems"
-            :key="i"
-            @click="dispatchPropType(item)"
-          >
-            <v-list-item-content>
-              <v-list-item-title class="text-capitalize">{{item}}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </v-toolbar>
-    <v-row>
-      <v-col cols="12">
-        <AddNewPropertyView />
-      </v-col>
-      <v-col cols="12">
-        <EditPropertyView />
-      </v-col>
-    </v-row>
+    <v-container>
+      <v-toolbar>
+        <v-toolbar-title>
+          Property Edit Page
+          <span class="font-weight-light">({{this.getCurrentPropType}})</span>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-menu offset-y>
+          <template v-slot:activator="{on}">
+            <v-btn text v-on="on">Property Type</v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(item, i) in this.propMenuItems"
+              :key="i"
+              @click="dispatchPropType(item)"
+            >
+              <v-list-item-content>
+                <v-list-item-title class="text-capitalize">{{item}}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-toolbar>
+      <v-row>
+        <v-col cols="12">
+          <AddNewPropertyView />
+        </v-col>
+        <v-col cols="12">
+          <EditPropertyView />
+        </v-col>
+      </v-row>
+    </v-container>
   </section>
 </template>
 

@@ -1,189 +1,197 @@
 <template>
   <v-container>
-    <v-card v-if="this.propertyinfo">
-      <v-card-title
-        class="font-weight-light justify-center text-uppercase"
-      >Edit {{this.currentPropType}} Property</v-card-title>
-      <v-container>
-        <v-card outlined :loading="this.propLoading">
+    <v-toolbar>
+      <v-toolbar-title class="text-uppercase">Edit {{this.currentPropType}} Property</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn to="/backend" text>Dashboard</v-btn>
+    </v-toolbar>
+    <v-row>
+      <v-col cols="12">
+        <v-card :loading="this.propLoading" v-if="this.propertyinfo">
           <v-card-title class="font-weight-light justify-center text-uppercase">Edit images</v-card-title>
-          <v-row no-gutters>
-            <v-col cols="12" sm="4" :key="i" v-for="(image, i) in propertyinfo.images">
-              <v-card>
-                <v-img height="100%" contain :src="image.source"></v-img>
-                <v-card-actions>
-                  <v-btn small outlined @click="deleteImage(image)">Delete</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-col>
-          </v-row>
-          <v-form class="mt-2" v-model="valid" ref="updatePhotos">
-            <v-file-input
-              v-model="newimages"
-              filled
-              multiple
-              accept="image/jpeg, image/jpg, image/png"
-              label="Add Photos"
-            ></v-file-input>
-            <v-btn outlined class="mr-1" @click="addImagesById">submit</v-btn>
-          </v-form>
-        </v-card>
-      </v-container>
-      <v-container>
-        <v-card>
-          <v-card-title class="font-weight-light justify-center text-uppercase">Edit Info</v-card-title>
-          <v-form v-model="valid" ref="mysubmit">
-            <v-row dense>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  v-if="getPropType.land"
-                  filled
-                  :rules="this.numrules"
-                  label="Acreage"
-                  v-model="propertyinfo.acreage"
-                >
-                  <v-icon slot="prepend">mdi-lightbulb-on-outline</v-icon>
-                </v-text-field>
-
-                <!-- Beds and baths -->
-
-                <v-text-field
-                  v-if="getPropType.residential || getPropType.rental"
-                  filled
-                  :rules="this.numrules"
-                  label="Beds"
-                  v-model="propertyinfo.beds"
-                >
-                  <v-icon slot="prepend">mdi-lightbulb-on-outline</v-icon>
-                </v-text-field>
-                <v-text-field
-                  v-if="getPropType.residential || getPropType.rental"
-                  filled
-                  :rules="this.numrules"
-                  label="Baths"
-                  v-model="propertyinfo.baths"
-                >
-                  <v-icon slot="prepend">mdi-water-pump</v-icon>
-                </v-text-field>
-
-                <!--Electic and plumbing-->
-
-                <v-select
-                  v-if="getPropType.commercial"
-                  filled
-                  :rules="this.selectrules"
-                  label="Electricity?"
-                  v-model="propertyinfo.electric"
-                  :items="this.getYesNoList"
-                >
-                  <v-icon slot="prepend">mdi-lightbulb-on-outline</v-icon>
-                </v-select>
-                <v-select
-                  v-if="getPropType.commercial"
-                  filled
-                  :rules="this.selectrules"
-                  label="Plumbing?"
-                  v-model="propertyinfo.plumbing"
-                  :items="this.getYesNoList"
-                >
-                  <v-icon slot="prepend">mdi-water-pump</v-icon>
-                </v-select>
-                <v-text-field
-                  v-if="getPropType.commercial"
-                  filled
-                  :rules="this.numrules"
-                  v-model="propertyinfo.squarefeet"
-                  label="Square feet"
-                >
-                  <v-icon slot="prepend">mdi-sigma</v-icon>
-                </v-text-field>
-                <v-text-field
-                  filled
-                  :rules="this.formrules"
-                  v-model="propertyinfo.location.address"
-                  label="Address"
-                >
-                  <v-icon slot="prepend">mdi-map-marker-outline</v-icon>
-                </v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field
-                  filled
-                  :rules="this.formrules"
-                  v-model="propertyinfo.location.city"
-                  label="City"
-                >
-                  <v-icon slot="prepend">mdi-city</v-icon>
-                </v-text-field>
-                <v-select
-                  filled
-                  label="State"
-                  :rules="this.formrules"
-                  v-model="propertyinfo.location.state"
-                  :items="this.getUSStatesList"
-                >
-                  <v-icon slot="prepend">mdi-map</v-icon>
-                </v-select>
-                <v-text-field
-                  v-if="!getPropType.rental"
-                  filled
-                  label="Price USD"
-                  :rules="this.numrules"
-                  v-model="propertyinfo.price"
-                >
-                  <v-icon slot="prepend">mdi-currency-usd</v-icon>
-                </v-text-field>
-                <v-text-field
-                  v-if="getPropType.rental"
-                  filled
-                  label="Rent USD"
-                  :rules="this.numrules"
-                  v-model="propertyinfo.rent"
-                >
-                  <v-icon slot="prepend">mdi-currency-usd</v-icon>
-                </v-text-field>
-                <v-select
-                  v-if="getPropType.rental"
-                  filled
-                  label="Rental basis"
-                  :rules="this.formrules"
-                  v-model="propertyinfo.basis"
-                  :items="this.getBasisList"
-                >
-                  <v-icon slot="prepend">mdi-map</v-icon>
-                </v-select>
-                <v-select
-                  v-if="getPropType.rental"
-                  filled
-                  label="All bills paid?"
-                  :rules="this.selectrules"
-                  v-model="propertyinfo.allbillspaid"
-                  :items="this.getYesNoList"
-                >
-                  <v-icon slot="prepend">mdi-cash</v-icon>
-                </v-select>
-              </v-col>
-              <v-col cols="12">
-                <v-textarea
-                  auto-grow
-                  filled
-                  :rules="this.formrules"
-                  v-model="propertyinfo.description"
-                  label="Property description"
-                >
-                  <v-icon slot="prepend">mdi-comment</v-icon>
-                </v-textarea>
+          <v-container>
+            <v-row no-gutters>
+              <v-col cols="12" sm="4" :key="i" v-for="(image, i) in propertyinfo.images">
+                <v-card>
+                  <v-img height="100%" contain :src="image.source"></v-img>
+                  <v-card-actions>
+                    <v-btn x-small outlined @click="deleteImage(image)">Delete</v-btn>
+                  </v-card-actions>
+                </v-card>
               </v-col>
             </v-row>
-            <!--
+          </v-container>
+          <v-container>
+            <v-form v-model="valid" ref="updatePhotos">
+              <v-file-input
+                v-model="newimages"
+                filled
+                multiple
+                accept="image/jpeg, image/jpg, image/png"
+                label="Add Photos"
+              ></v-file-input>
+              <v-btn outlined class="mr-1" @click="addImagesById">Add</v-btn>
+            </v-form>
+          </v-container>
+        </v-card>
+      </v-col>
+      <v-col cols="12">
+        <v-card :loading="this.propLoading" v-if="this.propertyinfo">
+          <v-container>
+            <v-card-title class="font-weight-light justify-center text-uppercase">Edit Info</v-card-title>
+            <v-form v-model="valid" ref="mysubmit">
+              <v-row dense>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    v-if="getPropType.land"
+                    filled
+                    :rules="this.numrules"
+                    label="Acreage"
+                    v-model="propertyinfo.acreage"
+                  >
+                    <v-icon slot="prepend">mdi-lightbulb-on-outline</v-icon>
+                  </v-text-field>
+
+                  <!-- Beds and baths -->
+
+                  <v-text-field
+                    v-if="getPropType.residential || getPropType.rental"
+                    filled
+                    :rules="this.numrules"
+                    label="Beds"
+                    v-model="propertyinfo.beds"
+                  >
+                    <v-icon slot="prepend">mdi-lightbulb-on-outline</v-icon>
+                  </v-text-field>
+                  <v-text-field
+                    v-if="getPropType.residential || getPropType.rental"
+                    filled
+                    :rules="this.numrules"
+                    label="Baths"
+                    v-model="propertyinfo.baths"
+                  >
+                    <v-icon slot="prepend">mdi-water-pump</v-icon>
+                  </v-text-field>
+
+                  <!--Electic and plumbing-->
+
+                  <v-select
+                    v-if="getPropType.commercial"
+                    filled
+                    :rules="this.selectrules"
+                    label="Electricity?"
+                    v-model="propertyinfo.electric"
+                    :items="this.getYesNoList"
+                  >
+                    <v-icon slot="prepend">mdi-lightbulb-on-outline</v-icon>
+                  </v-select>
+                  <v-select
+                    v-if="getPropType.commercial"
+                    filled
+                    :rules="this.selectrules"
+                    label="Plumbing?"
+                    v-model="propertyinfo.plumbing"
+                    :items="this.getYesNoList"
+                  >
+                    <v-icon slot="prepend">mdi-water-pump</v-icon>
+                  </v-select>
+                  <v-text-field
+                    v-if="getPropType.commercial"
+                    filled
+                    :rules="this.numrules"
+                    v-model="propertyinfo.squarefeet"
+                    label="Square feet"
+                  >
+                    <v-icon slot="prepend">mdi-sigma</v-icon>
+                  </v-text-field>
+                  <v-text-field
+                    filled
+                    :rules="this.formrules"
+                    v-model="propertyinfo.location.address"
+                    label="Address"
+                  >
+                    <v-icon slot="prepend">mdi-map-marker-outline</v-icon>
+                  </v-text-field>
+                </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field
+                    filled
+                    :rules="this.formrules"
+                    v-model="propertyinfo.location.city"
+                    label="City"
+                  >
+                    <v-icon slot="prepend">mdi-city</v-icon>
+                  </v-text-field>
+                  <v-select
+                    filled
+                    label="State"
+                    :rules="this.formrules"
+                    v-model="propertyinfo.location.state"
+                    :items="this.getUSStatesList"
+                  >
+                    <v-icon slot="prepend">mdi-map</v-icon>
+                  </v-select>
+                  <v-text-field
+                    v-if="!getPropType.rental"
+                    filled
+                    label="Price USD"
+                    :rules="this.numrules"
+                    v-model="propertyinfo.price"
+                  >
+                    <v-icon slot="prepend">mdi-currency-usd</v-icon>
+                  </v-text-field>
+                  <v-text-field
+                    v-if="getPropType.rental"
+                    filled
+                    label="Rent USD"
+                    :rules="this.numrules"
+                    v-model="propertyinfo.rent"
+                  >
+                    <v-icon slot="prepend">mdi-currency-usd</v-icon>
+                  </v-text-field>
+                  <v-select
+                    v-if="getPropType.rental"
+                    filled
+                    label="Rental basis"
+                    :rules="this.formrules"
+                    v-model="propertyinfo.basis"
+                    :items="this.getBasisList"
+                  >
+                    <v-icon slot="prepend">mdi-map</v-icon>
+                  </v-select>
+                  <v-select
+                    v-if="getPropType.rental"
+                    filled
+                    label="All bills paid?"
+                    :rules="this.selectrules"
+                    v-model="propertyinfo.allbillspaid"
+                    :items="this.getYesNoList"
+                  >
+                    <v-icon slot="prepend">mdi-cash</v-icon>
+                  </v-select>
+                </v-col>
+                <v-col cols="12">
+                  <v-textarea
+                    auto-grow
+                    filled
+                    :rules="this.formrules"
+                    v-model="propertyinfo.description"
+                    label="Property description"
+                  >
+                    <v-icon slot="prepend">mdi-comment</v-icon>
+                  </v-textarea>
+                </v-col>
+              </v-row>
+              <!--
             <v-btn outlined class="mr-1" @click="mySubmit">submit</v-btn>
             <v-btn outlined class="mr-1" @click="myResetValidation">clear errors</v-btn>
             <v-btn outlined class="mr-1" color="red" @click="myResetForm">reset form</v-btn>
-            -->
-          </v-form>
+              -->
+            </v-form>
+          </v-container>
         </v-card>
-      </v-container>
-    </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 <script>
@@ -219,6 +227,7 @@ export default {
   methods: {
     myResetForm() {
       this.$refs.updatePhotos.reset();
+      this.newimages = null;
       this.getPropertyById();
     },
     myResetValidation() {
@@ -245,6 +254,9 @@ export default {
     },
 
     addImagesById() {
+      if (!this.newimages) {
+        return;
+      }
       let fd = new FormData();
       this.newimages.forEach(item => {
         fd.append(this.getImageFieldName, item);
