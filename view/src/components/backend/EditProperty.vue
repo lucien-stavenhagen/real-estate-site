@@ -12,7 +12,7 @@
               <v-card>
                 <v-img height="100%" contain :src="image.source"></v-img>
                 <v-card-actions>
-                  <v-btn small outlined @click="deleteImage(propertyinfo._id,image)">Delete</v-btn>
+                  <v-btn small outlined @click="deleteImage(image)">Delete</v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>
@@ -224,11 +224,16 @@ export default {
     myResetValidation() {
       this.$refs.mysubmit.resetValidation();
     },
-    deleteImage(mainid, imageobj) {
+    deleteImage(imageobj) {
       const filename = encodeURIComponent(imageobj.filename);
+      console.log(
+        `${this.getEndPoint(this.currentPropType)}/${this.id}/deletephoto/${
+          imageobj._id
+        }/imagepath/${filename}`
+      );
       axios
         .delete(
-          `${this.getEndPoint(this.currentPropType)}/${mainid}/deletephoto/${
+          `${this.getEndPoint(this.currentPropType)}/${this.id}/deletephoto/${
             imageobj._id
           }/imagepath/${filename}`
         )
@@ -236,7 +241,7 @@ export default {
           console.log({ msg: "successfully deleted photo", doc });
           this.myResetForm();
         })
-        .catch(err => console.log(err));
+        .catch(err => console.log({ msg: "somtthings broke", err }));
     },
 
     addImagesById() {

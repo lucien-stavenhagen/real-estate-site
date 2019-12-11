@@ -40,10 +40,12 @@ exports.add_images_commercial_byid = (request, response, next) => {
 
 exports.delete_commercial_image_byid = (request, response, next) => {
   const imagepath = decodeURIComponent(request.params.imagepath);
-  Commercial.updateOne({
-    _id: request.params.id,
-    $pull: { images: { _id: request.params.imageid } }
-  })
+  Commercial.updateOne(
+    {
+      _id: request.params.id
+    },
+    { $pull: { images: { _id: request.params.imageid } } }
+  )
     .exec()
     .then(doc => {
       if (fs.existsSync(imagepath)) {
@@ -121,10 +123,12 @@ exports.add_images_residential_byid = (request, response, next) => {
 
 exports.delete_residential_image_byid = (request, response, next) => {
   const imagepath = decodeURIComponent(request.params.imagepath);
-  Residential.updateOne({
-    _id: request.params.id,
-    $pull: { images: { _id: request.params.imageid } }
-  })
+  Residential.updateOne(
+    {
+      _id: request.params.id
+    },
+    { $pull: { images: { _id: request.params.imageid } } }
+  )
     .exec()
     .then(doc => {
       if (fs.existsSync(imagepath)) {
@@ -192,10 +196,12 @@ exports.add_images_rental_byid = (request, response, next) => {
 
 exports.delete_rental_image_byid = (request, response, next) => {
   const imagepath = decodeURIComponent(request.params.imagepath);
-  Rental.updateOne({
-    _id: request.params.id,
-    $pull: { images: { _id: request.params.imageid } }
-  })
+  Rental.updateOne(
+    {
+      _id: request.params.id
+    },
+    { $pull: { images: { _id: request.params.imageid } } }
+  )
     .exec()
     .then(doc => {
       if (fs.existsSync(imagepath)) {
@@ -272,10 +278,12 @@ exports.add_images_land_byid = (request, response, next) => {
 
 exports.delete_land_image_byid = (request, response, next) => {
   const imagepath = decodeURIComponent(request.params.imagepath);
-  Land.updateOne({
-    _id: request.params.id,
-    $pull: { images: { _id: request.params.imageid } }
-  })
+  Land.updateOne(
+    {
+      _id: request.params.id
+    },
+    { $pull: { images: { _id: request.params.imageid } } }
+  )
     .exec()
     .then(doc => {
       if (fs.existsSync(imagepath)) {
