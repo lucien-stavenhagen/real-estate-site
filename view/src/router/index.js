@@ -55,7 +55,7 @@ const routes = [
   {
     name: "editprop",
     path: "/editprop/:id",
-    component: () => import("../components/backend/EditProperty.vue"),
+    component: () => import("../components/backend/EditSingleProperty.vue"),
     props: true
   }
 ];
