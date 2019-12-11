@@ -10,7 +10,7 @@
                 <v-card>
                   <v-img height="100%" contain :src="image.source"></v-img>
                   <v-card-actions>
-                    <v-btn x-small outlined @click="deleteImage(image)">Delete</v-btn>
+                    <v-btn x-small outlined @click="deleteImage($event,image)">Delete</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-col>
@@ -75,7 +75,8 @@ export default {
       this.newimages = null;
       this.dispatchDBUpdated();
     },
-    deleteImage(imageobj) {
+    deleteImage(event, imageobj) {
+      event.preventDefault();
       const filename = encodeURIComponent(imageobj.filename);
       axios
         .delete(
@@ -90,7 +91,8 @@ export default {
         .catch(err => console.log({ msg: "somtthings broke", err }));
     },
 
-    addImagesById() {
+    addImagesById(event) {
+      event.preventDefault();
       if (!this.newimages) {
         return;
       }

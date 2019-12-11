@@ -195,7 +195,8 @@ export default {
       this.$refs.updateInfo.reset();
       this.getPropertyById();
     },
-    mySubmit() {
+    mySubmit(event) {
+      event.preventDefault();
       if (this.$refs.updateInfo.validate()) {
         this.updatePropertyInfo();
       }
