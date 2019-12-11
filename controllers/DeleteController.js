@@ -51,6 +51,7 @@ exports.delete_commercial_byid = (request, response, next) => {
         .json(responseHelper("error removing entry", null, null, err));
     });
 };
+
 //
 // residential
 //

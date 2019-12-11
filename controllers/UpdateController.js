@@ -5,20 +5,25 @@ const {
   Land
 } = require("../models/RealEstateModels");
 const mongoose = require("mongoose");
+const fs = require("fs");
 const { HOST_URI } = require("../utils");
 //
 // commercial
 //
 exports.add_images_commercial_byid = (request, response, next) => {
+  const imglist = request.files.map(item => {
+    return {
+      _id: mongoose.Types.ObjectId(),
+      filename: item.path,
+      source: `${HOST_URI}/${item.path}`
+    };
+  });
   Commercial.updateOne(
     { _id: request.params.id },
     {
       $push: {
         images: {
-          source: request.file
-            ? `${HOST_URI}/${request.file.path}`
-            : "no file passed!",
-          caption: request.body.caption
+          $each: imglist
         }
       }
     }
@@ -31,6 +36,24 @@ exports.add_images_commercial_byid = (request, response, next) => {
         err
       })
     );
+};
+
+exports.delete_commercial_image_byid = (request, response, next) => {
+  const imagepath = decodeURIComponent(request.params.imagepath);
+  Commercial.updateOne({
+    _id: request.params.id,
+    $pull: { images: { _id: request.params.imageid } }
+  })
+    .exec()
+    .then(doc => {
+      if (fs.existsSync(imagepath)) {
+        fs.unlinkSync(imagepath);
+      }
+      response.json({ msg: "successfully removed image", doc });
+    })
+    .catch(err => {
+      response.status(400).json({ msg: "error removing entry", err });
+    });
 };
 
 exports.update_commercial_byid = (request, response, next) => {
@@ -69,15 +92,19 @@ exports.update_commercial_byid = (request, response, next) => {
 // residential
 //
 exports.add_images_residential_byid = (request, response, next) => {
+  const imglist = request.files.map(item => {
+    return {
+      _id: mongoose.Types.ObjectId(),
+      filename: item.path,
+      source: `${HOST_URI}/${item.path}`
+    };
+  });
   Residential.updateOne(
     { _id: request.params.id },
     {
       $push: {
         images: {
-          source: request.file
-            ? `${HOST_URI}/${request.file.path}`
-            : "no file passed!",
-          caption: request.body.caption
+          $each: imglist
         }
       }
     }
@@ -90,6 +117,24 @@ exports.add_images_residential_byid = (request, response, next) => {
         err
       })
     );
+};
+
+exports.delete_residential_image_byid = (request, response, next) => {
+  const imagepath = decodeURIComponent(request.params.imagepath);
+  Residential.updateOne({
+    _id: request.params.id,
+    $pull: { images: { _id: request.params.imageid } }
+  })
+    .exec()
+    .then(doc => {
+      if (fs.existsSync(imagepath)) {
+        fs.unlinkSync(imagepath);
+      }
+      response.json({ msg: "successfully removed image", doc });
+    })
+    .catch(err => {
+      response.status(400).json({ msg: "error removing entry", err });
+    });
 };
 
 exports.update_residential_byid = (request, response, next) => {
@@ -118,15 +163,19 @@ exports.update_residential_byid = (request, response, next) => {
 // rental
 //
 exports.add_images_rental_byid = (request, response, next) => {
+  const imglist = request.files.map(item => {
+    return {
+      _id: mongoose.Types.ObjectId(),
+      filename: item.path,
+      source: `${HOST_URI}/${item.path}`
+    };
+  });
   Rental.updateOne(
     { _id: request.params.id },
     {
       $push: {
         images: {
-          source: request.file
-            ? `${HOST_URI}/${request.file.path}`
-            : "no file passed!",
-          caption: request.body.caption
+          $each: imglist
         }
       }
     }
@@ -139,6 +188,24 @@ exports.add_images_rental_byid = (request, response, next) => {
         err
       })
     );
+};
+
+exports.delete_rental_image_byid = (request, response, next) => {
+  const imagepath = decodeURIComponent(request.params.imagepath);
+  Rental.updateOne({
+    _id: request.params.id,
+    $pull: { images: { _id: request.params.imageid } }
+  })
+    .exec()
+    .then(doc => {
+      if (fs.existsSync(imagepath)) {
+        fs.unlinkSync(imagepath);
+      }
+      response.json({ msg: "successfully removed image", doc });
+    })
+    .catch(err => {
+      response.status(400).json({ msg: "error removing entry", err });
+    });
 };
 
 exports.update_rental_byid = (request, response, next) => {
@@ -176,15 +243,19 @@ exports.update_rental_byid = (request, response, next) => {
 // land
 //
 exports.add_images_land_byid = (request, response, next) => {
+  const imglist = request.files.map(item => {
+    return {
+      _id: mongoose.Types.ObjectId(),
+      filename: item.path,
+      source: `${HOST_URI}/${item.path}`
+    };
+  });
   Land.updateOne(
     { _id: request.params.id },
     {
       $push: {
         images: {
-          source: request.file
-            ? `${HOST_URI}/${request.file.path}`
-            : "no file passed!",
-          caption: request.body.caption
+          $each: imglist
         }
       }
     }
@@ -198,6 +269,25 @@ exports.add_images_land_byid = (request, response, next) => {
       })
     );
 };
+
+exports.delete_land_image_byid = (request, response, next) => {
+  const imagepath = decodeURIComponent(request.params.imagepath);
+  Land.updateOne({
+    _id: request.params.id,
+    $pull: { images: { _id: request.params.imageid } }
+  })
+    .exec()
+    .then(doc => {
+      if (fs.existsSync(imagepath)) {
+        fs.unlinkSync(imagepath);
+      }
+      response.json({ msg: "successfully removed image", doc });
+    })
+    .catch(err => {
+      response.status(400).json({ msg: "error removing entry", err });
+    });
+};
+
 exports.update_land_byid = (request, response, next) => {
   if (!request.body.price || !request.body.description) {
     response.status(400).json({ error: "price and description required" });

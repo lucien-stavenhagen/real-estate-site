@@ -25,18 +25,18 @@
     </v-toolbar>
     <v-row>
       <v-col cols="12">
-        <AddNewProperty />
+        <AddNewPropertyView />
       </v-col>
       <v-col cols="12">
-        <EditProperty />
+        <EditPropertyView />
       </v-col>
     </v-row>
   </section>
 </template>
 
 <script>
-import AddNewProperty from "./AddNewPropertyView";
-import EditProperty from "./EditPropertyView";
+import AddNewPropertyView from "./AddNewPropertyView";
+import EditPropertyView from "./EditPropertyView";
 
 import { mapGetters, mapActions } from "vuex";
 
@@ -53,8 +53,8 @@ export default {
     }
   },
   components: {
-    AddNewProperty,
-    EditProperty
+    AddNewPropertyView,
+    EditPropertyView
   },
   data() {
     return {

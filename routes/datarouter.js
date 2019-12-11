@@ -72,9 +72,13 @@ router.get(
 // update
 
 router.patch(
-  "/commercial/:id/photos",
-  uploadMiddleware.single(imageFieldName),
+  "/commercial/:id/addphotos",
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
   updateController.add_images_commercial_byid
+);
+router.delete(
+  "/commercial/:id/deletephoto/:imageid/imagepath/:imagepath",
+  updateController.delete_commercial_image_byid
 );
 
 router.patch("/commercial/:id/update", updateController.update_commercial_byid);
@@ -119,9 +123,13 @@ router.get(
 // update
 
 router.patch(
-  "/residential/:id/photos",
-  uploadMiddleware.single(imageFieldName),
+  "/residential/:id/addphotos",
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
   updateController.add_images_residential_byid
+);
+router.delete(
+  "/residential/:id/deletephoto/:imageid/imagepath/:imagepath",
+  updateController.delete_residential_image_byid
 );
 
 router.patch(
@@ -170,10 +178,15 @@ router.get(
 // update
 
 router.patch(
-  "/rental/:id/photos",
-  uploadMiddleware.single(imageFieldName),
+  "/rental/:id/addphotos",
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
   updateController.add_images_rental_byid
 );
+router.delete(
+  "/rental/:id/deletephoto/:imageid/imagepath/:imagepath",
+  updateController.delete_rental_image_byid
+);
+
 router.patch("/rental/:id/update", updateController.update_rental_byid);
 
 // delete
@@ -217,10 +230,16 @@ router.get(
 // update
 
 router.patch(
-  "/land/:id/photos",
-  uploadMiddleware.single(imageFieldName),
+  "/land/:id/addphotos",
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
   updateController.add_images_land_byid
 );
+
+router.delete(
+  "/land/:id/deletephoto/:imageid/imagepath/:imagepath",
+  updateController.delete_land_image_byid
+);
+
 router.patch("/land/:id/update", updateController.update_land_byid);
 
 // delete

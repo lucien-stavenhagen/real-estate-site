@@ -51,6 +51,12 @@ const routes = [
     path: "/deleteprop/:id",
     component: () => import("../components/backend/DeleteProperty.vue"),
     props: true
+  },
+  {
+    name: "editprop",
+    path: "/editprop/:id",
+    component: () => import("../components/backend/EditProperty.vue"),
+    props: true
   }
 ];
 
