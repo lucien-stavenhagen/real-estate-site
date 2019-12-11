@@ -155,7 +155,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import axios from "axios";
 
 export default {
@@ -185,6 +185,8 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["dispatchDBUpdated"]),
+
     myResetValidation() {
       this.$refs.updateInfo.resetValidation();
     },
@@ -194,10 +196,21 @@ export default {
       this.getPropertyById();
     },
     mySubmit() {
-      alert(JSON.stringify(this.propertyinfo));
       if (this.$refs.updateInfo.validate()) {
-        alert(JSON.stringify(this.propertyinfo));
+        this.updatePropertyInfo();
       }
+    },
+    updatePropertyInfo() {
+      axios
+        .patch(
+          `${this.getEndPoint(this.currentPropType)}/${this.id}/update`,
+          this.propertyinfo
+        )
+        .then(doc => {
+          console.log({ msg: "successfully updated", doc });
+          this.dispatchDBUpdated();
+        })
+        .catch(err => console.log({ msg: "somethings brusted", err }));
     },
     getPropertyById() {
       if (this.propLoading) {
@@ -207,6 +220,11 @@ export default {
       axios
         .get(`${this.getEndPoint(this.currentPropType)}/${this.id}`)
         .then(doc => {
+          delete doc.data.images;
+          delete doc.data._id;
+          delete doc.data.addedon;
+          delete doc.data.__v;
+
           this.propertyinfo = { ...doc.data };
         })
         .catch(err => console.log(err))
