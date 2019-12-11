@@ -191,11 +191,7 @@ export default {
       formrules: [
         value => (!!value && value.length > 0) || "field can't be empty"
       ],
-      numrules: [
-        value =>
-          (!!value && value.length > 0 && !!parseInt(value)) ||
-          "field must be a number"
-      ],
+      numrules: [value => (!!value && !!+value) || "field must be a number"],
       selectrules: [
         value => value === true || value === false || "must make a selection"
       ],
