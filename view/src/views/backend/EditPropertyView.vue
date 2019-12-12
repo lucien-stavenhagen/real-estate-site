@@ -6,7 +6,7 @@
           class="font-weight-light justify-center text-uppercase"
         >Edit {{this.currentPropType}} Properties</v-card-title>
         <v-container>
-          <v-row>
+          <v-row dense>
             <v-col :key="i" v-for="(property, i) in properties" cols="12" sm="4">
               <v-card hover>
                 <v-img
@@ -26,7 +26,7 @@
                   property.location.state
                   }}
                 </v-card-text>
-                <v-card-text>{{ property.description }}</v-card-text>
+                <v-card-text class="text-truncate">{{ property.description }}</v-card-text>
                 <v-card-actions>
                   <v-btn :to="`/editprop/${property._id}`" small outlined>Edit</v-btn>
                   <v-btn :to="`/deleteprop/${property._id}`" small outlined>Delete</v-btn>

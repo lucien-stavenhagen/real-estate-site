@@ -17,7 +17,7 @@
                 <br />
                 {{ property.location.city }},{{property.location.state}}
               </v-card-text>
-              <v-card-text>{{ property.description }}</v-card-text>
+              <v-card-text class="text-truncate">{{ property.description }}</v-card-text>
               <v-card-actions>
                 <v-btn small outlined @click="viewSingle(property._id,j)">Details</v-btn>
               </v-card-actions>
