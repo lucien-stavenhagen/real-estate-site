@@ -8,7 +8,7 @@
         <v-container>
           <v-row dense>
             <v-col :key="i" v-for="(property, i) in properties" cols="12" sm="4">
-              <v-card hover>
+              <v-card>
                 <v-img
                   v-if="property.images && property.images.length > 0"
                   class="mx-auto"
@@ -16,6 +16,7 @@
                   contain
                   :src="property.images[0].source"
                 ></v-img>
+                <v-img v-else class="mx-auto" height="200" :src="require('../../assets/logo.png')"></v-img>
                 <v-card-title v-if="property.rent">${{property.rent}} / {{property.basis}}</v-card-title>
                 <v-card-title v-else>${{property.price}}</v-card-title>
                 <v-card-text>ID: {{property._id}}</v-card-text>

@@ -30,9 +30,14 @@
             <v-divider></v-divider>
           </div>
         </v-col>
-        <v-col :key="i" v-for="(property, i) in plist" cols="12" sm="4">
-          <v-card hover>
-            <v-carousel hide-delimiters>
+        <v-col :key="i" v-for="(property, i) in plist" cols="12" sm="6">
+          <v-card>
+            <v-carousel v-if="!property.images || property.images.length === 0" hide-delimiters>
+              <v-carousel-item>
+                <v-img height="100%" contain :src="require('../assets/logo.png')"></v-img>
+              </v-carousel-item>
+            </v-carousel>
+            <v-carousel v-else hide-delimiters>
               <v-carousel-item :key="i" v-for="(image, i) in property.images">
                 <v-img height="100%" contain :src="image.source"></v-img>
               </v-carousel-item>

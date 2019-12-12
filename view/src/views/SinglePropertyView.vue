@@ -5,20 +5,29 @@
         <v-btn v-if="!toggleview" small outlined @click="toggleView()">Grid</v-btn>
         <v-btn v-else small outlined @click="toggleView()">Carousel</v-btn>
       </v-toolbar>
-      <v-row no-gutters v-if="this.toggleview">
-        <v-col cols="12" sm="4" :key="i" v-for="(image, i) in property.images">
-          <v-card :href="image.source" target="_blank">
-            <v-img height="100%" contain :src="image.source"></v-img>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-carousel hide-delimiters v-else>
-        <v-carousel-item :key="i" v-for="(image, i) in property.images">
-          <v-card height="100%" :href="image.source" target="_blank">
-            <v-img height="100%" contain :src="image.source"></v-img>
-          </v-card>
-        </v-carousel-item>
-      </v-carousel>
+      <div v-if="!property.images || property.images.length === 0">
+        <v-row>
+          <v-col cols="12">
+            <v-img height="300" contain :src="require('../assets/logo.png')"></v-img>
+          </v-col>
+        </v-row>
+      </div>
+      <div v-else>
+        <v-row no-gutters v-if="this.toggleview">
+          <v-col cols="12" sm="4" :key="i" v-for="(image, i) in property.images">
+            <v-card :href="image.source" target="_blank">
+              <v-img height="100%" contain :src="image.source"></v-img>
+            </v-card>
+          </v-col>
+        </v-row>
+        <v-carousel hide-delimiters v-else>
+          <v-carousel-item :key="i" v-for="(image, i) in property.images">
+            <v-card height="100%" :href="image.source" target="_blank">
+              <v-img height="100%" contain :src="image.source"></v-img>
+            </v-card>
+          </v-carousel-item>
+        </v-carousel>
+      </div>
       <v-card-title v-if="property.rent">${{property.rent}} / {{property.basis}}</v-card-title>
       <v-card-title v-else>${{property.price}}</v-card-title>
       <v-card-text>
