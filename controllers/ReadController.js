@@ -203,11 +203,11 @@ exports.get_all_commercial_entries_paged = async (request, response, next) => {
     }
     const pagefactor =
       request.query.page > 0 ? (request.query.page - 1) * pagesize : 0;
-    let ids = await Commercial.find({}, { _id: 1 });
+    let ids = await Commercial.find({}, { _id: 1 }).sort({ _id: -1 });
     ids = ids.map(item => item._id);
     const docs = await Commercial.find({
       _id: { $in: ids.slice(pagefactor, pagefactor + pagesize) }
-    }).sort({ addedon: -1 });
+    }).sort({ _id: -1 });
     const retlist = {
       numdocs: ids.length,
       pages: Math.ceil(ids.length / pagesize),
