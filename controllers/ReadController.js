@@ -4,6 +4,7 @@ const {
   Rental,
   Land
 } = require("../models/RealEstateModels");
+const mongoose = require("mongoose");
 
 //
 // all
@@ -188,27 +189,36 @@ exports.get_all_commercial_entries = (request, response, next) => {
 // eventually for large collections.
 //
 // https://docs.mongodb.com/manual/reference/method/cursor.skip/
+// https://docs.mongodb.com/manual/reference/operator/query/in/index.html
 //
 //
-exports.get_all_commercial_entries_paged = (request, response, next) => {
-  const lmt = 3;
-  let parms = {};
-  if (request.params.id !== "none") {
-    parms = { _id: { $gt: request.params.id } };
+exports.get_all_commercial_entries_paged = async (request, response, next) => {
+  try {
+    if (!request.query.page) {
+      throw Error("page parameter is required!");
+    }
+    let pagesize = 4;
+    if (request.query.pagesize && +request.query.pagesize) {
+      pagesize = +request.query.pagesize;
+    }
+    const pagefactor =
+      request.query.page > 0 ? (request.query.page - 1) * pagesize : 0;
+    let ids = await Commercial.find({}, { _id: 1 });
+    ids = ids.map(item => item._id);
+    const docs = await Commercial.find({
+      _id: { $in: ids.slice(pagefactor, pagefactor + pagesize) }
+    }).sort({ addedon: -1 });
+    const retlist = {
+      numdocs: ids.length,
+      pages: Math.ceil(ids.length / pagesize),
+      page: [...docs]
+    };
+    response.json(retlist);
+  } catch (err) {
+    response
+      .status(400)
+      .json({ msg: "error retrieving entries", error: err.message });
   }
-  Commercial.find(parms)
-    .limit(lmt)
-    .exec()
-    .then(doc => {
-      const res = {
-        data: [...doc],
-        next: doc.length === lmt ? doc[doc.length - 1]._id : "none"
-      };
-      response.json(res);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
 };
 
 exports.get_all_commercial_bylocation = (request, response, next) => {

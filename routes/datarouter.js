@@ -51,10 +51,7 @@ router.get("/commercial", readController.get_all_commercial_entries);
 // but can be passed as param
 // this endpoint is not used right now
 //
-router.get(
-  "/pagedcommercial/:id",
-  readController.get_all_commercial_entries_paged
-);
+router.get("/pagedcommercial", readController.get_all_commercial_entries_paged);
 router.get("/commercial/:id", readController.get_commercial_byid);
 router.get(
   "/commercial/location/city/:city/state/:state",
