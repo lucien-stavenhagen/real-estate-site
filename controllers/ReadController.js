@@ -191,31 +191,36 @@ exports.get_all_commercial_entries = (request, response, next) => {
 // https://docs.mongodb.com/manual/reference/method/cursor.skip/
 // https://docs.mongodb.com/manual/reference/operator/query/in/index.html
 //
+// counting the docs then using skip().limit() is the cleanest way
+// to do this for probably any collection less than 50,000 or so
+// the relative performance is going to be ok, even though
+// this is probably the slowest way to do it.
 //
 exports.get_all_commercial_entries_paged = async (request, response, next) => {
   try {
-    if (!request.query.page) {
-      throw Error("page parameter is required!");
+    let page = 1;
+    if (request.query.page && +request.query.page) {
+      page = request.query.page;
     }
     let pagesize = 4;
-    if (request.query.pagesize && +request.query.pagesize) {
+    if (
+      request.query.pagesize &&
+      +request.query.pagesize &&
+      +request.query.pagesize > 0
+    ) {
       pagesize = +request.query.pagesize;
     }
-    const pagefactor =
-      request.query.page > 0 ? (request.query.page - 1) * pagesize : 0;
-    let ids = await Commercial.find({}, { _id: 1 })
-      .hint("_id_")
-      .sort({ _id: -1 });
-    ids = ids.map(item => item._id);
-    const docs = await Commercial.find({
-      _id: { $in: ids.slice(pagefactor, pagefactor + pagesize) }
-    }).sort({ _id: -1 });
-    const retlist = {
-      numdocs: ids.length,
-      pages: Math.ceil(ids.length / pagesize),
-      page: [...docs]
-    };
-    response.json(retlist);
+    const doccount = await Commercial.countDocuments();
+    const docs = await Commercial.find()
+      .sort({ _id: -1 })
+      .skip((page - 1) * pagesize)
+      .limit(pagesize);
+
+    response.json({
+      count: doccount,
+      pages: Math.ceil(doccount / pagesize),
+      docs
+    });
   } catch (err) {
     response
       .status(400)

@@ -13,7 +13,7 @@ exports.imageSchema = new mongoose.Schema({
   }
 });
 
-exports.locationSchema = new mongoose.Schema({
+const locationSchema = new mongoose.Schema({
   _id: mongoose.Schema.Types.ObjectId,
   address: String,
   city: String,
@@ -23,3 +23,6 @@ exports.locationSchema = new mongoose.Schema({
     enum: stateList
   }
 });
+locationSchema.index({ city: 1, state: 1 });
+
+exports.locationSchema = locationSchema;

@@ -33,10 +33,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(compression());
 app.use(`/${publicDir}`, express.static(path.join(__dirname, publicDir)));
 
+const autoIndex = process.env.NODE_ENV !== "production";
 mongoose
   .connect(mongoURI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    autoIndex
   })
   .then(() => {
     console.log(`connected successfully. URL: ${mongoURI}`);
