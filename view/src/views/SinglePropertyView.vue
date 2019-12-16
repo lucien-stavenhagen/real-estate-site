@@ -67,7 +67,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getEndPoint"]),
+    ...mapGetters(["getHost", "getCurrentPropType"]),
     propInfo() {
       return JSON.parse(decodeURIComponent(this.propinfo));
     }
@@ -82,7 +82,12 @@ export default {
       }
       this.propLoading = true;
       axios
-        .get(`${this.getEndPoint(this.propInfo.type)}/${this.propInfo.id}`)
+        .get(`${this.getHost}/propertybyid`, {
+          params: {
+            id: this.propInfo.id,
+            property: this.getCurrentPropType
+          }
+        })
         .then(doc => {
           this.property = { ...doc.data };
         })

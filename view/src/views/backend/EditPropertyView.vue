@@ -4,7 +4,7 @@
       <v-card>
         <v-card-title
           class="font-weight-light justify-center text-uppercase"
-        >Edit {{this.currentPropType}} Properties</v-card-title>
+        >Edit {{this.getCurrentPropType}} Properties ({{propcount}})</v-card-title>
         <v-container>
           <v-row dense>
             <v-col :key="i" v-for="(property, i) in properties" cols="12" sm="4">
@@ -35,6 +35,9 @@
               </v-card>
             </v-col>
           </v-row>
+          <div class="text-center">
+            <v-pagination v-model="page" :length="pages"></v-pagination>
+          </div>
         </v-container>
       </v-card>
     </section>
@@ -48,22 +51,25 @@ export default {
   name: "EditPropertyView",
   data() {
     return {
+      page: 1,
+      pages: null,
+      propcount: null,
       properties: []
     };
   },
   computed: {
-    ...mapGetters(["getEndPoint", "getPropType", "getDBUpdated"]),
-    currentPropType() {
-      for (let p in this.getPropType) {
-        if (this.getPropType[p]) {
-          return p;
-        }
-      }
-      return null;
-    }
+    ...mapGetters([
+      "getHost",
+      "getCurrentPropType",
+      "getPropType",
+      "getDBUpdated"
+    ])
   },
   watch: {
-    currentPropType() {
+    page() {
+      this.getAllProperties();
+    },
+    getCurrentPropType() {
       this.getAllProperties();
     },
     getDBUpdated() {
@@ -73,11 +79,18 @@ export default {
   methods: {
     getAllProperties() {
       axios
-        .get(this.getEndPoint(this.currentPropType))
-        .then(doc => {
-          this.properties = [...doc.data];
+        .get(`${this.getHost}/property`, {
+          params: {
+            page: this.page,
+            property: this.getCurrentPropType
+          }
         })
-        .catch(error => console.log(error));
+        .then(doc => {
+          this.properties = [...doc.data.docs];
+          this.propcount = doc.data.count;
+          this.pages = doc.data.pages;
+        })
+        .catch(error => console.log("what broke? " + error));
     }
   },
   created() {

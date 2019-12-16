@@ -84,6 +84,8 @@ export default new Vuex.Store({
     dbupdated: 0
   },
   getters: {
+    getHost: state => state.host,
+
     getEndPoint: state => endpointname => {
       return `${state.host}/${state.endpoints[endpointname]}`;
     },

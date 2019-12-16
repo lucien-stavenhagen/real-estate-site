@@ -8,7 +8,7 @@ const commercialSchema = new mongoose.Schema({
   squarefeet: Number,
   electric: Boolean,
   plumbing: Boolean,
-  price: Number,
+  price: { type: Number, index: true },
   images: [imageSchema],
   description: String
 });
@@ -20,7 +20,7 @@ const residentialSchema = new mongoose.Schema({
   location: locationSchema,
   beds: Number,
   baths: Number,
-  price: Number,
+  price: { type: Number, index: true },
   images: [imageSchema],
   description: String
 });
@@ -32,7 +32,7 @@ const rentalSchema = new mongoose.Schema({
   location: locationSchema,
   beds: Number,
   baths: Number,
-  rent: Number,
+  rent: { type: Number, index: true },
   basis: { type: String, required: true, enum: basisList },
   allbillspaid: Boolean,
   images: [imageSchema],
@@ -45,7 +45,7 @@ const landSchema = new mongoose.Schema({
   addedon: Date,
   location: locationSchema,
   acreage: Number,
-  price: Number,
+  price: { type: Number, index: true },
   images: [imageSchema],
   description: String
 });

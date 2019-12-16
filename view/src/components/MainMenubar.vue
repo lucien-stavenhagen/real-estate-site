@@ -4,6 +4,23 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase headline font-weight-thin">Real Estate App</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-menu offset-y>
+        <template v-slot:activator="{on}">
+          <v-btn text v-on="on">Property Type</v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, i) in this.propMenuItems"
+            :key="i"
+            @click="dispatchPropType(item)"
+          >
+            <v-list-item-content>
+              <v-list-item-title class="text-capitalize">{{item}}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
       <v-tooltip bottom>
         <template v-slot:activator="{on}">
           <v-icon right v-on="on" @click="toggleTheme">mdi-light-switch</v-icon>

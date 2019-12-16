@@ -57,6 +57,10 @@ const routes = [
     path: "/editprop/:id",
     component: () => import("../components/backend/EditSingleProperty.vue"),
     props: true
+  },
+  {
+    path: "/delme",
+    component: () => import("../views/TestPaginated.vue")
   }
 ];
 

@@ -1,5 +1,13 @@
 <template>
   <v-container>
+    <v-toolbar>
+      <v-toolbar-title>
+        Search
+        <span class="font-weight-light">({{this.getCurrentPropType}})</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
+
     <v-card>
       <v-card-text>
         <v-combobox
@@ -10,7 +18,6 @@
           clearable
           filled
           hide-no-data
-          cache-items
           label="Enter a city"
           prepend-icon="mdi-database-search"
           return-object
@@ -22,15 +29,18 @@
         v-if="this.citymodel"
         class="headline justify-center"
       >Properties in {{this.citymodel}}</v-card-title>
-      <v-row dense :key="j" v-for="(plist, j) in bycityproperties">
+      <v-row dense>
         <v-col cols="12">
-          <div class="d-flex flex-column text-uppercase text-center" v-if="plist.length > 0">
+          <div
+            class="d-flex flex-column text-uppercase text-center"
+            v-if="bycityproperties.length > 0"
+          >
             <v-divider></v-divider>
-            <span class="pa-3">{{j}} ({{plist.length}})</span>
+            <span class="pa-3">{{j}} ({{bycityproperties.length}})</span>
             <v-divider></v-divider>
           </div>
         </v-col>
-        <v-col :key="i" v-for="(property, i) in plist" cols="12" sm="6">
+        <v-col :key="i" v-for="(property, i) in bycityproperties" cols="12" sm="6">
           <v-card>
             <v-carousel v-if="!property.images || property.images.length === 0" hide-delimiters>
               <v-carousel-item>
@@ -51,12 +61,15 @@
             </v-card-text>
             <v-card-text class="text-truncate">{{ property.description }}</v-card-text>
             <v-card-actions>
-              <v-btn small outlined @click="viewSingle(property._id, j)">Details</v-btn>
+              <v-btn small outlined @click="viewSingle(property._id)">Details</v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
       </v-row>
     </v-card>
+    <div v-if="this.showpagination" class="text-center">
+      <v-pagination v-model="page" :length="pages"></v-pagination>
+    </div>
   </v-container>
 </template>
 <script>
@@ -66,7 +79,11 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      savedsearch: "savedsearch",
+      showpagination: false,
+      page: 1,
+      pages: null,
+      pagesize: 2,
+      propcount: null,
       cities: [],
       bycityproperties: null,
       searchLoading: false,
@@ -76,33 +93,31 @@ export default {
     };
   },
   methods: {
-    viewSingle(id, proptype) {
-      this.$router.push({
-        name: "viewsingle",
-        params: {
-          propinfo: encodeURIComponent(
-            JSON.stringify({ type: proptype, id: id })
-          )
-        }
-      });
-    }
-  },
-  computed: {
-    ...mapGetters(["getEndPoint"])
-  },
-  watch: {
-    citymodel() {
+    getPropsByCity() {
       if (!this.citymodel) {
         this.bycityproperties = null;
+        this.pages = null;
+        this.showpagination = false;
         localStorage.removeItem(this.savedsearch);
         return;
       }
       const city = this.citymodel.split(",")[0];
       const state = this.citymodel.split(",")[1];
       axios
-        .get(`${this.getEndPoint("all")}/city/${city}/state/${state}`)
+        .get(`${this.getHost}/location/property`, {
+          params: {
+            city,
+            state,
+            page: this.page,
+            pagesize: this.pagesize,
+            property: this.getCurrentPropType
+          }
+        })
         .then(doc => {
-          this.bycityproperties = { ...doc.data };
+          this.showpagination = true;
+          this.bycityproperties = { ...doc.data.docs };
+          this.propcount = doc.data.count;
+          this.pages = doc.data.pages;
           localStorage.setItem(
             this.savedsearch,
             JSON.stringify(this.citymodel)
@@ -110,8 +125,7 @@ export default {
         })
         .catch(error => console.log(error));
     },
-
-    search() {
+    getCities() {
       // Items have already been loaded
       if (this.cities.length > 0) return;
 
@@ -121,21 +135,63 @@ export default {
 
       // Lazily load input items
       axios
-        .get(`${this.getEndPoint("all")}/cities`)
+        .get(`${this.getHost}/cities/property`, {
+          params: {
+            property: this.getCurrentPropType
+          }
+        })
         .then(res => {
-          this.cities = [...res.data.cities];
+          this.cities = [...res.data];
         })
         .catch(err => {
-          console.log(err);
+          console.log("something broke? " + err);
         })
         .finally(() => (this.searchLoading = false));
+    },
+    saveSearch() {
+      const savedsearch = localStorage.getItem(this.savedsearch);
+      if (savedsearch) {
+        this.citymodel = JSON.parse(savedsearch);
+      }
+    },
+    viewSingle(id) {
+      this.$router.push({
+        name: "viewsingle",
+        params: {
+          propinfo: encodeURIComponent(
+            JSON.stringify({ type: this.getCurrentPropType, id: id })
+          )
+        }
+      });
     }
   },
-  created() {
-    const savedsearch = localStorage.getItem(this.savedsearch);
-    if (savedsearch) {
-      this.citymodel = JSON.parse(savedsearch);
+  computed: {
+    ...mapGetters(["getHost", "getCurrentPropType"]),
+    savedsearch() {
+      return `ssearch_${this.getCurrentPropType}`;
     }
+  },
+  watch: {
+    citymodel() {
+      this.getPropsByCity();
+    },
+    search() {
+      this.getCities();
+    },
+    page() {
+      this.getPropsByCity();
+    },
+    getCurrentPropType() {
+      this.cities = [];
+      this.citymodel = null;
+      this.pages = null;
+      this.bycityproperties = null;
+      this.search = null;
+      this.saveSearch();
+    }
+  },
+  mounted() {
+    this.saveSearch();
   }
 };
 </script>

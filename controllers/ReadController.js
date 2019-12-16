@@ -11,72 +11,51 @@ const mongoose = require("mongoose");
 //
 exports.get_union_of_all_cities_indb = async (request, response, next) => {
   try {
-    const commAll = await Commercial.find(
-      {},
-      { "location.city": 1, "location.state": 1 }
-    );
-    const resAll = await Residential.find(
-      {},
-      { "location.city": 1, "location.state": 1 }
-    );
-    const rentAll = await Rental.find(
-      {},
-      { "location.city": 1, "location.state": 1 }
-    );
-    const landAll = await Land.find(
-      {},
-      { "location.city": 1, "location.state": 1 }
-    );
+    const commAll = await Commercial.aggregate([
+      { $group: { _id: { city: "$location.city", state: "$location.state" } } }
+    ]);
+    const resAll = await Residential.aggregate([
+      { $group: { _id: { city: "$location.city", state: "$location.state" } } }
+    ]);
+    const rentAll = await Rental.aggregate([
+      { $group: { _id: { city: "$location.city", state: "$location.state" } } }
+    ]);
+    const landAll = await Land.aggregate([
+      { $group: { _id: { city: "$location.city", state: "$location.state" } } }
+    ]);
     //
     // accumulate the union all the cities/states
     // having at least one property in one
     // or more of the collections.
+    // do this with the group
     // this is to make a listing
     // of cities/state only, available for autocomplete
     // in the search function.
-    // A little
-    // dirty because it's orthogonal to
-    // the DB data organization
-    // so we have to use the BFH to get this data.
-    //
-    //
-    // do a "set" on an array of the
-    // location.city and .state fields in each
-    // collection, generated
-    // with the map method.
-    //
-    // then use the spread operator
+
+    // now use the spread operator
     // to combine them all into
     // another set, to remove any
     // dupes that may exist across each subset.
     //
     const unionOfAllCities = new Set([
-      ...new Set(
-        commAll.map(item => {
-          return `${item.location.city},${item.location.state}`;
-        })
-      ),
-      ...new Set(
-        resAll.map(item => {
-          return `${item.location.city},${item.location.state}`;
-        })
-      ),
-      ...new Set(
-        rentAll.map(item => {
-          return `${item.location.city},${item.location.state}`;
-        })
-      ),
-      ...new Set(
-        landAll.map(item => {
-          return `${item.location.city},${item.location.state}`;
-        })
-      )
+      ...commAll.map(item => {
+        return `${item._id.city},${item._id.state}`;
+      }),
+      ...resAll.map(item => {
+        return `${item._id.city},${item._id.state}`;
+      }),
+      ...rentAll.map(item => {
+        return `${item._id.city},${item._id.state}`;
+      }),
+      ...landAll.map(item => {
+        return `${item._id.city},${item._id.state}`;
+      })
     ]);
     return response.json({
-      cities: [...unionOfAllCities]
+      cities: [...unionOfAllCities].sort()
     });
   } catch (error) {
-    return response.status(400).json({ msg: "failed" });
+    return response.status(400).json({ msg: "failed", error });
   }
 };
 
@@ -171,16 +150,6 @@ exports.get_all_byrentrange = async (request, response, next) => {
 //
 // commercial
 //
-exports.get_all_commercial_entries = (request, response, next) => {
-  Commercial.find()
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
 
 //
 // paginated version for
@@ -196,50 +165,128 @@ exports.get_all_commercial_entries = (request, response, next) => {
 // the relative performance is going to be ok, even though
 // this is probably the slowest way to do it.
 //
-exports.get_all_commercial_entries_paged = async (request, response, next) => {
-  try {
-    let page = 1;
-    if (request.query.page && +request.query.page) {
-      page = request.query.page;
-    }
-    let pagesize = 4;
-    if (
-      request.query.pagesize &&
-      +request.query.pagesize &&
-      +request.query.pagesize > 0
-    ) {
-      pagesize = +request.query.pagesize;
-    }
-    const doccount = await Commercial.countDocuments();
-    const docs = await Commercial.find()
-      .sort({ _id: -1 })
-      .skip((page - 1) * pagesize)
-      .limit(pagesize);
-
-    response.json({
-      count: doccount,
-      pages: Math.ceil(doccount / pagesize),
-      docs
+const typeHelper = query => {
+  if (query === "commercial") {
+    return Commercial;
+  } else if (query === "residential") {
+    return Residential;
+  } else if (query === "rental") {
+    return Rental;
+  } else if (query === "land") {
+    return Land;
+  } else {
+    return null;
+  }
+};
+exports.get_all_commercial_cities = async (request, response, next) => {
+  if (!request.query.property) {
+    response.status(400).json({
+      msg: "property param required",
+      error: "property param required!"
     });
-  } catch (err) {
-    response
-      .status(400)
-      .json({ msg: "error retrieving entries", error: err.message });
+  } else {
+    try {
+      const model = typeHelper(request.query.property);
+      let commAll = await model.aggregate([
+        {
+          $group: { _id: { city: "$location.city", state: "$location.state" } }
+        }
+      ]);
+      commAll = commAll.map(item => {
+        return `${item._id.city},${item._id.state}`;
+      });
+      response.json([...commAll].sort());
+    } catch (error) {
+      response.status(400).json({ msg: "error getting cities", error });
+    }
+  }
+};
+exports.get_all_commercial_entries = async (request, response, next) => {
+  if (!request.query.property) {
+    response.status(400).json({
+      msg: "property param required",
+      error: "property param required!"
+    });
+  } else {
+    try {
+      const model = typeHelper(request.query.property);
+      let page = 1;
+      if (request.query.page && +request.query.page) {
+        page = request.query.page;
+      }
+      let pagesize = 4;
+      if (
+        request.query.pagesize &&
+        +request.query.pagesize &&
+        +request.query.pagesize > 0
+      ) {
+        pagesize = +request.query.pagesize;
+      }
+      const doccount = await model.estimatedDocumentCount();
+      const docs = await model
+        .find()
+        .sort({ _id: -1 })
+        .skip((page - 1) * pagesize)
+        .limit(pagesize);
+
+      response.json({
+        count: doccount,
+        pages: Math.ceil(doccount / pagesize),
+        docs
+      });
+    } catch (err) {
+      response
+        .status(400)
+        .json({ msg: "error retrieving entries", error: err.message });
+    }
   }
 };
 
-exports.get_all_commercial_bylocation = (request, response, next) => {
-  Commercial.find({
-    "location.city": request.params.city,
-    "location.state": request.params.state
-  })
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
+exports.get_all_commercial_bylocation = async (request, response, next) => {
+  if (!request.query.property || !request.query.city || !request.query.state) {
+    response.status(400).json({
+      msg: "missing parameter",
+      error: "property, city and state parameters required!"
     });
+  } else {
+    try {
+      const model = typeHelper(request.query.property);
+      let page = 1;
+      if (request.query.page && +request.query.page) {
+        page = request.query.page;
+      }
+      let pagesize = 4;
+      if (
+        request.query.pagesize &&
+        +request.query.pagesize &&
+        +request.query.pagesize > 0
+      ) {
+        pagesize = +request.query.pagesize;
+      }
+      const doccount = await model.countDocuments({
+        "location.city": request.query.city,
+        "location.state": request.query.state
+      });
+      const docs = await model
+        .find({
+          "location.city": request.query.city,
+          "location.state": request.query.state
+        })
+        .sort({ _id: -1 })
+        .skip((page - 1) * pagesize)
+        .limit(pagesize);
+
+      response.json({
+        count: doccount,
+        pages: Math.ceil(doccount / pagesize),
+        docs
+      });
+    } catch (err) {
+      response
+        .status(400)
+        .json({ msg: "error retrieving entries", error: err.message });
+    }
+  }
 };
 
 exports.get_all_commercial_bypricerange = (request, response, next) => {
@@ -268,209 +315,33 @@ exports.get_all_commercial_bysquarefeet = (request, response, next) => {
     });
 };
 
-exports.get_commercial_byid = (request, response, next) => {
-  Commercial.findById(request.params.id)
-    .exec()
-    .then(doc => response.json(doc))
-    .catch(err =>
-      response
-        .status(400)
-        .json({ msg: `error retrieving entry by id ${request.params.id}`, err })
-    );
+exports.get_commercial_byid = async (request, response, next) => {
+  if (!request.query.property || !request.query.id) {
+    response.status(400).json({
+      msg: "property and id params required",
+      error: "property and id params required!"
+    });
+  } else {
+    try {
+      const model = typeHelper(request.query.property);
+      const doc = await model.findById(request.query.id).exec();
+      response.json(doc);
+    } catch (error) {
+      response.status(400).json({
+        msg: `error retrieving entry by id ${request.query.id}`,
+        error
+      });
+    }
+  }
 };
 //
 // residential
 //
-exports.get_all_residential_entries = (request, response, next) => {
-  Residential.find()
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
 
-exports.get_all_residential_bylocation = (request, response, next) => {
-  Residential.find({
-    "location.city": request.params.city,
-    "location.state": request.params.state
-  })
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
-
-exports.get_all_residential_bypricerange = (request, response, next) => {
-  Residential.find({
-    price: { $gte: request.params.min, $lte: request.params.max }
-  })
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
-
-exports.get_all_residential_bybedsandbaths = (request, response, next) => {
-  Residential.find({
-    beds: request.params.beds,
-    baths: request.params.baths
-  })
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
-
-exports.get_residential_byid = (request, response, next) => {
-  Residential.findById(request.params.id)
-    .exec()
-    .then(doc => response.json(doc))
-    .catch(err =>
-      response
-        .status(400)
-        .json({ msg: `error retrieving entry by id ${request.params.id}`, err })
-    );
-};
 //
 // rental
 //
-exports.get_all_rental_entries = (request, response, next) => {
-  Rental.find()
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
-
-exports.get_all_rental_bylocation = (request, response, next) => {
-  Rental.find({
-    "location.city": request.params.city,
-    "location.state": request.params.state
-  })
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
-
-exports.get_all_rental_bypricerange = (request, response, next) => {
-  Rental.find({
-    rent: { $gte: request.params.min, $lte: request.params.max },
-    basis: request.params.basis
-  })
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
-
-exports.get_all_rental_bybedsandbaths = (request, response, next) => {
-  Rental.find({
-    beds: request.params.beds,
-    baths: request.params.baths
-  })
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
-
-exports.get_rental_byid = (request, response, next) => {
-  Rental.findById(request.params.id)
-    .exec()
-    .then(doc => response.json(doc))
-    .catch(err =>
-      response
-        .status(400)
-        .json({ msg: `error retrieving entry by id ${request.params.id}`, err })
-    );
-};
 
 //
 // land
 //
-exports.get_all_land_entries = (request, response, next) => {
-  Land.find()
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
-
-exports.get_all_land_bylocation = (request, response, next) => {
-  Land.find({
-    "location.city": request.params.city,
-    "location.state": request.params.state
-  })
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
-
-exports.get_all_land_bypricerange = (request, response, next) => {
-  Land.find({
-    price: { $gte: request.params.min, $lte: request.params.max }
-  })
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
-
-exports.get_all_land_byacreage = (request, response, next) => {
-  Land.find({
-    acreage: { $gte: request.params.min, $lte: request.params.max }
-  })
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
-
-exports.get_land_byid = (request, response, next) => {
-  Land.findById(request.params.id)
-    .exec()
-    .then(doc => response.json(doc))
-    .catch(err =>
-      response
-        .status(400)
-        .json({ msg: `error retrieving entry by id ${request.params.id}`, err })
-    );
-};

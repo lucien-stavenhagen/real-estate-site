@@ -42,21 +42,18 @@ router.post(
 
 // read
 
-router.get("/commercial", readController.get_all_commercial_entries);
+//
+// paginated now
+//
+router.get("/property", readController.get_all_commercial_entries);
 
+router.get("/propertybyid", readController.get_commercial_byid);
+router.get("/cities/property", readController.get_all_commercial_cities);
 //
-// experimental paginated
-// version. Page size hard coded
-// in get_all_commercial_entries_paged
-// but can be passed as param
-// this endpoint is not used right now
+// params: city, state required, page default 1, pagesize default 4
 //
-router.get("/pagedcommercial", readController.get_all_commercial_entries_paged);
-router.get("/commercial/:id", readController.get_commercial_byid);
-router.get(
-  "/commercial/location/city/:city/state/:state",
-  readController.get_all_commercial_bylocation
-);
+router.get("/location/property", readController.get_all_commercial_bylocation);
+
 router.get(
   "/commercial/pricerange/min/:min/max/:max",
   readController.get_all_commercial_bypricerange
@@ -94,157 +91,157 @@ router.delete("/commercial/:id", deleteController.delete_commercial_byid);
 
 // create
 
-router.post(
-  "/residential",
-  uploadMiddleware.array(imageFieldName, uploadFileLimit),
-  createController.create_residential_entry
-);
+// router.post(
+//   "/residential",
+//   uploadMiddleware.array(imageFieldName, uploadFileLimit),
+//   createController.create_residential_entry
+// );
 
-// read
+// // read
 
-router.get("/residential", readController.get_all_residential_entries);
-router.get("/residential/:id", readController.get_residential_byid);
-router.get(
-  "/residential/location/city/:city/state/:state",
-  readController.get_all_residential_bylocation
-);
-router.get(
-  "/residential/pricerange/min/:min/max/:max",
-  readController.get_all_residential_bypricerange
-);
-router.get(
-  "/residential/beds/:beds/baths/:baths",
-  readController.get_all_residential_bybedsandbaths
-);
+// router.get("/residential", readController.get_all_residential_entries);
+// router.get("/residential/:id", readController.get_residential_byid);
+// router.get(
+//   "/residential/location/city/:city/state/:state",
+//   readController.get_all_residential_bylocation
+// );
+// router.get(
+//   "/residential/pricerange/min/:min/max/:max",
+//   readController.get_all_residential_bypricerange
+// );
+// router.get(
+//   "/residential/beds/:beds/baths/:baths",
+//   readController.get_all_residential_bybedsandbaths
+// );
 
-// update
+// // update
 
-router.patch(
-  "/residential/:id/addphotos",
-  uploadMiddleware.array(imageFieldName, uploadFileLimit),
-  updateController.add_images_residential_byid
-);
-router.delete(
-  "/residential/:id/deletephoto/:imageid/imagepath/:imagepath",
-  updateController.delete_residential_image_byid
-);
+// router.patch(
+//   "/residential/:id/addphotos",
+//   uploadMiddleware.array(imageFieldName, uploadFileLimit),
+//   updateController.add_images_residential_byid
+// );
+// router.delete(
+//   "/residential/:id/deletephoto/:imageid/imagepath/:imagepath",
+//   updateController.delete_residential_image_byid
+// );
 
-router.patch(
-  "/residential/:id/update",
-  updateController.update_residential_byid
-);
+// router.patch(
+//   "/residential/:id/update",
+//   updateController.update_residential_byid
+// );
 
-// delete
+// // delete
 
-router.delete("/residential/:id", deleteController.delete_residential_byid);
+// router.delete("/residential/:id", deleteController.delete_residential_byid);
 
-//
-// end residential
-//////////////////////////////
+// //
+// // end residential
+// //////////////////////////////
 
-//////////////////////////////
-// routes for rental
-//
+// //////////////////////////////
+// // routes for rental
+// //
 
-// create
+// // create
 
-router.post(
-  "/rental",
-  uploadMiddleware.array(imageFieldName, uploadFileLimit),
-  createController.create_rental_entry
-);
+// router.post(
+//   "/rental",
+//   uploadMiddleware.array(imageFieldName, uploadFileLimit),
+//   createController.create_rental_entry
+// );
 
-// read
+// // read
 
-router.get("/rental", readController.get_all_rental_entries);
-router.get("/rental/:id", readController.get_rental_byid);
-router.get(
-  "/rental/location/city/:city/state/:state",
-  readController.get_all_rental_bylocation
-);
-router.get(
-  "/rental/pricerange/basis/:basis/min/:min/max/:max",
-  readController.get_all_rental_bypricerange
-);
+// router.get("/rental", readController.get_all_rental_entries);
+// router.get("/rental/:id", readController.get_rental_byid);
+// router.get(
+//   "/rental/location/city/:city/state/:state",
+//   readController.get_all_rental_bylocation
+// );
+// router.get(
+//   "/rental/pricerange/basis/:basis/min/:min/max/:max",
+//   readController.get_all_rental_bypricerange
+// );
 
-router.get(
-  "/rental/beds/:beds/baths/:baths",
-  readController.get_all_rental_bybedsandbaths
-);
+// router.get(
+//   "/rental/beds/:beds/baths/:baths",
+//   readController.get_all_rental_bybedsandbaths
+// );
 
-// update
+// // update
 
-router.patch(
-  "/rental/:id/addphotos",
-  uploadMiddleware.array(imageFieldName, uploadFileLimit),
-  updateController.add_images_rental_byid
-);
-router.delete(
-  "/rental/:id/deletephoto/:imageid/imagepath/:imagepath",
-  updateController.delete_rental_image_byid
-);
+// router.patch(
+//   "/rental/:id/addphotos",
+//   uploadMiddleware.array(imageFieldName, uploadFileLimit),
+//   updateController.add_images_rental_byid
+// );
+// router.delete(
+//   "/rental/:id/deletephoto/:imageid/imagepath/:imagepath",
+//   updateController.delete_rental_image_byid
+// );
 
-router.patch("/rental/:id/update", updateController.update_rental_byid);
+// router.patch("/rental/:id/update", updateController.update_rental_byid);
 
-// delete
+// // delete
 
-router.delete("/rental/:id", deleteController.delete_rental_byid);
+// router.delete("/rental/:id", deleteController.delete_rental_byid);
 
-//
-// end rental
-//////////////////////////////
+// //
+// // end rental
+// //////////////////////////////
 
-//////////////////////////////
-// routes for land
-//
+// //////////////////////////////
+// // routes for land
+// //
 
-// create
+// // create
 
-router.post(
-  "/land",
-  uploadMiddleware.array(imageFieldName, uploadFileLimit),
-  createController.create_land_entry
-);
+// router.post(
+//   "/land",
+//   uploadMiddleware.array(imageFieldName, uploadFileLimit),
+//   createController.create_land_entry
+// );
 
-// read
+// // read
 
-router.get("/land", readController.get_all_land_entries);
-router.get("/land/:id", readController.get_land_byid);
-router.get(
-  "/land/location/city/:city/state/:state",
-  readController.get_all_land_bylocation
-);
-router.get(
-  "/land/pricerange/min/:min/max/:max",
-  readController.get_all_land_bypricerange
-);
+// router.get("/land", readController.get_all_land_entries);
+// router.get("/land/:id", readController.get_land_byid);
+// router.get(
+//   "/land/location/city/:city/state/:state",
+//   readController.get_all_land_bylocation
+// );
+// router.get(
+//   "/land/pricerange/min/:min/max/:max",
+//   readController.get_all_land_bypricerange
+// );
 
-router.get(
-  "/land/acreage/min/:min/max/:max",
-  readController.get_all_land_byacreage
-);
+// router.get(
+//   "/land/acreage/min/:min/max/:max",
+//   readController.get_all_land_byacreage
+// );
 
-// update
+// // update
 
-router.patch(
-  "/land/:id/addphotos",
-  uploadMiddleware.array(imageFieldName, uploadFileLimit),
-  updateController.add_images_land_byid
-);
+// router.patch(
+//   "/land/:id/addphotos",
+//   uploadMiddleware.array(imageFieldName, uploadFileLimit),
+//   updateController.add_images_land_byid
+// );
 
-router.delete(
-  "/land/:id/deletephoto/:imageid/imagepath/:imagepath",
-  updateController.delete_land_image_byid
-);
+// router.delete(
+//   "/land/:id/deletephoto/:imageid/imagepath/:imagepath",
+//   updateController.delete_land_image_byid
+// );
 
-router.patch("/land/:id/update", updateController.update_land_byid);
+// router.patch("/land/:id/update", updateController.update_land_byid);
 
-// delete
+// // delete
 
-router.delete("/land/:id", deleteController.delete_land_byid);
+// router.delete("/land/:id", deleteController.delete_land_byid);
 
-//
-// end land
-//////////////////////////////
+// //
+// // end land
+// //////////////////////////////
 
 module.exports = router;
