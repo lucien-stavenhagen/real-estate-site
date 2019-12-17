@@ -12,22 +12,50 @@ const { imageFieldName, uploadFileLimit } = require("../utils");
 // but by other attributes like
 // city, price, etc.
 //
-router.get("/all", readController.get_all);
-router.get("/all/cities", readController.get_union_of_all_cities_indb);
+// router.get("/all", readController.get_all);
+// router.get("/all/cities", readController.get_union_of_all_cities_indb);
 
-router.get("/all/city/:city/state/:state", readController.get_all_bycity);
+// router.get("/all/city/:city/state/:state", readController.get_all_bycity);
+// router.get(
+//   "/all/bypricerange/min/:min/max/:max",
+//   readController.get_all_bypricerange
+// );
+// router.get(
+//   "/all/byrentrange/min/:min/max/:max",
+//   readController.get_all_byrentrange
+// );
+//
+// read for all properties
+//
+//
+// paginated now
+//
+router.get("/property", readController.get_all_entries);
+
+router.get("/propertybyid", readController.get_property_byid);
+router.get("/cities/property", readController.get_all_cities);
+//
+// params: city, state required, page default 1, pagesize default 4
+//
+router.get("/location/property", readController.get_all_bylocation);
+
 router.get(
-  "/all/bypricerange/min/:min/max/:max",
+  "/commercial/pricerange/min/:min/max/:max",
   readController.get_all_bypricerange
 );
 router.get(
-  "/all/byrentrange/min/:min/max/:max",
-  readController.get_all_byrentrange
+  "/commercial/squarefeet/min/:min/max/:max",
+  readController.get_all_bysquarefeet
 );
 
 //
 // end routes for all
 //////////////////////////////
+
+//
+// specific routes for each property type
+//
+
 //////////////////////////////
 // routes for commercial
 //
@@ -38,29 +66,6 @@ router.post(
   "/commercial",
   uploadMiddleware.array(imageFieldName, uploadFileLimit),
   createController.create_commercial_entry
-);
-
-// read
-
-//
-// paginated now
-//
-router.get("/property", readController.get_all_commercial_entries);
-
-router.get("/propertybyid", readController.get_commercial_byid);
-router.get("/cities/property", readController.get_all_commercial_cities);
-//
-// params: city, state required, page default 1, pagesize default 4
-//
-router.get("/location/property", readController.get_all_commercial_bylocation);
-
-router.get(
-  "/commercial/pricerange/min/:min/max/:max",
-  readController.get_all_commercial_bypricerange
-);
-router.get(
-  "/commercial/squarefeet/min/:min/max/:max",
-  readController.get_all_commercial_bysquarefeet
 );
 
 // update
@@ -91,49 +96,32 @@ router.delete("/commercial/:id", deleteController.delete_commercial_byid);
 
 // create
 
-// router.post(
-//   "/residential",
-//   uploadMiddleware.array(imageFieldName, uploadFileLimit),
-//   createController.create_residential_entry
-// );
+router.post(
+  "/residential",
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
+  createController.create_residential_entry
+);
 
-// // read
+// update
 
-// router.get("/residential", readController.get_all_residential_entries);
-// router.get("/residential/:id", readController.get_residential_byid);
-// router.get(
-//   "/residential/location/city/:city/state/:state",
-//   readController.get_all_residential_bylocation
-// );
-// router.get(
-//   "/residential/pricerange/min/:min/max/:max",
-//   readController.get_all_residential_bypricerange
-// );
-// router.get(
-//   "/residential/beds/:beds/baths/:baths",
-//   readController.get_all_residential_bybedsandbaths
-// );
+router.patch(
+  "/residential/:id/addphotos",
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
+  updateController.add_images_residential_byid
+);
+router.delete(
+  "/residential/:id/deletephoto/:imageid/imagepath/:imagepath",
+  updateController.delete_residential_image_byid
+);
 
-// // update
-
-// router.patch(
-//   "/residential/:id/addphotos",
-//   uploadMiddleware.array(imageFieldName, uploadFileLimit),
-//   updateController.add_images_residential_byid
-// );
-// router.delete(
-//   "/residential/:id/deletephoto/:imageid/imagepath/:imagepath",
-//   updateController.delete_residential_image_byid
-// );
-
-// router.patch(
-//   "/residential/:id/update",
-//   updateController.update_residential_byid
-// );
+router.patch(
+  "/residential/:id/update",
+  updateController.update_residential_byid
+);
 
 // // delete
 
-// router.delete("/residential/:id", deleteController.delete_residential_byid);
+router.delete("/residential/:id", deleteController.delete_residential_byid);
 
 // //
 // // end residential
@@ -145,47 +133,29 @@ router.delete("/commercial/:id", deleteController.delete_commercial_byid);
 
 // // create
 
-// router.post(
-//   "/rental",
-//   uploadMiddleware.array(imageFieldName, uploadFileLimit),
-//   createController.create_rental_entry
-// );
+router.post(
+  "/rental",
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
+  createController.create_rental_entry
+);
 
-// // read
+// update
 
-// router.get("/rental", readController.get_all_rental_entries);
-// router.get("/rental/:id", readController.get_rental_byid);
-// router.get(
-//   "/rental/location/city/:city/state/:state",
-//   readController.get_all_rental_bylocation
-// );
-// router.get(
-//   "/rental/pricerange/basis/:basis/min/:min/max/:max",
-//   readController.get_all_rental_bypricerange
-// );
+router.patch(
+  "/rental/:id/addphotos",
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
+  updateController.add_images_rental_byid
+);
+router.delete(
+  "/rental/:id/deletephoto/:imageid/imagepath/:imagepath",
+  updateController.delete_rental_image_byid
+);
 
-// router.get(
-//   "/rental/beds/:beds/baths/:baths",
-//   readController.get_all_rental_bybedsandbaths
-// );
+router.patch("/rental/:id/update", updateController.update_rental_byid);
 
-// // update
+// delete
 
-// router.patch(
-//   "/rental/:id/addphotos",
-//   uploadMiddleware.array(imageFieldName, uploadFileLimit),
-//   updateController.add_images_rental_byid
-// );
-// router.delete(
-//   "/rental/:id/deletephoto/:imageid/imagepath/:imagepath",
-//   updateController.delete_rental_image_byid
-// );
-
-// router.patch("/rental/:id/update", updateController.update_rental_byid);
-
-// // delete
-
-// router.delete("/rental/:id", deleteController.delete_rental_byid);
+router.delete("/rental/:id", deleteController.delete_rental_byid);
 
 // //
 // // end rental
@@ -197,51 +167,33 @@ router.delete("/commercial/:id", deleteController.delete_commercial_byid);
 
 // // create
 
-// router.post(
-//   "/land",
-//   uploadMiddleware.array(imageFieldName, uploadFileLimit),
-//   createController.create_land_entry
-// );
+router.post(
+  "/land",
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
+  createController.create_land_entry
+);
 
-// // read
+// update
 
-// router.get("/land", readController.get_all_land_entries);
-// router.get("/land/:id", readController.get_land_byid);
-// router.get(
-//   "/land/location/city/:city/state/:state",
-//   readController.get_all_land_bylocation
-// );
-// router.get(
-//   "/land/pricerange/min/:min/max/:max",
-//   readController.get_all_land_bypricerange
-// );
+router.patch(
+  "/land/:id/addphotos",
+  uploadMiddleware.array(imageFieldName, uploadFileLimit),
+  updateController.add_images_land_byid
+);
 
-// router.get(
-//   "/land/acreage/min/:min/max/:max",
-//   readController.get_all_land_byacreage
-// );
+router.delete(
+  "/land/:id/deletephoto/:imageid/imagepath/:imagepath",
+  updateController.delete_land_image_byid
+);
 
-// // update
+router.patch("/land/:id/update", updateController.update_land_byid);
 
-// router.patch(
-//   "/land/:id/addphotos",
-//   uploadMiddleware.array(imageFieldName, uploadFileLimit),
-//   updateController.add_images_land_byid
-// );
+// delete
 
-// router.delete(
-//   "/land/:id/deletephoto/:imageid/imagepath/:imagepath",
-//   updateController.delete_land_image_byid
-// );
+router.delete("/land/:id", deleteController.delete_land_byid);
 
-// router.patch("/land/:id/update", updateController.update_land_byid);
-
-// // delete
-
-// router.delete("/land/:id", deleteController.delete_land_byid);
-
-// //
-// // end land
-// //////////////////////////////
+//
+// end land
+//////////////////////////////
 
 module.exports = router;

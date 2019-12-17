@@ -50,17 +50,11 @@ export default {
     ...mapGetters([
       "getImageFieldName",
       "getEndPoint",
+      "getHost",
       "getPropType",
-      "getDBUpdated"
-    ]),
-    currentPropType() {
-      for (let p in this.getPropType) {
-        if (this.getPropType[p]) {
-          return p;
-        }
-      }
-      return null;
-    }
+      "getDBUpdated",
+      "getCurrentPropType"
+    ])
   },
   watch: {
     getDBUpdated() {
@@ -80,9 +74,9 @@ export default {
       const filename = encodeURIComponent(imageobj.filename);
       axios
         .delete(
-          `${this.getEndPoint(this.currentPropType)}/${this.id}/deletephoto/${
-            imageobj._id
-          }/imagepath/${filename}`
+          `${this.getEndPoint(this.getCurrentPropType)}/${
+            this.id
+          }/deletephoto/${imageobj._id}/imagepath/${filename}`
         )
         .then(doc => {
           console.log({ msg: "successfully deleted photo", doc });
@@ -102,7 +96,7 @@ export default {
       });
       axios
         .patch(
-          `${this.getEndPoint(this.currentPropType)}/${this.id}/addphotos`,
+          `${this.getEndPoint(this.getCurrentPropType)}/${this.id}/addphotos`,
           fd,
           {
             headers: {
@@ -122,7 +116,12 @@ export default {
       }
       this.propLoading = true;
       axios
-        .get(`${this.getEndPoint(this.currentPropType)}/${this.id}`)
+        .get(`${this.getHost}/propertybyid`, {
+          params: {
+            id: this.id,
+            property: this.getCurrentPropType
+          }
+        })
         .then(doc => {
           this.propertyinfo = { ...doc.data };
         })

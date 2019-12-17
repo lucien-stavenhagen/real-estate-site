@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-toolbar>
-      <v-toolbar-title>{{totaldocs}} found</v-toolbar-title>
+      <v-toolbar-title>{{getCurrentPropType}} : {{totaldocs}} found</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
@@ -22,7 +22,11 @@
         :sm="properties.length === 1 ? '12' : '6'"
       >
         <v-card>
-          <v-carousel v-if="!property.images || property.images.length === 0" hide-delimiters>
+          <v-carousel
+            :key="forceme"
+            v-if="!property.images || property.images.length === 0"
+            hide-delimiters
+          >
             <v-carousel-item>
               <v-img height="100%" contain :src="require('../assets/logo.png')"></v-img>
             </v-carousel-item>
@@ -40,6 +44,9 @@
             {{ property.location.city }},{{property.location.state}}
           </v-card-text>
           <v-card-text class="text-truncate">{{ property.description }}</v-card-text>
+          <v-card-actions>
+            <v-btn small outlined @click="viewSingle(property._id)">Details</v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -62,6 +69,14 @@ export default {
     setPageSize(s) {
       this.pagesize = s;
     },
+    viewSingle(id) {
+      this.$router.push({
+        name: "viewsingle",
+        params: {
+          propinfo: id
+        }
+      });
+    },
     getAllProps() {
       axios
         .get(`${this.getHost}/property`, {
@@ -82,16 +97,20 @@ export default {
   watch: {
     page() {
       this.getAllProps();
+      this.forceme = !this.forceme;
     },
     pagesize() {
       this.getAllProps();
+      this.forceme = !this.forceme;
     },
     getCurrentPropType() {
       this.getAllProps();
+      this.forceme = !this.forceme;
     }
   },
   data() {
     return {
+      forceme: true,
       totaldocs: null,
       pagesizes: [2, 4],
       page: 1,

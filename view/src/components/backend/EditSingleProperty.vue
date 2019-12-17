@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-toolbar>
-      <v-toolbar-title class="text-uppercase">Edit {{this.currentPropType}} Property</v-toolbar-title>
+      <v-toolbar-title class="text-uppercase">Edit {{this.getCurrentPropType}} Property</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn to="/backend" text>Dashboard</v-btn>
     </v-toolbar>
@@ -28,14 +28,11 @@ export default {
     EditSingleInfo
   },
   computed: {
-    ...mapGetters(["getPropType"]),
-    currentPropType() {
-      for (let p in this.getPropType) {
-        if (this.getPropType[p]) {
-          return p;
-        }
-      }
-      return null;
+    ...mapGetters(["getPropType", "getCurrentPropType"])
+  },
+  watch: {
+    getCurrentPropType() {
+      this.$router.push("/backend");
     }
   }
 };

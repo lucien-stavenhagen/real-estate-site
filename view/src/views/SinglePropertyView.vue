@@ -67,10 +67,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getHost", "getCurrentPropType"]),
-    propInfo() {
-      return JSON.parse(decodeURIComponent(this.propinfo));
-    }
+    ...mapGetters(["getHost", "getCurrentPropType"])
   },
   methods: {
     toggleView() {
@@ -84,7 +81,7 @@ export default {
       axios
         .get(`${this.getHost}/propertybyid`, {
           params: {
-            id: this.propInfo.id,
+            id: this.propinfo,
             property: this.getCurrentPropType
           }
         })

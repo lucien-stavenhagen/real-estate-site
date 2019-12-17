@@ -35,7 +35,7 @@
               </v-card>
             </v-col>
           </v-row>
-          <div class="text-center">
+          <div v-if="showpagination" class="text-center">
             <v-pagination v-model="page" :length="pages"></v-pagination>
           </div>
         </v-container>
@@ -51,6 +51,7 @@ export default {
   name: "EditPropertyView",
   data() {
     return {
+      showpagination: false,
       page: 1,
       pages: null,
       propcount: null,
@@ -86,6 +87,7 @@ export default {
           }
         })
         .then(doc => {
+          this.showpagination = true;
           this.properties = [...doc.data.docs];
           this.propcount = doc.data.count;
           this.pages = doc.data.pages;

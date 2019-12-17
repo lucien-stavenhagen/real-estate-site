@@ -27,7 +27,7 @@ const routes = [
   {
     name: "allpropsview",
     path: "/allpropsview",
-    component: () => import("../views/MockUpPropView.vue")
+    component: () => import("../views/TestPaginated.vue")
   },
   {
     name: "quicksearch",

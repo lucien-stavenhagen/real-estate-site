@@ -172,17 +172,11 @@ export default {
       "getBasisList",
       "getYesNoList",
       "getEndPoint",
+      "getHost",
       "getPropType",
-      "getDBUpdated"
-    ]),
-    currentPropType() {
-      for (let p in this.getPropType) {
-        if (this.getPropType[p]) {
-          return p;
-        }
-      }
-      return null;
-    }
+      "getDBUpdated",
+      "getCurrentPropType"
+    ])
   },
   methods: {
     ...mapActions(["dispatchDBUpdated"]),
@@ -204,7 +198,7 @@ export default {
     updatePropertyInfo() {
       axios
         .patch(
-          `${this.getEndPoint(this.currentPropType)}/${this.id}/update`,
+          `${this.getEndPoint(this.getCurrentPropType)}/${this.id}/update`,
           this.propertyinfo
         )
         .then(doc => {
@@ -219,7 +213,12 @@ export default {
       }
       this.propLoading = true;
       axios
-        .get(`${this.getEndPoint(this.currentPropType)}/${this.id}`)
+        .get(`${this.getHost}/propertybyid`, {
+          params: {
+            id: this.id,
+            property: this.getCurrentPropType
+          }
+        })
         .then(doc => {
           delete doc.data.images;
           delete doc.data._id;
