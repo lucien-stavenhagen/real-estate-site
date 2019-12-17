@@ -1,20 +1,11 @@
-const {
-  Commercial,
-  Residential,
-  Rental,
-  Land
-} = require("../models/RealEstateModels");
-const mongoose = require("mongoose");
+const { typeHelper } = require("../utils");
 
 //
 // commercial
 //
 
 //
-// paginated version for
-// reference. currently not used.
-// we'll have to move to this
-// eventually for large collections.
+// paginated versions
 //
 // https://docs.mongodb.com/manual/reference/method/cursor.skip/
 // https://docs.mongodb.com/manual/reference/operator/query/in/index.html
@@ -24,19 +15,6 @@ const mongoose = require("mongoose");
 // the relative performance is going to be ok, even though
 // this is probably the slowest way to do it.
 //
-const typeHelper = query => {
-  if (query === "commercial") {
-    return Commercial;
-  } else if (query === "residential") {
-    return Residential;
-  } else if (query === "rental") {
-    return Rental;
-  } else if (query === "land") {
-    return Land;
-  } else {
-    return null;
-  }
-};
 exports.get_all_cities = async (request, response, next) => {
   if (!request.query.property) {
     response.status(400).json({
@@ -148,31 +126,34 @@ exports.get_all_bylocation = async (request, response, next) => {
   }
 };
 
-exports.get_all_bypricerange = (request, response, next) => {
-  Commercial.find({
-    price: { $gte: request.params.min, $lte: request.params.max }
-  })
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
+//
+// TBD don't delete
+//
+// exports.get_all_bypricerange = (request, response, next) => {
+//   Commercial.find({
+//     price: { $gte: request.params.min, $lte: request.params.max }
+//   })
+//     .exec()
+//     .then(doc => {
+//       response.json(doc);
+//     })
+//     .catch(err => {
+//       response.status(400).json({ msg: "error retrieving entries", err });
+//     });
+// };
 
-exports.get_all_bysquarefeet = (request, response, next) => {
-  Commercial.find({
-    squarefeet: { $gte: request.params.min, $lte: request.params.max }
-  })
-    .exec()
-    .then(doc => {
-      response.json(doc);
-    })
-    .catch(err => {
-      response.status(400).json({ msg: "error retrieving entries", err });
-    });
-};
+// exports.get_all_bysquarefeet = (request, response, next) => {
+//   Commercial.find({
+//     squarefeet: { $gte: request.params.min, $lte: request.params.max }
+//   })
+//     .exec()
+//     .then(doc => {
+//       response.json(doc);
+//     })
+//     .catch(err => {
+//       response.status(400).json({ msg: "error retrieving entries", err });
+//     });
+// };
 
 exports.get_property_byid = async (request, response, next) => {
   if (!request.query.property || !request.query.id) {
@@ -193,14 +174,3 @@ exports.get_property_byid = async (request, response, next) => {
     }
   }
 };
-//
-// residential
-//
-
-//
-// rental
-//
-
-//
-// land
-//

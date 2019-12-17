@@ -1,10 +1,3 @@
-const {
-  Commercial,
-  Residential,
-  Rental,
-  Land
-} = require("../models/RealEstateModels");
-
 const { typeHelper } = require("../utils");
 
 const mongoose = require("mongoose");
