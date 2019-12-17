@@ -67,7 +67,7 @@
         </v-col>
       </v-row>
     </v-card>
-    <div v-if="this.showpagination" class="text-center">
+    <div v-if="pages && pages > 0" class="text-center">
       <v-pagination v-model="page" :length="pages"></v-pagination>
     </div>
   </v-container>
@@ -79,7 +79,6 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      showpagination: false,
       page: 1,
       pages: null,
       pagesize: 2,
@@ -97,7 +96,6 @@ export default {
       if (!this.citymodel) {
         this.bycityproperties = null;
         this.pages = null;
-        this.showpagination = false;
         localStorage.removeItem(this.savedsearch);
         return;
       }
@@ -114,7 +112,6 @@ export default {
           }
         })
         .then(doc => {
-          this.showpagination = true;
           this.bycityproperties = { ...doc.data.docs };
           this.propcount = doc.data.count;
           this.pages = doc.data.pages;
@@ -158,9 +155,7 @@ export default {
       this.$router.push({
         name: "viewsingle",
         params: {
-          propinfo: encodeURIComponent(
-            JSON.stringify({ type: this.getCurrentPropType, id: id })
-          )
+          propinfo: id
         }
       });
     }

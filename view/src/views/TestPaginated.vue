@@ -50,7 +50,7 @@
         </v-card>
       </v-col>
     </v-row>
-    <div class="text-center">
+    <div v-if="pages && pages > 0" class="text-center">
       <v-pagination v-model="page" :length="pages"></v-pagination>
     </div>
   </v-container>
