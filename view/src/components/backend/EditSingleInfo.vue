@@ -195,10 +195,11 @@ export default {
         this.updatePropertyInfo();
       }
     },
+    // "/patchprop/proptype/:proptype/id/:id/updateinfo"
     updatePropertyInfo() {
       axios
         .patch(
-          `${this.getEndPoint(this.getCurrentPropType)}/${this.id}/update`,
+          `${this.getHost}/patchprop/proptype/${this.getCurrentPropType}/id/${this.id}/updateinfo`,
           this.propertyinfo
         )
         .then(doc => {

@@ -2,7 +2,7 @@
   <section>
     <v-card>
       <v-card-title
-        class="font-weight-light justify-center text-uppercase"
+        class="font-weight-light justify-center text-capitalize"
       >Add New {{this.currentPropType}} Property to Database</v-card-title>
       <v-container>
         <v-form v-model="valid" ref="mysubmit">

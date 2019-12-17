@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <v-toolbar>
-      <v-toolbar-title>{{getCurrentPropType}} : {{totaldocs}} found</v-toolbar-title>
+    <v-toolbar class="mb-2">
+      <v-toolbar-title class="text-capitalize">{{getCurrentPropType}} : {{totaldocs}} found</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">

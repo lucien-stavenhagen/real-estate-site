@@ -69,14 +69,13 @@ export default {
       this.newimages = null;
       this.dispatchDBUpdated();
     },
+    // "/patchprop/proptype/:proptype/propid/:propid/deletephoto/:imageid/imagepath/:imagepath",
     deleteImage(event, imageobj) {
       event.preventDefault();
       const filename = encodeURIComponent(imageobj.filename);
       axios
         .delete(
-          `${this.getEndPoint(this.getCurrentPropType)}/${
-            this.id
-          }/deletephoto/${imageobj._id}/imagepath/${filename}`
+          `${this.getHost}/patchprop/proptype/${this.getCurrentPropType}/propid/${this.id}/deletephoto/${imageobj._id}/imagepath/${filename}`
         )
         .then(doc => {
           console.log({ msg: "successfully deleted photo", doc });
@@ -96,7 +95,7 @@ export default {
       });
       axios
         .patch(
-          `${this.getEndPoint(this.getCurrentPropType)}/${this.id}/addphotos`,
+          `${this.getHost}/patchprop/proptype/${this.getCurrentPropType}/id/${this.id}/addphotos`,
           fd,
           {
             headers: {

@@ -3,7 +3,7 @@
     <section v-if="this.properties.length > 0">
       <v-card>
         <v-card-title
-          class="font-weight-light justify-center text-uppercase"
+          class="font-weight-light justify-center text-capitalize"
         >Edit {{this.getCurrentPropType}} Properties ({{propcount}})</v-card-title>
         <v-container>
           <v-row dense>

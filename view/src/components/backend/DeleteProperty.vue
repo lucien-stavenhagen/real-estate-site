@@ -32,15 +32,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getEndPoint", "getPropType"]),
-    currentPropType() {
-      for (let p in this.getPropType) {
-        if (this.getPropType[p]) {
-          return p;
-        }
-      }
-      return null;
-    }
+    ...mapGetters(["getHost", "getPropType", "getCurrentPropType"])
   },
   methods: {
     ImNotSure() {
@@ -50,8 +42,13 @@ export default {
     deleteProp(id) {
       this.dialog = false;
       console.log("deleting prop id: " + id);
+      console.log(
+        `${this.getHost}/delete/proptype/${this.getCurrentPropType}/id/${this.id}`
+      );
       axios
-        .delete(`${this.getEndPoint(this.currentPropType)}/${id}`)
+        .delete(
+          `${this.getHost}/deleteprop/proptype/${this.getCurrentPropType}/id/${this.id}`
+        )
         .then(doc => {
           console.log(doc);
           this.$router.push("/backend");

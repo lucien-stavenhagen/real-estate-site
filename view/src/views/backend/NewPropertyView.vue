@@ -4,7 +4,9 @@
       <v-toolbar>
         <v-toolbar-title>
           Property Edit Page
-          <span class="font-weight-light">({{this.getCurrentPropType}})</span>
+          <span
+            class="font-weight-light text-capitalize"
+          >({{this.getCurrentPropType}})</span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>

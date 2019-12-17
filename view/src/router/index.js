@@ -43,7 +43,7 @@ const routes = [
   {
     name: "viewsingle",
     path: "/viewsingle/:propinfo",
-    component: () => import("../views/SinglePropertyView.vue"),
+    component: () => import("../components/SinglePropertyView.vue"),
     props: true
   },
   {

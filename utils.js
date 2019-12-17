@@ -1,3 +1,10 @@
+const {
+  Commercial,
+  Residential,
+  Rental,
+  Land
+} = require("./models/RealEstateModels");
+
 const PORT = process.env.PORT || 4001;
 exports.PORT = PORT;
 exports.HOST_URI = process.env.HOST_URI || `http://localhost:${PORT}`;
@@ -66,3 +73,17 @@ exports.stateList = [
 ];
 exports.basisList = ["monthly", "weekly"];
 exports.uploadFileLimit = 48;
+
+exports.typeHelper = query => {
+  if (query === "commercial") {
+    return Commercial;
+  } else if (query === "residential") {
+    return Residential;
+  } else if (query === "rental") {
+    return Rental;
+  } else if (query === "land") {
+    return Land;
+  } else {
+    return null;
+  }
+};

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-toolbar>
+    <v-toolbar class="mb-2">
       <v-toolbar-title>
         Search
         <span class="font-weight-light">({{this.getCurrentPropType}})</span>
@@ -8,7 +8,7 @@
       <v-spacer></v-spacer>
     </v-toolbar>
 
-    <v-card>
+    <v-card class="mb-2">
       <v-card-text>
         <v-combobox
           v-model="citymodel"
