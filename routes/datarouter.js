@@ -6,6 +6,7 @@ const updateController = require("../controllers/UpdateController");
 const deleteController = require("../controllers/DeleteController");
 const { uploadMiddleware } = require("../middleware/multer/ImageUpload");
 const { imageFieldName, uploadFileLimit } = require("../utils");
+const { verifyUser } = require("../middleware/auth/verifyUser");
 
 //////////////////////////////
 // routes for all proptypes
