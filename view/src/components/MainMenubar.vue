@@ -70,7 +70,7 @@ export default {
           route: "/backend"
         },
         {
-          name: "MockUp View",
+          name: "Property View",
           route: "/allpropsview"
         }
       ]

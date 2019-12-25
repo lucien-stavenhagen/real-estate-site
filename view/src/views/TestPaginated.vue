@@ -67,7 +67,13 @@ export default {
   },
   methods: {
     setPageSize(s) {
-      this.pagesize = s;
+      const newtotal = Math.ceil(this.totaldocs / s);
+      if (this.pagesize !== s) {
+        this.pagesize = s;
+        if (newtotal < this.page) {
+          this.page = newtotal;
+        }
+      }
     },
     viewSingle(id) {
       this.$router.push({
@@ -112,7 +118,7 @@ export default {
     return {
       forceme: true,
       totaldocs: null,
-      pagesizes: [2, 4],
+      pagesizes: [1, 2, 4],
       page: 1,
       pagesize: 2,
       pages: null,
