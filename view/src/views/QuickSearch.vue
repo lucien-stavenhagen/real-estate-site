@@ -161,7 +161,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getHost", "getCurrentPropType"]),
+    ...mapGetters(["getCurrentPropType"]),
     savedsearch() {
       return `ssearch_${this.getCurrentPropType}`;
     }
