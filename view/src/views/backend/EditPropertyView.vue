@@ -59,12 +59,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      "getHost",
-      "getCurrentPropType",
-      "getPropType",
-      "getDBUpdated"
-    ])
+    ...mapGetters(["getCurrentPropType", "getPropType", "getDBUpdated"])
   },
   watch: {
     page() {
@@ -80,7 +75,7 @@ export default {
   methods: {
     getAllProperties() {
       axios
-        .get(`${this.getHost}/property`, {
+        .get(`/api/property`, {
           params: {
             page: this.page,
             property: this.getCurrentPropType

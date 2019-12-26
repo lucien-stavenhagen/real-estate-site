@@ -171,8 +171,6 @@ export default {
       "getUSStatesList",
       "getBasisList",
       "getYesNoList",
-      "getEndPoint",
-      "getHost",
       "getPropType",
       "getDBUpdated",
       "getCurrentPropType"
@@ -199,7 +197,7 @@ export default {
     updatePropertyInfo() {
       axios
         .patch(
-          `${this.getHost}/patchprop/proptype/${this.getCurrentPropType}/id/${this.id}/updateinfo`,
+          `/api/patchprop/proptype/${this.getCurrentPropType}/id/${this.id}/updateinfo`,
           this.propertyinfo
         )
         .then(doc => {
@@ -214,7 +212,7 @@ export default {
       }
       this.propLoading = true;
       axios
-        .get(`${this.getHost}/propertybyid`, {
+        .get(`/api/propertybyid`, {
           params: {
             id: this.id,
             property: this.getCurrentPropType

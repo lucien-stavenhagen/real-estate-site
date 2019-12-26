@@ -13,7 +13,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn outlined @click="ImNotSure()">Cancel</v-btn>
-          <v-btn outlined color="red" @click="deleteProp(id)">Delete</v-btn>
+          <v-btn outlined color="red" @click="deleteProp()">Delete</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -24,7 +24,7 @@ import axios from "axios";
 import { mapGetters } from "vuex";
 
 export default {
-  name: "DeleteProperty.vue",
+  name: "DeleteProperty",
   props: {
     id: {
       type: String,
@@ -32,22 +32,18 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getHost", "getPropType", "getCurrentPropType"])
+    ...mapGetters(["getPropType", "getCurrentPropType"])
   },
   methods: {
     ImNotSure() {
       this.dialog = false;
       this.$router.push("/backend");
     },
-    deleteProp(id) {
+    deleteProp() {
       this.dialog = false;
-      console.log("deleting prop id: " + id);
-      console.log(
-        `${this.getHost}/delete/proptype/${this.getCurrentPropType}/id/${this.id}`
-      );
       axios
         .delete(
-          `${this.getHost}/deleteprop/proptype/${this.getCurrentPropType}/id/${this.id}`
+          `/api/deleteprop/proptype/${this.getCurrentPropType}/id/${this.id}`
         )
         .then(doc => {
           console.log(doc);

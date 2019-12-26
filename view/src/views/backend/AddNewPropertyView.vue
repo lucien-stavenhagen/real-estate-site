@@ -220,13 +220,13 @@ export default {
         const formData = this.createFormData();
         let endpoint;
         if (this.getPropType.commercial) {
-          endpoint = this.getEndPoint("commercial");
+          endpoint = "/api/commercial";
         } else if (this.getPropType.residential) {
-          endpoint = this.getEndPoint("residential");
+          endpoint = "/api/residential";
         } else if (this.getPropType.rental) {
-          endpoint = this.getEndPoint("rental");
+          endpoint = "/api/rental";
         } else if (this.getPropType.land) {
-          endpoint = this.getEndPoint("land");
+          endpoint = "/api/land";
         } else {
           //
           // TBD error condition

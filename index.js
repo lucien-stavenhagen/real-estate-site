@@ -47,7 +47,14 @@ mongoose
 
 app.use("/api", datarouter);
 app.use("/api/users", userrouter);
-
+if (process.env.NODE_ENV === "production") {
+  // setup static folder
+  app.use(express.static(path.resolve(__dirname, "public")));
+  // handle single page app
+  app.get(/.*/, (request, response) => {
+    response.sendFile(path.resolve(__dirname, "public", "index.html"));
+  });
+}
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
 });

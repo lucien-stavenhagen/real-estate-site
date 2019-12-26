@@ -102,7 +102,7 @@ export default {
       const city = this.citymodel.split(",")[0];
       const state = this.citymodel.split(",")[1];
       axios
-        .get(`${this.getHost}/location/property`, {
+        .get(`/api/location/property`, {
           params: {
             city,
             state,
@@ -132,7 +132,7 @@ export default {
 
       // Lazily load input items
       axios
-        .get(`${this.getHost}/cities/property`, {
+        .get(`/api/cities/property`, {
           params: {
             property: this.getCurrentPropType
           }

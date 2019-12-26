@@ -49,8 +49,6 @@ export default {
   computed: {
     ...mapGetters([
       "getImageFieldName",
-      "getEndPoint",
-      "getHost",
       "getPropType",
       "getDBUpdated",
       "getCurrentPropType"
@@ -75,7 +73,7 @@ export default {
       const filename = encodeURIComponent(imageobj.filename);
       axios
         .delete(
-          `${this.getHost}/patchprop/proptype/${this.getCurrentPropType}/propid/${this.id}/deletephoto/${imageobj._id}/imagepath/${filename}`
+          `/api/patchprop/proptype/${this.getCurrentPropType}/propid/${this.id}/deletephoto/${imageobj._id}/imagepath/${filename}`
         )
         .then(doc => {
           console.log({ msg: "successfully deleted photo", doc });
@@ -95,7 +93,7 @@ export default {
       });
       axios
         .patch(
-          `${this.getHost}/patchprop/proptype/${this.getCurrentPropType}/id/${this.id}/addphotos`,
+          `/api/patchprop/proptype/${this.getCurrentPropType}/id/${this.id}/addphotos`,
           fd,
           {
             headers: {
@@ -115,7 +113,7 @@ export default {
       }
       this.propLoading = true;
       axios
-        .get(`${this.getHost}/propertybyid`, {
+        .get(`/api/propertybyid`, {
           params: {
             id: this.id,
             property: this.getCurrentPropType

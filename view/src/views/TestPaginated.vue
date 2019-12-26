@@ -85,7 +85,7 @@ export default {
     },
     getAllProps() {
       axios
-        .get(`${this.getHost}/property`, {
+        .get(`/api/property`, {
           params: {
             page: this.page,
             pagesize: this.pagesize,

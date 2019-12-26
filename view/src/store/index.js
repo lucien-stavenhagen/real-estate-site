@@ -6,14 +6,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     localstoragename: "realestate",
-    host: "http://localhost:4001/api",
-    endpoints: {
-      commercial: "commercial",
-      residential: "residential",
-      rental: "rental",
-      land: "land",
-      all: "all"
-    },
+    // host: "http://localhost:4001/api",
+    // endpoints: {
+    //   commercial: "commercial",
+    //   residential: "residential",
+    //   rental: "rental",
+    //   land: "land",
+    //   all: "all"
+    // },
     proptype: {
       commercial: false,
       residential: false,
@@ -84,11 +84,11 @@ export default new Vuex.Store({
     dbupdated: 0
   },
   getters: {
-    getHost: state => state.host,
+    // getHost: state => state.host,
 
-    getEndPoint: state => endpointname => {
-      return `${state.host}/${state.endpoints[endpointname]}`;
-    },
+    // getEndPoint: state => endpointname => {
+    //   return `${state.host}/${state.endpoints[endpointname]}`;
+    // },
     getUSStatesList(state) {
       return state.stateList;
     },

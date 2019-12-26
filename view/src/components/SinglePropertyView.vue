@@ -79,7 +79,7 @@ export default {
       }
       this.propLoading = true;
       axios
-        .get(`${this.getHost}/propertybyid`, {
+        .get(`/api/propertybyid`, {
           params: {
             id: this.propinfo,
             property: this.getCurrentPropType
