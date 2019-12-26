@@ -1,4 +1,4 @@
-const { PORT, mongoURI, publicDir } = require("./utils");
+const { PORT, atlasURI, publicDir } = require("./utils");
 
 const express = require("express");
 const app = express();
@@ -34,14 +34,15 @@ app.use(compression());
 app.use(`/${publicDir}`, express.static(path.join(__dirname, publicDir)));
 
 const autoIndex = process.env.NODE_ENV !== "production";
+
 mongoose
-  .connect(mongoURI, {
+  .connect(process.env.MONGODB_URI || atlasURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     autoIndex
   })
   .then(() => {
-    console.log(`connected successfully. URL: ${mongoURI}`);
+    console.log(`connected successfully. URL: ${atlasURI}`);
   })
   .catch(error => console.log(`connection failed!: ${error}`));
 

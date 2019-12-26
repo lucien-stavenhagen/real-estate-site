@@ -4,6 +4,14 @@ const {
   Rental,
   Land
 } = require("./models/RealEstateModels");
+// connect to mongodb out in atlas
+// hoist creds out to make it easier to update
+const username = "lstavenhagen";
+const password = "dalemace";
+const dbname = "realestate";
+
+// connect to mongodb out on atlas
+exports.atlasURI = `mongodb+srv://${username}:${password}@cluster0-g06zf.mongodb.net/${dbname}?retryWrites=true&w=majority`;
 
 const PORT = process.env.PORT || 4001;
 exports.PORT = PORT;
