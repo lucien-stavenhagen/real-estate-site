@@ -104,7 +104,6 @@ export default {
       cities: [],
       bycityproperties: null,
       searchLoading: false,
-      resultsLoading: false,
       citymodel: null,
       minimumprice: null,
       maximumprice: null,
@@ -163,7 +162,9 @@ export default {
             })
           );
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          console.log(error);
+        });
     },
     getCities() {
       // Items have already been loaded
@@ -189,12 +190,17 @@ export default {
         .finally(() => (this.searchLoading = false));
     },
     saveSearch() {
+      this.cities = [];
       const savedsearch = localStorage.getItem(this.savedsearch);
       if (savedsearch) {
         const saved = JSON.parse(savedsearch);
         this.citymodel = saved.citymodel;
         this.minimumprice = saved.minimumprice;
         this.maximumprice = saved.maximumprice;
+      } else {
+        this.citymodel = null;
+        this.minimumprice = null;
+        this.maximumprice = null;
       }
     },
     viewSingle(id) {
@@ -213,34 +219,23 @@ export default {
     }
   },
   watch: {
-    citymodel() {
-      this.getPropsByCity();
+    citymodel: {
+      handler: "getPropsByCity"
     },
-    maximumprice() {
-      if (this.maximumprice && !!+this.maximumprice) {
-        this.getPropsByCity();
-      }
+    maximumprice: {
+      handler: "getPropsByCity"
     },
-    minimumprice() {
-      if (this.minimumprice && !!+this.minimumprice) {
-        this.getPropsByCity();
-      }
+    minimumprice: {
+      handler: "getPropsByCity"
     },
-    search() {
-      this.getCities();
+    search: {
+      handler: "getCities"
     },
-    page() {
-      this.getPropsByCity();
+    page: {
+      handler: "getPropsByCity"
     },
-    getCurrentPropType() {
-      this.cities = [];
-      this.citymodel = null;
-      this.minimumprice = null;
-      this.maximumprice = null;
-      this.pages = null;
-      this.bycityproperties = null;
-      this.search = null;
-      this.saveSearch();
+    getCurrentPropType: {
+      handler: "saveSearch"
     }
   },
   mounted() {
