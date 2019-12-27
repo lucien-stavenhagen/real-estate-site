@@ -110,7 +110,7 @@ export default {
       maximumprice: null,
       search: null,
       numrules: [
-        value => !value || value === "0" || +value || "field must be a number"
+        value => !value || value === "0" || !!+value || "field must be a number"
       ]
     };
   },
@@ -217,10 +217,14 @@ export default {
       this.getPropsByCity();
     },
     maximumprice() {
-      this.getPropsByCity();
+      if (this.maximumprice && !!+this.maximumprice) {
+        this.getPropsByCity();
+      }
     },
     minimumprice() {
-      this.getPropsByCity();
+      if (this.minimumprice && !!+this.minimumprice) {
+        this.getPropsByCity();
+      }
     },
     search() {
       this.getCities();
