@@ -98,13 +98,13 @@ exports.get_all_bylocation = async (request, response, next) => {
       if (request.query.min) {
         queryfilter = {
           ...queryfilter,
-          [priceparm]: { ...queryfilter.price, $gte: request.query.min }
+          [priceparm]: { ...queryfilter[priceparm], $gte: request.query.min }
         };
       }
       if (request.query.max) {
         queryfilter = {
           ...queryfilter,
-          [priceparm]: { ...queryfilter.price, $lte: request.query.max }
+          [priceparm]: { ...queryfilter[priceparm], $lte: request.query.max }
         };
       }
       let page = 1;
