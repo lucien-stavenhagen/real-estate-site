@@ -1,10 +1,6 @@
 const { typeHelper } = require("../utils");
 
 //
-// commercial
-//
-
-//
 // paginated versions
 //
 // https://docs.mongodb.com/manual/reference/method/cursor.skip/
@@ -15,6 +11,7 @@ const { typeHelper } = require("../utils");
 // the relative performance is going to be ok, even though
 // this is probably the slowest way to do it.
 //
+
 exports.get_all_cities = async (request, response, next) => {
   if (!request.query.property) {
     response.status(400).json({
@@ -38,6 +35,7 @@ exports.get_all_cities = async (request, response, next) => {
     }
   }
 };
+
 exports.get_all_entries = async (request, response, next) => {
   if (!request.query.property) {
     response.status(400).json({
@@ -139,35 +137,6 @@ exports.get_all_bylocation = async (request, response, next) => {
     }
   }
 };
-
-//
-// TBD don't delete
-//
-// exports.get_all_bypricerange = (request, response, next) => {
-//   Commercial.find({
-//     price: { $gte: request.params.min, $lte: request.params.max }
-//   })
-//     .exec()
-//     .then(doc => {
-//       response.json(doc);
-//     })
-//     .catch(err => {
-//       response.status(400).json({ msg: "error retrieving entries", err });
-//     });
-// };
-
-// exports.get_all_bysquarefeet = (request, response, next) => {
-//   Commercial.find({
-//     squarefeet: { $gte: request.params.min, $lte: request.params.max }
-//   })
-//     .exec()
-//     .then(doc => {
-//       response.json(doc);
-//     })
-//     .catch(err => {
-//       response.status(400).json({ msg: "error retrieving entries", err });
-//     });
-// };
 
 exports.get_property_byid = async (request, response, next) => {
   if (!request.query.property || !request.query.id) {
