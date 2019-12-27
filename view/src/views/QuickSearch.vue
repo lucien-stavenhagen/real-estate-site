@@ -44,7 +44,7 @@
         </div>
       </v-card-text>
     </v-card>
-    <v-card v-if="this.bycityproperties" class="pa-2">
+    <v-card v-if="pages && pages > 0" class="pa-2">
       <v-card-title class="headline justify-center">
         <span v-if="this.citymodel">Properties in {{this.citymodel}}</span>
         <span v-else>Properties (all locations)</span>
@@ -58,16 +58,6 @@
         v-if="maximumprice"
       >high: ${{this.maximumprice}}</v-card-text>
       <v-row dense>
-        <v-col cols="12">
-          <div
-            class="d-flex flex-column text-uppercase text-center"
-            v-if="bycityproperties.length > 0"
-          >
-            <v-divider></v-divider>
-            <span class="pa-3">{{j}} ({{bycityproperties.length}})</span>
-            <v-divider></v-divider>
-          </div>
-        </v-col>
         <v-col :key="i" v-for="(property, i) in bycityproperties" cols="12" sm="6">
           <v-card>
             <v-carousel v-if="!property.images || property.images.length === 0" hide-delimiters>
@@ -94,10 +84,10 @@
           </v-card>
         </v-col>
       </v-row>
+      <div class="text-center">
+        <v-pagination v-model="page" :length="pages"></v-pagination>
+      </div>
     </v-card>
-    <div v-if="pages && pages > 0" class="text-center">
-      <v-pagination v-model="page" :length="pages"></v-pagination>
-    </div>
   </v-container>
 </template>
 <script>
