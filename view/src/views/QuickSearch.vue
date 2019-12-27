@@ -44,7 +44,7 @@
         </div>
       </v-card-text>
     </v-card>
-    <v-card :key="forceme" v-if="pages && pages > 0" class="pa-2">
+    <v-card v-if="pages && pages > 0" class="pa-2">
       <v-card-title class="headline justify-center">
         <span v-if="this.citymodel">Properties in {{this.citymodel}}</span>
         <span v-else>Properties (all locations)</span>
@@ -97,7 +97,6 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      forceme: true,
       page: 1,
       pages: null,
       pagesize: 2,
@@ -163,7 +162,6 @@ export default {
               maximumprice: this.maximumprice
             })
           );
-          this.forceme = !this.forceme;
         })
         .catch(error => console.log(error));
     },
