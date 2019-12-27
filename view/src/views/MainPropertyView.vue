@@ -61,9 +61,9 @@ import { mapGetters } from "vuex";
 import axios from "axios";
 
 export default {
-  name: "TestPaginated",
+  name: "MainPropertyView",
   computed: {
-    ...mapGetters(["getHost", "getCurrentPropType"])
+    ...mapGetters(["getCurrentPropType"])
   },
   methods: {
     setPageSize(s) {

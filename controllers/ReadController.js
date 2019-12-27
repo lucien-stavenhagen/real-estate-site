@@ -80,13 +80,33 @@ exports.get_all_entries = async (request, response, next) => {
 };
 
 exports.get_all_bylocation = async (request, response, next) => {
-  if (!request.query.property || !request.query.city || !request.query.state) {
+  if (!request.query.property) {
     response.status(400).json({
       msg: "missing parameter",
-      error: "property, city and state parameters required!"
+      error: "property param required!"
     });
   } else {
     try {
+      let queryfilter = {};
+      if (request.query.city && request.query.state) {
+        queryfilter = {
+          ...queryfilter,
+          "location.city": request.query.city,
+          "location.state": request.query.state
+        };
+      }
+      if (request.query.min) {
+        queryfilter = {
+          ...queryfilter,
+          price: { ...queryfilter.price, $gte: request.query.min }
+        };
+      }
+      if (request.query.max) {
+        queryfilter = {
+          ...queryfilter,
+          price: { ...queryfilter.price, $lte: request.query.max }
+        };
+      }
       const model = typeHelper(request.query.property);
       let page = 1;
       if (request.query.page && +request.query.page) {
@@ -100,15 +120,9 @@ exports.get_all_bylocation = async (request, response, next) => {
       ) {
         pagesize = +request.query.pagesize;
       }
-      const doccount = await model.countDocuments({
-        "location.city": request.query.city,
-        "location.state": request.query.state
-      });
+      const doccount = await model.countDocuments(queryfilter);
       const docs = await model
-        .find({
-          "location.city": request.query.city,
-          "location.state": request.query.state
-        })
+        .find(queryfilter)
         .sort({ _id: -1 })
         .skip((page - 1) * pagesize)
         .limit(pagesize);

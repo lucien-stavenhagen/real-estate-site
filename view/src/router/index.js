@@ -27,7 +27,7 @@ const routes = [
   {
     name: "allpropsview",
     path: "/allpropsview",
-    component: () => import("../views/TestPaginated.vue")
+    component: () => import("../views/MainPropertyView.vue")
   },
   {
     name: "quicksearch",
@@ -57,10 +57,6 @@ const routes = [
     path: "/editprop/:id",
     component: () => import("../components/backend/EditSingleProperty.vue"),
     props: true
-  },
-  {
-    path: "/delme",
-    component: () => import("../views/TestPaginated.vue")
   }
 ];
 

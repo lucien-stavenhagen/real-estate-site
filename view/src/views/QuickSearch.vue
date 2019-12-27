@@ -22,13 +22,41 @@
           prepend-icon="mdi-database-search"
           return-object
         ></v-combobox>
+        <div class="d-flex flex-column flex-sm-row">
+          <v-text-field
+            filled
+            clearable
+            label="Minimum Price USD"
+            :rules="this.numrules"
+            v-model="minimumprice"
+          >
+            <v-icon slot="prepend">mdi-currency-usd</v-icon>
+          </v-text-field>
+          <v-text-field
+            filled
+            clearable
+            label="Maximum Price USD"
+            :rules="this.numrules"
+            v-model="maximumprice"
+          >
+            <v-icon slot="prepend">mdi-currency-usd</v-icon>
+          </v-text-field>
+        </div>
       </v-card-text>
     </v-card>
     <v-card v-if="this.bycityproperties" class="pa-2">
-      <v-card-title
-        v-if="this.citymodel"
-        class="headline justify-center"
-      >Properties in {{this.citymodel}}</v-card-title>
+      <v-card-title class="headline justify-center">
+        <span v-if="this.citymodel">Properties in {{this.citymodel}}</span>
+        <span v-else>Properties (all locations)</span>
+      </v-card-title>
+      <v-card-text
+        class="text-center text-capitalize"
+        v-if="minimumprice"
+      >low: ${{this.minimumprice}}</v-card-text>
+      <v-card-text
+        class="text-center text-capitalize"
+        v-if="maximumprice"
+      >high: ${{this.maximumprice}}</v-card-text>
       <v-row dense>
         <v-col cols="12">
           <div
@@ -88,28 +116,49 @@ export default {
       searchLoading: false,
       resultsLoading: false,
       citymodel: null,
-      search: null
+      minimumprice: null,
+      maximumprice: null,
+      search: null,
+      numrules: [
+        value => !value || value === "0" || +value || "field must be a number"
+      ]
     };
   },
   methods: {
     getPropsByCity() {
-      if (!this.citymodel) {
+      if (!this.citymodel && !this.minimumprice && !this.maximumprice) {
         this.bycityproperties = null;
         this.pages = null;
         localStorage.removeItem(this.savedsearch);
         return;
       }
-      const city = this.citymodel.split(",")[0];
-      const state = this.citymodel.split(",")[1];
+      let parms = {
+        page: this.page,
+        pagesize: this.pagesize,
+        property: this.getCurrentPropType
+      };
+      if (this.citymodel) {
+        parms = {
+          ...parms,
+          city: this.citymodel.split(",")[0],
+          state: this.citymodel.split(",")[1]
+        };
+      }
+      if (this.maximumprice) {
+        parms = {
+          ...parms,
+          max: this.maximumprice
+        };
+      }
+      if (this.minimumprice) {
+        parms = {
+          ...parms,
+          min: this.minimumprice
+        };
+      }
       axios
         .get(`/api/location/property`, {
-          params: {
-            city,
-            state,
-            page: this.page,
-            pagesize: this.pagesize,
-            property: this.getCurrentPropType
-          }
+          params: parms
         })
         .then(doc => {
           this.bycityproperties = { ...doc.data.docs };
@@ -117,7 +166,11 @@ export default {
           this.pages = doc.data.pages;
           localStorage.setItem(
             this.savedsearch,
-            JSON.stringify(this.citymodel)
+            JSON.stringify({
+              citymodel: this.citymodel,
+              minimumprice: this.minimumprice,
+              maximumprice: this.maximumprice
+            })
           );
         })
         .catch(error => console.log(error));
@@ -148,7 +201,10 @@ export default {
     saveSearch() {
       const savedsearch = localStorage.getItem(this.savedsearch);
       if (savedsearch) {
-        this.citymodel = JSON.parse(savedsearch);
+        const saved = JSON.parse(savedsearch);
+        this.citymodel = saved.citymodel;
+        this.minimumprice = saved.minimumprice;
+        this.maximumprice = saved.maximumprice;
       }
     },
     viewSingle(id) {
@@ -170,6 +226,12 @@ export default {
     citymodel() {
       this.getPropsByCity();
     },
+    maximumprice() {
+      this.getPropsByCity();
+    },
+    minimumprice() {
+      this.getPropsByCity();
+    },
     search() {
       this.getCities();
     },
@@ -179,6 +241,8 @@ export default {
     getCurrentPropType() {
       this.cities = [];
       this.citymodel = null;
+      this.minimumprice = null;
+      this.maximumprice = null;
       this.pages = null;
       this.bycityproperties = null;
       this.search = null;
