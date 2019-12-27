@@ -84,13 +84,13 @@ exports.uploadFileLimit = 48;
 
 exports.typeHelper = query => {
   if (query === "commercial") {
-    return Commercial;
+    return { model: Commercial, priceparm: "price" };
   } else if (query === "residential") {
-    return Residential;
+    return { model: Residential, priceparm: "price" };
   } else if (query === "rental") {
-    return Rental;
+    return { model: Rental, priceparm: "rent" };
   } else if (query === "land") {
-    return Land;
+    return { model: Land, priceparm: "price" };
   } else {
     return null;
   }

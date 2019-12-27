@@ -7,7 +7,7 @@ const { HOST_URI } = require("../utils");
 // commercial
 //
 exports.add_images_by_proptype_and_id = (request, response, next) => {
-  const model = typeHelper(request.params.proptype);
+  const { model } = typeHelper(request.params.proptype);
 
   const imglist = request.files.map(item => {
     return {
@@ -38,7 +38,7 @@ exports.add_images_by_proptype_and_id = (request, response, next) => {
 };
 // "/patchprop/proptype/:proptype/propid/:propid/deletephoto/:imageid/imagepath/:imagepath",
 exports.delete_property_image_by_type_and_id = (request, response, next) => {
-  const model = typeHelper(request.params.proptype);
+  const { model } = typeHelper(request.params.proptype);
   const imagepath = decodeURIComponent(request.params.imagepath);
   model
     .updateOne(
@@ -60,7 +60,7 @@ exports.delete_property_image_by_type_and_id = (request, response, next) => {
 };
 
 exports.update_property_by_type_and_id = (request, response, next) => {
-  const model = typeHelper(request.params.proptype);
+  const { model } = typeHelper(request.params.proptype);
   model
     .updateOne({ _id: request.params.id }, request.body)
     .exec()

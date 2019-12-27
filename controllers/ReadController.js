@@ -20,7 +20,7 @@ exports.get_all_cities = async (request, response, next) => {
     });
   } else {
     try {
-      const model = typeHelper(request.query.property);
+      const { model } = typeHelper(request.query.property);
       let commAll = await model.aggregate([
         {
           $group: { _id: { city: "$location.city", state: "$location.state" } }
@@ -44,7 +44,7 @@ exports.get_all_entries = async (request, response, next) => {
     });
   } else {
     try {
-      const model = typeHelper(request.query.property);
+      const { model } = typeHelper(request.query.property);
       let page = 1;
       if (request.query.page && +request.query.page) {
         page = request.query.page;
@@ -78,6 +78,8 @@ exports.get_all_entries = async (request, response, next) => {
 };
 
 exports.get_all_bylocation = async (request, response, next) => {
+  const { model, priceparm } = typeHelper(request.query.property);
+
   if (!request.query.property) {
     response.status(400).json({
       msg: "missing parameter",
@@ -96,16 +98,15 @@ exports.get_all_bylocation = async (request, response, next) => {
       if (request.query.min) {
         queryfilter = {
           ...queryfilter,
-          price: { ...queryfilter.price, $gte: request.query.min }
+          [priceparm]: { ...queryfilter.price, $gte: request.query.min }
         };
       }
       if (request.query.max) {
         queryfilter = {
           ...queryfilter,
-          price: { ...queryfilter.price, $lte: request.query.max }
+          [priceparm]: { ...queryfilter.price, $lte: request.query.max }
         };
       }
-      const model = typeHelper(request.query.property);
       let page = 1;
       if (request.query.page && +request.query.page) {
         page = request.query.page;
@@ -146,7 +147,7 @@ exports.get_property_byid = async (request, response, next) => {
     });
   } else {
     try {
-      const model = typeHelper(request.query.property);
+      const { model } = typeHelper(request.query.property);
       const doc = await model.findById(request.query.id).exec();
       response.json(doc);
     } catch (error) {

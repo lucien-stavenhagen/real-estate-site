@@ -1,7 +1,5 @@
 const { typeHelper } = require("../utils");
-const mongoose = require("mongoose");
 const fs = require("fs");
-
 const responseHelper = (msg, filestatus, doc, error) => {
   return {
     msg,
@@ -16,7 +14,7 @@ const responseHelper = (msg, filestatus, doc, error) => {
 //
 
 exports.delete_property_bytype_and_id = (request, response, next) => {
-  const model = typeHelper(request.params.proptype);
+  const { model } = typeHelper(request.params.proptype);
   model
     .findByIdAndRemove(request.params.id, {
       useFindAndModify: false
