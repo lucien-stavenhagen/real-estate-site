@@ -27,31 +27,43 @@ exports.get_users = (request, response, next) => {
       response.status(400).json({ msg: "error retrieving users" })
     );
 };
-exports.add_user = (request, response, next) => {
-  bcrypt
-    .hash(request.body.password, 10)
-    .then(hash => {
-      const newuser = {
-        username: request.body.username,
-        emailaddress: request.body.emailaddress,
-        password: hash
-      };
-      const userres = new User(newuser)
-        .save()
-        .then(doc => {
-          response.json({ msg: "successfully added new user", error: null });
-        })
-        .catch(error => {
-          response
-            .status(400)
-            .json({ msg: "problem in mongoose adding new user", error });
-        });
-    })
-    .catch(error => {
-      response.status(400).json({ msg: "problem hashing password", error });
-    });
+exports.add_user = async (request, response, next) => {
+  let ifuser = await User.find(
+    { username: request.body.username },
+    { username: 1 }
+  );
+  if (ifuser.length > 0) {
+    response
+      .status(400)
+      .json({
+        msg: `username ${request.body.username} already taken`,
+        error: true
+      });
+  } else {
+    bcrypt
+      .hash(request.body.password, 10)
+      .then(hash => {
+        const newuser = {
+          username: request.body.username,
+          emailaddress: request.body.emailaddress,
+          password: hash
+        };
+        const userres = new User(newuser)
+          .save()
+          .then(doc => {
+            response.json({ msg: "successfully added new user", error: null });
+          })
+          .catch(error => {
+            response
+              .status(400)
+              .json({ msg: "problem in mongoose adding new user", error });
+          });
+      })
+      .catch(error => {
+        response.status(400).json({ msg: "problem hashing password", error });
+      });
+  }
 };
-
 exports.login_user = (request, response, next) => {
   const document = User.findOne({
     username: request.body.username,

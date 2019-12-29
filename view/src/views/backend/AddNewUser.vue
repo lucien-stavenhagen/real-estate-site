@@ -2,6 +2,10 @@
   <section>
     <v-card>
       <v-card-title class="font-weight-light text-capitalize">Add New User</v-card-title>
+      <v-card-title
+        class="red darken-4 white--text justify-center text-capitalize font-weight-light"
+        v-if="addfailed"
+      >{{this.failedmsg.msg}}</v-card-title>
       <v-container>
         <v-form v-model="valid" ref="newuser">
           <v-text-field
@@ -56,6 +60,8 @@ export default {
     ...mapActions(["dispatchDBUpdated"]),
     myResetForm() {
       this.$refs.newuser.reset();
+      this.addfailed = false;
+      this.failedmsg = null;
     },
     addNewUser() {
       if (this.$refs.newuser.validate()) {
@@ -72,8 +78,8 @@ export default {
           })
           .catch(error => {
             this.addfailed = true;
-            this.myResetForm();
-            console.log(error.response.data);
+            this.$refs.newuser.reset();
+            this.failedmsg = error.response.data;
             //console.log(error.response.status);
             //console.log(error.response.headers);
           });
@@ -85,6 +91,7 @@ export default {
       userlist: [],
       valid: true,
       addfailed: false,
+      failedmsg: null,
       showemail: true,
       showpassword: false,
       username: null,
