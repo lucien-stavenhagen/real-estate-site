@@ -173,6 +173,7 @@ export default {
       "getYesNoList",
       "getPropType",
       "getDBUpdated",
+      "getUser",
       "getCurrentPropType"
     ])
   },
@@ -198,13 +199,20 @@ export default {
       axios
         .patch(
           `/api/patchprop/proptype/${this.getCurrentPropType}/id/${this.id}/updateinfo`,
-          this.propertyinfo
+          this.propertyinfo,
+          {
+            headers: {
+              authorization: `Bearer ${this.getUser.token}`
+            }
+          }
         )
         .then(doc => {
           console.log({ msg: "successfully updated", doc });
           this.dispatchDBUpdated();
         })
-        .catch(err => console.log({ msg: "somethings brusted", err }));
+        .catch(err =>
+          console.log({ msg: "somethings brusted", err: err.response.data })
+        );
     },
     getPropertyById() {
       if (this.propLoading) {

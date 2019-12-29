@@ -32,7 +32,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getPropType", "getCurrentPropType"])
+    ...mapGetters(["getPropType", "getCurrentPropType", "getUser"])
   },
   methods: {
     ImNotSure() {
@@ -43,7 +43,12 @@ export default {
       this.dialog = false;
       axios
         .delete(
-          `/api/deleteprop/proptype/${this.getCurrentPropType}/id/${this.id}`
+          `/api/deleteprop/proptype/${this.getCurrentPropType}/id/${this.id}`,
+          {
+            headers: {
+              authorization: `Bearer ${this.getUser.token}`
+            }
+          }
         )
         .then(doc => {
           console.log(doc);

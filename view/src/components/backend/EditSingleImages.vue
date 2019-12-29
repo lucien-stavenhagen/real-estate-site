@@ -51,6 +51,7 @@ export default {
       "getImageFieldName",
       "getPropType",
       "getDBUpdated",
+      "getUser",
       "getCurrentPropType"
     ])
   },
@@ -73,7 +74,12 @@ export default {
       const filename = encodeURIComponent(imageobj.filename);
       axios
         .delete(
-          `/api/patchprop/proptype/${this.getCurrentPropType}/propid/${this.id}/deletephoto/${imageobj._id}/imagepath/${filename}`
+          `/api/patchprop/proptype/${this.getCurrentPropType}/propid/${this.id}/deletephoto/${imageobj._id}/imagepath/${filename}`,
+          {
+            headers: {
+              authorization: `Bearer ${this.getUser.token}`
+            }
+          }
         )
         .then(doc => {
           console.log({ msg: "successfully deleted photo", doc });
@@ -97,7 +103,8 @@ export default {
           fd,
           {
             headers: {
-              "Content-Type": "multipart/form-data"
+              "Content-Type": "multipart/form-data",
+              authorization: `Bearer ${this.getUser.token}`
             }
           }
         )

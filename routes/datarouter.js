@@ -26,33 +26,25 @@ router.get("/cities/property", readController.get_all_cities);
 router.get("/location/property", readController.get_all_bylocation);
 
 //
-// TBD don't delete
-//
-
-// router.get(
-//   "/commercial/pricerange/min/:min/max/:max",
-//   readController.get_all_bypricerange
-// );
-// router.get(
-//   "/commercial/squarefeet/min/:min/max/:max",
-//   readController.get_all_bysquarefeet
-// );
-
 // update
+//
 
 router.patch(
   "/patchprop/proptype/:proptype/id/:id/addphotos",
   uploadMiddleware.array(imageFieldName, uploadFileLimit),
+  verifyUser,
   updateController.add_images_by_proptype_and_id
 );
 
 router.delete(
   "/patchprop/proptype/:proptype/propid/:propid/deletephoto/:imageid/imagepath/:imagepath",
+  verifyUser,
   updateController.delete_property_image_by_type_and_id
 );
 
 router.patch(
   "/patchprop/proptype/:proptype/id/:id/updateinfo",
+  verifyUser,
   updateController.update_property_by_type_and_id
 );
 
@@ -62,6 +54,7 @@ router.patch(
 
 router.delete(
   "/deleteprop/proptype/:proptype/id/:id",
+  verifyUser,
   deleteController.delete_property_bytype_and_id
 );
 
@@ -78,6 +71,7 @@ router.delete(
 router.post(
   "/commercial",
   uploadMiddleware.array(imageFieldName, uploadFileLimit),
+  verifyUser,
   createController.create_commercial_entry
 );
 
@@ -86,6 +80,7 @@ router.post(
 router.post(
   "/residential",
   uploadMiddleware.array(imageFieldName, uploadFileLimit),
+  verifyUser,
   createController.create_residential_entry
 );
 
@@ -94,6 +89,7 @@ router.post(
 router.post(
   "/rental",
   uploadMiddleware.array(imageFieldName, uploadFileLimit),
+  verifyUser,
   createController.create_rental_entry
 );
 
@@ -102,6 +98,7 @@ router.post(
 router.post(
   "/land",
   uploadMiddleware.array(imageFieldName, uploadFileLimit),
+  verifyUser,
   createController.create_land_entry
 );
 

@@ -173,7 +173,8 @@ export default {
       "getYesNoList",
       "getImageFieldName",
       "getEndPoint",
-      "getPropType"
+      "getPropType",
+      "getUser"
     ]),
     currentPropType() {
       for (let p in this.getPropType) {
@@ -236,7 +237,8 @@ export default {
         axios
           .post(endpoint, formData, {
             headers: {
-              "Content-Type": "multipart/form-data"
+              "Content-Type": "multipart/form-data",
+              authorization: `Bearer ${this.getUser.token}`
             }
           })
           .then(() => {
