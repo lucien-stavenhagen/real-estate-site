@@ -4,10 +4,21 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title class="text-uppercase headline font-weight-thin">Real Estate App</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-menu v-if="getUser" offset-y>
+        <template v-slot:activator="{on}">
+          <v-btn v-on="on" text>Welcome {{getUser.username}}</v-btn>
+        </template>
+        <v-list>
+          <v-list-item @click="logOut">Logout</v-list-item>
+        </v-list>
+      </v-menu>
+      <v-btn text v-else to="/login">Login</v-btn>
+
       <v-tooltip bottom>
         <template v-slot:activator="{on}">
           <v-icon right v-on="on" @click="toggleTheme">mdi-light-switch</v-icon>
         </template>
+
         <span>Toggle Dark</span>
       </v-tooltip>
     </v-app-bar>
@@ -34,7 +45,7 @@
           <v-list-item
             v-for="(item, i) in this.propMenuItems"
             :key="i"
-            @click="dispatchPropType(item)"
+            @click="setPropTypeAndClose(item)"
           >
             <v-list-item-content>
               <v-list-item-title class="text-capitalize">{{item}}</v-list-item-title>
@@ -77,7 +88,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getPropType"]),
+    ...mapGetters(["getPropType", "getUser"]),
     propMenuItems() {
       const t = [];
       for (const p in this.getPropType) {
@@ -87,12 +98,22 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["dispatchPropType"]),
+    ...mapActions(["dispatchPropType", "dispatchLogout"]),
+    logOut() {
+      this.dispatchLogout();
+      this.drawer = false;
+      this.$router.push("/");
+    },
     toggleTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
     },
+    setPropTypeAndClose(type) {
+      this.dispatchPropType(type);
+      this.drawer = false;
+    },
     pushRoute(route) {
       this.$router.push(route);
+      this.drawer = false;
     }
   }
 };

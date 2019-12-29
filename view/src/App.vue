@@ -19,7 +19,7 @@ export default {
     MainMenubar
   },
   methods: {
-    ...mapActions(["dispatchPropType"])
+    ...mapActions(["dispatchPropType", "dispatchCheckLogin"])
   },
   //
   // set property type to first
@@ -30,6 +30,7 @@ export default {
     if (!this.getCurrentPropType) {
       this.dispatchPropType(Object.keys(this.getPropType)[0]);
     }
+    this.dispatchCheckLogin();
   }
 };
 </script>

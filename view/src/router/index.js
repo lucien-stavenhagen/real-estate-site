@@ -57,6 +57,11 @@ const routes = [
     path: "/editprop/:id",
     component: () => import("../components/backend/EditSingleProperty.vue"),
     props: true
+  },
+  {
+    name: "login",
+    path: "/login",
+    component: () => import("../views/Login.vue")
   }
 ];
 

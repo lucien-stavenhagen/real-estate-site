@@ -6,14 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     localstoragename: "realestate",
-    // host: "http://localhost:4001/api",
-    // endpoints: {
-    //   commercial: "commercial",
-    //   residential: "residential",
-    //   rental: "rental",
-    //   land: "land",
-    //   all: "all"
-    // },
+    localstorageusers: "currentuser",
+    login: null,
     proptype: {
       commercial: false,
       residential: false,
@@ -84,11 +78,6 @@ export default new Vuex.Store({
     dbupdated: 0
   },
   getters: {
-    // getHost: state => state.host,
-
-    // getEndPoint: state => endpointname => {
-    //   return `${state.host}/${state.endpoints[endpointname]}`;
-    // },
     getUSStatesList(state) {
       return state.stateList;
     },
@@ -115,9 +104,32 @@ export default new Vuex.Store({
 
     getDBUpdated(state) {
       return state.dbupdated;
+    },
+    getUser(state) {
+      return state.login;
     }
   },
   mutations: {
+    mutateCheckLogin(state) {
+      const info = localStorage.getItem(state.localstorageusers);
+      if (info) {
+        state.login = {
+          ...JSON.parse(info)
+        };
+      } else {
+        state.login = null;
+      }
+    },
+    mutateLoginUser(state, credentials) {
+      state.login = {
+        username: credentials.username,
+        emailaddress: credentials.emailaddress,
+        token: credentials.token
+      };
+    },
+    mutateLogout(state) {
+      state.login = null;
+    },
     mutateInitPropType(state) {
       const payload = JSON.parse(localStorage.getItem(state.localstoragename));
       if (payload) {
@@ -143,6 +155,15 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    dispatchCheckLogin({ commit }) {
+      commit("mutateCheckLogin");
+    },
+    dispatchLogout({ commit }) {
+      commit("mutateLogout");
+    },
+    dispatchLoginUser({ commit }, credentials) {
+      commit("mutateLoginUser", credentials);
+    },
     dispatchPropType({ commit }, settype) {
       commit("mutatePropType", settype);
     },

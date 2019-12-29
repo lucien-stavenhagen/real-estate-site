@@ -2,12 +2,21 @@ const { User } = require("../models/UserModels");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const responseHelper = (msg, token, error) => {
+const responseHelper = (msg, username, emailaddress, token, error) => {
   return {
     msg,
+    username,
+    emailaddress,
     token,
     error
   };
+};
+exports.get_users = (request, response, next) => {
+  User.find({}, { username: 1, emailaddress: 1 })
+    .then(doc => response.json(doc))
+    .catch(error =>
+      response.status(400).json({ msg: "error retrieving users" })
+    );
 };
 exports.add_user = (request, response, next) => {
   bcrypt
@@ -61,12 +70,20 @@ exports.login_user = (request, response, next) => {
                       responseHelper(
                         "NONSECURE: error signing token",
                         null,
+                        null,
+                        null,
                         error
                       )
                     );
                 } else {
                   response.json(
-                    responseHelper("user authenticated ok", token, null)
+                    responseHelper(
+                      "user authenticated ok",
+                      request.body.username,
+                      request.body.emailaddress,
+                      token,
+                      null
+                    )
                   );
                 }
               }
@@ -77,6 +94,8 @@ exports.login_user = (request, response, next) => {
               .json(
                 responseHelper(
                   "NONSECURE: password mismatch",
+                  null,
+                  null,
                   null,
                   "truthy val"
                 )
@@ -90,6 +109,8 @@ exports.login_user = (request, response, next) => {
               responseHelper(
                 "NONSECURE: problem with bcrypt compare",
                 null,
+                null,
+                null,
                 error
               )
             );
@@ -101,6 +122,8 @@ exports.login_user = (request, response, next) => {
         .json(
           responseHelper(
             "user not found in DB, they should sign up?",
+            null,
+            null,
             null,
             null
           )

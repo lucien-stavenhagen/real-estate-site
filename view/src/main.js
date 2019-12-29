@@ -7,10 +7,21 @@ import vuetify from "./plugins/vuetify";
 Vue.config.productionTip = false;
 
 store.subscribe((mutation, state) => {
-  localStorage.setItem(
-    store.state.localstoragename,
-    JSON.stringify(state.proptype)
-  );
+  if (mutation.type === "mutatePropType") {
+    localStorage.setItem(
+      store.state.localstoragename,
+      JSON.stringify(state.proptype)
+    );
+  }
+  if (mutation.type === "mutateLoginUser") {
+    localStorage.setItem(
+      store.state.localstorageusers,
+      JSON.stringify(state.login)
+    );
+  }
+  if (mutation.type === "mutateLogout") {
+    localStorage.removeItem(store.state.localstorageusers);
+  }
 });
 new Vue({
   router,
