@@ -11,6 +11,15 @@ const responseHelper = (msg, username, emailaddress, token, error) => {
     error
   };
 };
+exports.delete_user = (request, response, next) => {
+  User.findByIdAndDelete(request.params.id)
+    .then(doc => response.json(doc))
+    .catch(error =>
+      response
+        .status(400)
+        .json({ msg: `error deleting user ${request.params.id}` })
+    );
+};
 exports.get_users = (request, response, next) => {
   User.find({}, { username: 1, emailaddress: 1 })
     .then(doc => response.json(doc))

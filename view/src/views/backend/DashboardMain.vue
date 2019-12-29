@@ -12,6 +12,9 @@
       </v-toolbar>
       <v-row>
         <v-col cols="12">
+          <UserManager />
+        </v-col>
+        <v-col cols="12">
           <AddNewPropertyView />
         </v-col>
         <v-col cols="12">
@@ -25,6 +28,7 @@
 <script>
 import AddNewPropertyView from "./AddNewPropertyView";
 import EditPropertyView from "./EditPropertyView";
+import UserManager from "./UserManager";
 
 import { mapGetters, mapActions } from "vuex";
 
@@ -35,7 +39,8 @@ export default {
   },
   components: {
     AddNewPropertyView,
-    EditPropertyView
+    EditPropertyView,
+    UserManager
   },
   data() {
     return {
