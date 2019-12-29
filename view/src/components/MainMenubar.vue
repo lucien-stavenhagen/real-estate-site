@@ -31,7 +31,7 @@
           <v-list-item @click="pushRoute('/')">
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item>
-          <v-list-item @click="pushRoute(mitem.route)" v-for="(mitem,i) in navlist" :key="i">
+          <v-list-item @click="pushRoute(mitem.route)" v-for="(mitem,i) in navList" :key="i">
             <v-list-item-title>{{mitem.name}}</v-list-item-title>
           </v-list-item>
         </v-list-group>
@@ -89,6 +89,11 @@ export default {
   },
   computed: {
     ...mapGetters(["getPropType", "getUser"]),
+    navList() {
+      return this.navlist.filter(i => {
+        return !this.getUser ? i.name !== "Dashboard" : true;
+      });
+    },
     propMenuItems() {
       const t = [];
       for (const p in this.getPropType) {

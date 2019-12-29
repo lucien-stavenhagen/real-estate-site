@@ -17,6 +17,16 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "EditSingleProperty",
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (!vm.$store.getters.getUser) {
+        next("/login");
+      } else {
+        next();
+      }
+    });
+  },
+
   props: {
     id: {
       type: String,

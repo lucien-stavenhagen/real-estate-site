@@ -55,6 +55,16 @@ export default {
         });
     }
   },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      if (!vm.$store.getters.getUser) {
+        next("/login");
+      } else {
+        next();
+      }
+    });
+  },
+
   data() {
     return {
       dialog: true
