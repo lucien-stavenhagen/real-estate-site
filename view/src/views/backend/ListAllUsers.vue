@@ -8,38 +8,21 @@
             <tr>
               <th class="text-left">User Name</th>
               <th class="text-left">Email Address</th>
-              <th class="text-center">Delete User</th>
+              <th class="text-left">Delete User</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(user,i) in userlist" :key="i">
               <td>{{ user.username }}</td>
               <td>{{ user.emailaddress }}</td>
-              <td class="text-center">
-                <v-row justify="center">
-                  <v-dialog v-model="dialog" persistent max-width="290">
-                    <template v-slot:activator="{ on }">
-                      <v-btn v-on="on" :disabled="userlist.length > 1? false: true" icon>
-                        <v-icon color="error">mdi-alpha-x-circle</v-icon>
-                      </v-btn>
-                    </template>
-                    <v-card>
-                      <v-card-title class="headline">Delete this user?</v-card-title>
-                      <v-card-text>ID: {{user._id}}</v-card-text>
-                      <v-card-text>Name: {{user.username}}</v-card-text>
-                      <v-card-text>Email: {{user.emailaddress}}</v-card-text>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn text @click="dialog = false">Cancel</v-btn>
-                        <v-btn
-                          color="red darken-1"
-                          text
-                          @click="deleteUser(user._id)"
-                        >Blow them away</v-btn>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </v-row>
+              <td>
+                <v-btn
+                  @click="deleteUser(user.username, user._id)"
+                  :disabled="userlist.length > 1? false: true"
+                  icon
+                >
+                  <v-icon color="error">mdi-alpha-x-circle</v-icon>
+                </v-btn>
               </td>
             </tr>
           </tbody>
@@ -65,15 +48,20 @@ export default {
         .then(doc => (this.userlist = [...doc.data]))
         .catch(error => console.log(error.response.status));
     },
-    deleteUser(id) {
-      this.dialog = false;
-      axios
-        .delete(`/api/users/deleteuser/${id}`)
-        .then(doc => {
-          console.log(`successfully deleted ${id}. response: ${doc.data}`);
-          this.dispatchDBUpdated();
-        })
-        .catch();
+    deleteUser(username, id) {
+      if (
+        confirm(`Confirm delete
+      User: ${username}, 
+      ID: ${id}`)
+      ) {
+        axios
+          .delete(`/api/users/deleteuser/${id}`)
+          .then(doc => {
+            console.log(`successfully deleted ${id}. response: ${doc.data}`);
+            this.dispatchDBUpdated();
+          })
+          .catch();
+      }
     }
   },
   watch: {
@@ -86,8 +74,7 @@ export default {
   },
   data() {
     return {
-      userlist: [],
-      dialog: false
+      userlist: []
     };
   }
 };
