@@ -12,13 +12,13 @@
       </v-toolbar>
       <v-row>
         <v-col cols="12">
-          <UserManager />
-        </v-col>
-        <v-col cols="12">
           <AddNewPropertyView />
         </v-col>
         <v-col cols="12">
           <EditPropertyView />
+        </v-col>
+        <v-col cols="12">
+          <UserManager />
         </v-col>
       </v-row>
     </v-container>

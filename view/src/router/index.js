@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
 
@@ -8,7 +7,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: Home
+    component: () => import("../components/Home.vue")
   },
   {
     path: "/about",
@@ -17,27 +16,27 @@ const routes = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue")
+      import(/* webpackChunkName: "about" */ "../components/About.vue")
   },
   {
     name: "backend",
     path: "/backend",
-    component: () => import("../views/backend/DashboardMain.vue")
+    component: () => import("../components/backend/DashboardMain.vue")
   },
   {
     name: "allpropsview",
     path: "/allpropsview",
-    component: () => import("../views/MainPropertyView.vue")
+    component: () => import("../components/MainPropertyView.vue")
   },
   {
     name: "quicksearch",
     path: "/quicksearch",
-    component: () => import("../views/QuickSearch.vue")
+    component: () => import("../components/QuickSearch.vue")
   },
   {
     name: "error",
     path: "/error/:error",
-    component: () => import("../views/errors/ResponseError.vue"),
+    component: () => import("../components/errors/ResponseError.vue"),
     props: true
   },
   {
@@ -61,7 +60,7 @@ const routes = [
   {
     name: "login",
     path: "/login",
-    component: () => import("../views/Login.vue")
+    component: () => import("../components/Login.vue")
   }
 ];
 
