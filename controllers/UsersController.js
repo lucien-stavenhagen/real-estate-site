@@ -60,7 +60,7 @@ exports.add_user = async (request, response, next) => {
           });
       })
       .catch(error => {
-        response.status(400).json({ msg: "problem hashing password", error });
+        response.status(400).json({ msg: "problem hashing password", error: error.message});
       });
   }
 };

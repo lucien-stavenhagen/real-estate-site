@@ -11,7 +11,6 @@
           <v-text-field
             v-model="username"
             label="Username"
-            name="username"
             :rules="textrules"
             prepend-icon="mdi-account"
             type="text"
@@ -20,7 +19,6 @@
           <v-text-field
             v-model="emailaddress"
             label="Email"
-            name="emailaddress"
             prepend-icon="mdi-at"
             :rules="emailrules"
             :append-icon=" showemail ? 'mdi-eye' : 'mdi-eye-off'"
@@ -32,7 +30,6 @@
           <v-text-field
             v-model="password"
             label="Password"
-            name="password"
             prepend-icon="mdi-lock-question"
             :rules="textrules"
             :append-icon=" showpassword ? 'mdi-eye' : 'mdi-eye-off'"
