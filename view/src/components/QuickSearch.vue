@@ -10,7 +10,7 @@
         <v-card-text>
           <v-combobox
             v-model="citystate"
-            :items="cities.all"
+            :items="cities"
             :loading="searchLoading"
             :search-input.sync="search"
             clearable
@@ -59,13 +59,7 @@ export default {
   },
   data() {
     return {
-      cities: {
-        all: [],
-        commercial: [],
-        residential: [],
-        rental: [],
-        land: []
-      },
+      cities: [],
       searchLoading: false,
       citystate: null,
       minimumprice: null,
@@ -109,11 +103,7 @@ export default {
             }
           })
         ]);
-        // this.cities.commercial = [...commercial.data];
-        // this.cities.residential = [...residential.data];
-        // this.cities.rental = [...rental.data];
-        // this.cities.land = [...land.data];
-        this.cities.all = Array.from(
+        this.cities = Array.from(
           new Set([
             ...commercial.data,
             ...residential.data,
