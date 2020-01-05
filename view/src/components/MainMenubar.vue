@@ -37,23 +37,6 @@
         </v-list-group>
       </v-list>
       <v-divider></v-divider>
-      <v-list>
-        <v-list-group no-action prepend-icon="mdi-home-outline" value="true">
-          <template v-slot:activator>
-            <v-list-item-title>Property Type</v-list-item-title>
-          </template>
-          <v-list-item
-            v-for="(item, i) in this.propMenuItems"
-            :key="i"
-            @click="setPropTypeAndClose(item)"
-          >
-            <v-list-item-content>
-              <v-list-item-title class="text-capitalize">{{item}}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
-      </v-list>
-      <v-divider></v-divider>
       <template v-slot:append>
         <div class="pa-2">
           <v-btn block @click="drawer=!drawer">Close Drawer</v-btn>
@@ -93,13 +76,6 @@ export default {
       return this.navlist.filter(i => {
         return !this.getUser ? i.name !== "Dashboard" : true;
       });
-    },
-    propMenuItems() {
-      const t = [];
-      for (const p in this.getPropType) {
-        t.push(p);
-      }
-      return t;
     }
   },
   methods: {
@@ -111,10 +87,6 @@ export default {
     },
     toggleTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-    },
-    setPropTypeAndClose(type) {
-      this.dispatchPropType(type);
-      this.drawer = false;
     },
     pushRoute(route) {
       this.$router.push(route);
