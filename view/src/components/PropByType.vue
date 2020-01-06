@@ -14,13 +14,12 @@
         </v-list>
       </v-menu>
     </v-toolbar>
-    <v-row dense>
+    <v-row justify="center" dense>
       <v-col
         :key="i"
         v-for="(property, i) in properties"
         cols="12"
         :sm="properties.length === 1 ? '12' : '6'"
-        :lg="properties.length === 1 ? '12' : '3'"
       >
         <v-card>
           <v-carousel v-if="!property.images || property.images.length === 0" hide-delimiters>
@@ -108,16 +107,13 @@ export default {
   watch: {
     page() {
       this.getAllProps();
-      this.forceme = !this.forceme;
     },
     pagesize() {
       this.getAllProps();
-      this.forceme = !this.forceme;
     }
   },
   data() {
     return {
-      forceme: true,
       totaldocs: null,
       pagesizes: [1, 2, 4],
       page: 1,
