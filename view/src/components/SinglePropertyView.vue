@@ -101,7 +101,7 @@ export default {
     return {
       propLoading: false,
       property: null,
-      toggleview: false
+      toggleview: true
     };
   },
   created() {
