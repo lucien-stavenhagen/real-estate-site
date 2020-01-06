@@ -20,6 +20,7 @@
         v-for="(property, i) in properties"
         cols="12"
         :sm="properties.length === 1 ? '12' : '6'"
+        :lg="properties.length === 1 ? '12' : '3'"
       >
         <v-card>
           <v-carousel v-if="!property.images || property.images.length === 0" hide-delimiters>

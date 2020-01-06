@@ -62,20 +62,21 @@ export default {
       comments: [
         {
           author: "Andrea Palladio",
-          comment: "I never knew web design like this was possible.",
+          comment:
+            "I never knew an achitecture website like this was possible.",
           image: require("../assets/persons/palladio.jpg"),
           gradient: false
         },
         {
           author: "Leon Battista Alberti",
-          comment: "Never before have I seen such sites.",
+          comment: "Never before have I seen such websites.",
           image: require("../assets/persons/alberti.jpg")
           //         gradient: "to right, rgba(0,255,0,.05), rgba(0,255,0, .05)"
         },
         {
           author: "Le Corbusier",
           comment:
-            "When one sees such web pages, what can one say but ... LS designs...",
+            "When one sees such architecture website designs, what can one say but ... LS designs...",
           image: require("../assets/persons/Le-Corbu.jpg")
           //          gradient: "to right, rgba(0,0,255,.05), rgba(0,0,255, .05)"
         }

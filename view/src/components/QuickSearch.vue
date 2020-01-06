@@ -71,6 +71,13 @@ export default {
     };
   },
   methods: {
+    getPropsForType(type) {
+      return axios.get(`/api/cities/property`, {
+        params: {
+          property: type
+        }
+      });
+    },
     async getCities() {
       // Items have already been loaded
       if (this.cities.length > 0) return;
@@ -82,26 +89,10 @@ export default {
       // Lazily load input items
       try {
         const [commercial, residential, rental, land] = await axios.all([
-          axios.get(`/api/cities/property`, {
-            params: {
-              property: "commercial"
-            }
-          }),
-          axios.get(`/api/cities/property`, {
-            params: {
-              property: "residential"
-            }
-          }),
-          axios.get(`/api/cities/property`, {
-            params: {
-              property: "rental"
-            }
-          }),
-          axios.get(`/api/cities/property`, {
-            params: {
-              property: "land"
-            }
-          })
+          this.getPropsForType("commercial"),
+          this.getPropsForType("residential"),
+          this.getPropsForType("rental"),
+          this.getPropsForType("land")
         ]);
         this.cities = Array.from(
           new Set([
