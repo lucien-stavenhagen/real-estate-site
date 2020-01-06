@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section v-if="this.properties.length > 0">
+    <section>
       <v-card>
         <v-card-title
           class="font-weight-light justify-center text-capitalize"
@@ -35,7 +35,7 @@
               </v-card>
             </v-col>
           </v-row>
-          <div v-if="showpagination" class="text-center">
+          <div class="text-center">
             <v-pagination v-model="page" :length="pages"></v-pagination>
           </div>
         </v-container>
@@ -51,7 +51,6 @@ export default {
   name: "EditPropertyView",
   data() {
     return {
-      showpagination: false,
       page: 1,
       pages: null,
       propcount: null,
@@ -82,7 +81,6 @@ export default {
           }
         })
         .then(doc => {
-          this.showpagination = true;
           this.properties = [...doc.data.docs];
           this.propcount = doc.data.count;
           this.pages = doc.data.pages;
@@ -90,7 +88,7 @@ export default {
         .catch(error => console.log("what broke? " + error));
     }
   },
-  created() {
+  mounted() {
     this.getAllProperties();
   }
 };
