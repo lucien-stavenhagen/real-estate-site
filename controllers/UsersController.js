@@ -33,12 +33,10 @@ exports.add_user = async (request, response, next) => {
     { username: 1 }
   );
   if (ifuser.length > 0) {
-    response
-      .status(400)
-      .json({
-        msg: `username ${request.body.username} already taken`,
-        error: true
-      });
+    response.status(400).json({
+      msg: `username ${request.body.username} already taken`,
+      error: true
+    });
   } else {
     bcrypt
       .hash(request.body.password, 10)
@@ -60,7 +58,9 @@ exports.add_user = async (request, response, next) => {
           });
       })
       .catch(error => {
-        response.status(400).json({ msg: "problem hashing password", error: error.message});
+        response
+          .status(400)
+          .json({ msg: "problem hashing password", error: error.message });
       });
   }
 };
@@ -82,7 +82,7 @@ exports.login_user = (request, response, next) => {
                 userid: doc._id
               },
               process.env.SECRET_KEY,
-              { expiresIn: "1d" },
+              { expiresIn: "7d" },
               (error, token) => {
                 if (error) {
                   response

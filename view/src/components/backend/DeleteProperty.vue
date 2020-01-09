@@ -35,6 +35,18 @@ export default {
     ...mapGetters(["getPropType", "getCurrentPropType", "getUser"])
   },
   methods: {
+    errorHelper(err) {
+      {
+        const msg = encodeURIComponent(
+          JSON.stringify({
+            status: err.response.status,
+            message: err.response.data.error
+          })
+        );
+
+        this.$router.push(`/error/${msg}`);
+      }
+    },
     ImNotSure() {
       this.dialog = false;
       this.$router.push("/backend");
@@ -54,10 +66,7 @@ export default {
           console.log(doc);
           this.$router.push("/backend");
         })
-        .catch(err => {
-          console.log(err);
-          this.$router.push("/backend");
-        });
+        .catch(err => this.errorHelper(err));
     }
   },
   beforeRouteEnter(to, from, next) {

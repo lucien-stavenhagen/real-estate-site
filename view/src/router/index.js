@@ -35,7 +35,7 @@ const routes = [
   },
   {
     name: "error",
-    path: "/error/:error",
+    path: "/error/:message",
     component: () => import("../components/errors/ResponseError.vue"),
     props: true
   },

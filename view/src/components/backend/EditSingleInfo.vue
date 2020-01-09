@@ -179,6 +179,18 @@ export default {
   },
   methods: {
     ...mapActions(["dispatchDBUpdated"]),
+    errorHelper(err) {
+      {
+        const msg = encodeURIComponent(
+          JSON.stringify({
+            status: err.response.status,
+            message: err.response.data.error
+          })
+        );
+
+        this.$router.push(`/error/${msg}`);
+      }
+    },
 
     myResetValidation() {
       this.$refs.updateInfo.resetValidation();
@@ -210,9 +222,7 @@ export default {
           console.log({ msg: "successfully updated", doc });
           this.dispatchDBUpdated();
         })
-        .catch(err =>
-          console.log({ msg: "somethings brusted", err: err.response.data })
-        );
+        .catch(err => this.errorHelper(err));
     },
     getPropertyById() {
       if (this.propLoading) {

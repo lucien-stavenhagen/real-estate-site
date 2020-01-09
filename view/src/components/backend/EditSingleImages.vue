@@ -62,7 +62,18 @@ export default {
   },
   methods: {
     ...mapActions(["dispatchDBUpdated"]),
+    errorHelper(err) {
+      {
+        const msg = encodeURIComponent(
+          JSON.stringify({
+            status: err.response.status,
+            message: err.response.data.error
+          })
+        );
 
+        this.$router.push(`/error/${msg}`);
+      }
+    },
     myResetForm() {
       this.$refs.updatePhotos.reset();
       this.newimages = null;
@@ -85,7 +96,7 @@ export default {
           console.log({ msg: "successfully deleted photo", doc });
           this.myResetForm();
         })
-        .catch(err => console.log({ msg: "somtthings broke", err }));
+        .catch(err => this.errorHelper(err));
     },
 
     addImagesById(event) {
@@ -112,7 +123,7 @@ export default {
           console.log({ msg: "succefully added images", doc });
           this.myResetForm();
         })
-        .catch(err => console.log({ msg: "adding images failed", err }));
+        .catch(err => this.errorHelper(err));
     },
     getPropertyById() {
       if (this.propLoading) {

@@ -216,6 +216,18 @@ export default {
   },
   methods: {
     ...mapActions(["dispatchDBUpdated"]),
+    errorHelper(err) {
+      {
+        const msg = encodeURIComponent(
+          JSON.stringify({
+            status: err.response.status,
+            message: err.response.data.error
+          })
+        );
+
+        this.$router.push(`/error/${msg}`);
+      }
+    },
     mySubmit() {
       if (this.$refs.mysubmit.validate()) {
         const formData = this.createFormData();
@@ -246,7 +258,7 @@ export default {
             this.myResetForm();
             this.dispatchDBUpdated();
           })
-          .catch(err => this.$router.push(`/error/${err.data}`));
+          .catch(err => this.errorHelper(err));
       }
     },
     myResetForm() {

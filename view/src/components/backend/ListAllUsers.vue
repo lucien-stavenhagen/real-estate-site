@@ -38,10 +38,22 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ListAllUsers",
   computed: {
-    ...mapGetters(["getDBUpdated"])
+    ...mapGetters(["getDBUpdated", "getUser"])
   },
   methods: {
     ...mapActions(["dispatchDBUpdated"]),
+    errorHelper(err) {
+      {
+        const msg = encodeURIComponent(
+          JSON.stringify({
+            status: err.response.status,
+            message: err.response.data.error
+          })
+        );
+
+        this.$router.push(`/error/${msg}`);
+      }
+    },
     getAllUsers() {
       axios
         .get("/api/users/getusers")
@@ -55,12 +67,16 @@ export default {
       ID: ${id}`)
       ) {
         axios
-          .delete(`/api/users/deleteuser/${id}`)
+          .delete(`/api/users/deleteuser/${id}`, {
+            headers: {
+              authorization: `Bearer ${this.getUser.token}`
+            }
+          })
           .then(doc => {
             console.log(`successfully deleted ${id}. response: ${doc.data}`);
             this.dispatchDBUpdated();
           })
-          .catch();
+          .catch(err => this.errorHelper(err));
       }
     }
   },
