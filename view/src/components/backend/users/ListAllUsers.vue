@@ -1,14 +1,14 @@
 <template>
   <section>
     <v-card>
-      <v-card-title class="font-weight-light text-capitalize">Current User List</v-card-title>
+      <v-card-title class="font-weight-light text-capitalize">Current Administrator Account List</v-card-title>
       <v-simple-table dense>
         <template v-slot:default>
           <thead>
             <tr>
               <th class="text-left">User Name</th>
               <th class="text-left">Email Address</th>
-              <th class="text-left">Delete User</th>
+              <th class="text-left">Delete Account</th>
             </tr>
           </thead>
           <tbody>

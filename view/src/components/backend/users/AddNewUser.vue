@@ -1,7 +1,7 @@
 <template>
   <section>
     <v-card>
-      <v-card-title class="font-weight-light text-capitalize">Add New User</v-card-title>
+      <v-card-title class="font-weight-light text-capitalize">Add New Administrator Account</v-card-title>
       <v-card-title
         class="red darken-4 white--text justify-center text-capitalize font-weight-light"
         v-if="addfailed"
@@ -39,7 +39,7 @@
           />
         </v-form>
         <v-card-actions>
-          <v-btn @click="addNewUser" small outlined>Add User</v-btn>
+          <v-btn @click="addNewUser" small outlined>Add</v-btn>
           <v-spacer />
           <v-btn @click="myResetForm" color="error" outlined small>reset</v-btn>
         </v-card-actions>

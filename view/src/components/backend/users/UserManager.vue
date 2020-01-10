@@ -1,7 +1,9 @@
 <template>
   <section>
     <v-card>
-      <v-card-title class="font-weight-light justify-center text-capitalize">Manage Users</v-card-title>
+      <v-card-title
+        class="font-weight-light justify-center text-capitalize"
+      >Manage Administrator Accounts</v-card-title>
       <v-container>
         <AddNewUser />
       </v-container>
