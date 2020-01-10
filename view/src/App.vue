@@ -9,7 +9,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import MainMenubar from "./components/MainMenubar";
+import MainMenubar from "./components/utils/MainMenubar";
 export default {
   name: "App",
   computed: {

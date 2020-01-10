@@ -8,7 +8,7 @@
       <div v-if="!property.images || property.images.length === 0">
         <v-row>
           <v-col cols="12">
-            <v-img height="300" contain :src="require('../assets/logo.png')"></v-img>
+            <v-img height="300" contain :src="require('../../assets/logo.png')"></v-img>
           </v-col>
         </v-row>
       </div>

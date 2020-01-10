@@ -16,7 +16,12 @@
                   contain
                   :src="property.images[0].source"
                 ></v-img>
-                <v-img v-else class="mx-auto" height="200" :src="require('../../assets/logo.png')"></v-img>
+                <v-img
+                  v-else
+                  class="mx-auto"
+                  height="200"
+                  :src="require('../../../assets/logo.png')"
+                ></v-img>
                 <v-card-title v-if="property.rent">${{property.rent}} / {{property.basis}}</v-card-title>
                 <v-card-title v-else>${{property.price}}</v-card-title>
                 <v-card-text>ID: {{property._id}}</v-card-text>

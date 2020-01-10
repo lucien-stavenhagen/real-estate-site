@@ -42,9 +42,9 @@
 </template>
 
 <script>
-import AddNewPropertyView from "./AddNewPropertyView";
-import EditPropertyView from "./EditPropertyView";
-import UserManager from "./UserManager";
+import AddNewPropertyView from "./properties/AddNewPropertyView";
+import EditPropertyView from "./properties/EditPropertyView";
+import UserManager from "./users/UserManager";
 
 import { mapGetters, mapActions } from "vuex";
 

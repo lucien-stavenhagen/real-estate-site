@@ -1,12 +1,15 @@
 <template>
   <div>
     <v-container>
-      <v-toolbar class="mb-2">
-        <v-toolbar-title>Search</v-toolbar-title>
-        <v-spacer></v-spacer>
-      </v-toolbar>
-
-      <v-card class="mb-2">
+      <v-card outlined>
+        <v-toolbar flat>
+          <v-toolbar-title>
+            <v-icon left>mdi-magnify</v-icon>Search
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+      </v-card>
+      <v-card outlined>
         <v-card-text>
           <v-combobox
             v-model="citystate"
@@ -42,11 +45,11 @@
           </div>
         </v-card-text>
       </v-card>
+      <SearchView :propinfo="this.compileParms('commercial')" />
+      <SearchView :propinfo="this.compileParms('residential')" />
+      <SearchView :propinfo="this.compileParms('rental')" />
+      <SearchView :propinfo="this.compileParms('land')" />
     </v-container>
-    <SearchView :propinfo="this.compileParms('commercial')" />
-    <SearchView :propinfo="this.compileParms('residential')" />
-    <SearchView :propinfo="this.compileParms('rental')" />
-    <SearchView :propinfo="this.compileParms('land')" />
   </div>
 </template>
 <script>

@@ -7,7 +7,7 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: () => import("../components/Home.vue")
+    component: () => import("../components/home/Home.vue")
   },
   {
     path: "/about",
@@ -26,12 +26,12 @@ const routes = [
   {
     name: "allpropsview",
     path: "/allpropsview",
-    component: () => import("../components/MainPropertyView.vue")
+    component: () => import("../components/mainview/MainPropertyView.vue")
   },
   {
     name: "quicksearch",
     path: "/quicksearch",
-    component: () => import("../components/QuickSearch.vue")
+    component: () => import("../components/search/QuickSearch.vue")
   },
   {
     name: "error",
@@ -42,25 +42,27 @@ const routes = [
   {
     name: "viewsingle",
     path: "/viewsingle/:propinfo",
-    component: () => import("../components/SinglePropertyView.vue"),
+    component: () => import("../components/singleview/SinglePropertyView.vue"),
     props: true
   },
   {
     name: "deleteprop",
     path: "/deleteprop/:id",
-    component: () => import("../components/backend/DeleteProperty.vue"),
+    component: () =>
+      import("../components/backend/properties/DeleteProperty.vue"),
     props: true
   },
   {
     name: "editprop",
     path: "/editprop/:id",
-    component: () => import("../components/backend/EditSingleProperty.vue"),
+    component: () =>
+      import("../components/backend/properties/EditSingleProperty.vue"),
     props: true
   },
   {
     name: "login",
     path: "/login",
-    component: () => import("../components/Login.vue")
+    component: () => import("../components/user/Login.vue")
   }
 ];
 

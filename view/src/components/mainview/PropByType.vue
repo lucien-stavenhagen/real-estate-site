@@ -1,30 +1,32 @@
 <template>
   <v-container>
-    <v-toolbar class="mb-2">
-      <v-toolbar-title class="text-capitalize">{{proptype}} : {{totaldocs}} found</v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-menu offset-y>
-        <template v-slot:activator="{ on }">
-          <v-btn text v-on="on">Page Size</v-btn>
-        </template>
-        <v-list>
-          <v-list-item @click="setPageSize(item)" v-for="(item, index) in pagesizes" :key="index">
-            <v-list-item-title>{{item}}</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-    </v-toolbar>
-    <v-row justify="center" dense>
+    <v-card outlined>
+      <v-toolbar flat>
+        <v-toolbar-title class="text-capitalize">{{proptype}} : {{totaldocs}} found</v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn text v-on="on">Page Size</v-btn>
+          </template>
+          <v-list>
+            <v-list-item @click="setPageSize(item)" v-for="(item, index) in pagesizes" :key="index">
+              <v-list-item-title>{{item}}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </v-toolbar>
+    </v-card>
+    <v-row justify="center" no-gutters>
       <v-col
         :key="i"
         v-for="(property, i) in properties"
         cols="12"
         :sm="properties.length === 1 ? '12' : '6'"
       >
-        <v-card>
+        <v-card outlined>
           <v-carousel v-if="!property.images || property.images.length === 0" hide-delimiters>
             <v-carousel-item>
-              <v-img height="100%" contain :src="require('../assets/logo.png')"></v-img>
+              <v-img height="100%" contain :src="require('../../assets/logo.png')"></v-img>
             </v-carousel-item>
           </v-carousel>
           <v-carousel v-else hide-delimiters>

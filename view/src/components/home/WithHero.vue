@@ -45,7 +45,7 @@ export default {
   right: 0;
   opacity: 1;
   z-index: -30;
-  background: url("../assets/roman/willian-west-YpKiwlvhOpI-unsplash.jpg")
+  background: url("../../assets/roman/willian-west-YpKiwlvhOpI-unsplash.jpg")
     no-repeat center center;
   background-size: cover;
   background-attachment: fixed;

@@ -64,20 +64,20 @@ export default {
           author: "Andrea Palladio",
           comment:
             "I never knew an achitecture website like this was possible.",
-          image: require("../assets/persons/palladio.jpg"),
+          image: require("../../assets/persons/palladio.jpg"),
           gradient: false
         },
         {
           author: "Leon Battista Alberti",
           comment: "Never before have I seen such websites.",
-          image: require("../assets/persons/alberti.jpg")
+          image: require("../../assets/persons/alberti.jpg")
           //         gradient: "to right, rgba(0,255,0,.05), rgba(0,255,0, .05)"
         },
         {
           author: "Le Corbusier",
           comment:
             "When one sees such architecture website designs, what can one say but ... LS designs...",
-          image: require("../assets/persons/Le-Corbu.jpg")
+          image: require("../../assets/persons/Le-Corbu.jpg")
           //          gradient: "to right, rgba(0,0,255,.05), rgba(0,0,255, .05)"
         }
       ]
