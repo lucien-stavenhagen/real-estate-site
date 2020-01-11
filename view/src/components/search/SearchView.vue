@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined v-if="pages && pages > 0" class="pa-2">
+  <v-card :loading="loading" outlined v-if="pages && pages > 0" class="pa-2">
     <v-card-title class="headline">
       <span
         class="text-capitalize"
@@ -58,6 +58,7 @@
 </template>
 <script>
 import axios from "axios";
+import _ from "lodash";
 
 export default {
   name: "SearchView",
@@ -73,10 +74,14 @@ export default {
   computed: {
     propInfo() {
       return JSON.parse(decodeURIComponent(this.propinfo));
+    },
+    getPropsDebounced() {
+      return _.debounce(this.getPropsByCity, 250);
     }
   },
   data() {
     return {
+      loading: false,
       page: 1,
       pages: null,
       pagesize: 2,
@@ -85,52 +90,56 @@ export default {
     };
   },
   methods: {
-    getPropsByCity() {
-      if (
-        !this.propInfo.citystate &&
-        !this.propInfo.minimumprice &&
-        !this.propInfo.maximumprice
-      ) {
-        this.bycityproperties = null;
-        this.pages = null;
-        return;
-      }
-      let parms = {
-        page: this.page,
-        pagesize: this.pagesize,
-        property: this.propInfo.proptype
-      };
-      if (this.propInfo.citystate) {
-        parms = {
-          ...parms,
-          city: this.propInfo.citystate.split(",")[0],
-          state: this.propInfo.citystate.split(",")[1]
+    async getPropsByCity() {
+      try {
+        if (this.loading) {
+          return;
+        }
+        if (
+          !this.propInfo.citystate &&
+          !this.propInfo.minimumprice &&
+          !this.propInfo.maximumprice
+        ) {
+          this.bycityproperties = null;
+          this.pages = null;
+          return;
+        }
+        this.loading = true;
+        let parms = {
+          page: this.page,
+          pagesize: this.pagesize,
+          property: this.propInfo.proptype
         };
-      }
-      if (this.propInfo.maximumprice) {
-        parms = {
-          ...parms,
-          max: this.propInfo.maximumprice
-        };
-      }
-      if (this.propInfo.minimumprice) {
-        parms = {
-          ...parms,
-          min: this.propInfo.minimumprice
-        };
-      }
-      axios
-        .get(`/api/location/property`, {
+        if (this.propInfo.citystate) {
+          parms = {
+            ...parms,
+            city: this.propInfo.citystate.split(",")[0],
+            state: this.propInfo.citystate.split(",")[1]
+          };
+        }
+        if (this.propInfo.maximumprice) {
+          parms = {
+            ...parms,
+            max: this.propInfo.maximumprice
+          };
+        }
+        if (this.propInfo.minimumprice) {
+          parms = {
+            ...parms,
+            min: this.propInfo.minimumprice
+          };
+        }
+        const docs = await axios.get(`/api/location/property`, {
           params: parms
-        })
-        .then(doc => {
-          this.bycityproperties = { ...doc.data.docs };
-          this.propcount = doc.data.count;
-          this.pages = doc.data.pages;
-        })
-        .catch(error => {
-          console.log(error);
         });
+        this.bycityproperties = { ...docs.data.docs };
+        this.propcount = docs.data.count;
+        this.pages = docs.data.pages;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        this.loading = false;
+      }
     },
     viewSingle(id) {
       this.$router.push({
@@ -148,10 +157,10 @@ export default {
   },
   watch: {
     propInfo: {
-      handler: "getPropsByCity"
+      handler: "getPropsDebounced"
     },
     page: {
-      handler: "getPropsByCity"
+      handler: "getPropsDebounced"
     }
   }
 };
