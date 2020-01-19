@@ -7,7 +7,7 @@
         >Edit {{this.getCurrentPropType}} Properties ({{propcount}})</v-card-title>
         <v-container>
           <v-row dense>
-            <v-col :key="i" v-for="(property, i) in properties" cols="12" sm="4">
+            <v-col :key="i" v-for="(property, i) in properties" cols="12" sm="3">
               <v-card>
                 <v-img
                   v-if="property.images && property.images.length > 0"
